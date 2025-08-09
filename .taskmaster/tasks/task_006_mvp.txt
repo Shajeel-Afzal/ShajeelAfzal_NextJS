@@ -1,0 +1,16 @@
+# Task ID: 6
+# Title: Consultation Booking System
+# Status: pending
+# Dependencies: None
+# Priority: high
+# Description: Build integrated consultation booking system with calendar synchronization
+# Details:
+- Implement scheduling interface with available time slots
+- Add calendar integration (Google Calendar, Outlook)
+- Create booking confirmation and reminder system
+- Target 80%+ booking completion rate
+- Implement timezone handling for global clients
+- Add consultation type selection and pricing
+
+# Test Strategy:
+

@@ -1,0 +1,16 @@
+# Task ID: 7
+# Title: Blog Platform with Strapi CMS
+# Status: pending
+# Dependencies: None
+# Priority: medium
+# Description: Set up Strapi CMS for blog platform with SEO optimization
+# Details:
+- Configure Strapi headless CMS
+- Create blog content types with SEO fields
+- Implement rich text editor with media support
+- Set up webhook integration for NextJS revalidation
+- Configure image optimization and CDN integration
+- Target publishing 2+ posts per month capability
+
+# Test Strategy:
+

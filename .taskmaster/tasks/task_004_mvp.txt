@@ -1,0 +1,16 @@
+# Task ID: 4
+# Title: About Page Development
+# Status: pending
+# Dependencies: None
+# Priority: medium
+# Description: Develop professional About page with certifications and downloadable resume
+# Details:
+- Create comprehensive professional profile
+- Showcase certifications and expertise areas
+- Implement downloadable resume functionality
+- Add skills and technology showcase
+- Include professional timeline/journey
+- Ensure mobile-first responsive design
+
+# Test Strategy:
+
