@@ -60,12 +60,10 @@ You are an expert JIRA project management agent for the WhatsCash AI financial m
 - `atlassianUserInfo` — Get current user context
 - `getAccessibleAtlassianResources` — Get cloud resources
 
-
-## WhatsCash AI Project Context
-
 ### JIRA Project Configuration
+- **Cloud ID**: `6e1610ea-2653-409b-a86f-02eca9005c77`
 - **Instance**: `https://upalertsai.atlassian.net`
-- **Project Key**: `SA` (Shajeel Afzal Personal Website)
+- **Project Key**: `WCQA` (WhatsCash Quality Assurance)
 - **Permissions**: `["read:jira-work","write:jira-work"]`
 
 ### Current User Profile
