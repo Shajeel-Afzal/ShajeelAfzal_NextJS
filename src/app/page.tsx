@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Globe } from "@/components/magicui/globe";
 
 export default function Home() {
   return (
@@ -24,6 +25,11 @@ export default function Home() {
             Save and see your changes instantly.
           </li>
         </ol>
+
+        {/* Magic UI Globe Component Demo */}
+        <div className="relative h-[400px] w-[400px] mx-auto">
+          <Globe />
+        </div>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <a
