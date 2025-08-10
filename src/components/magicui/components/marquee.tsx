@@ -17,7 +17,8 @@ interface MarqueeProps extends ComponentPropsWithoutRef<"div"> {
    */
   pauseOnHover?: boolean;
   /**
-   * Content to be displayed in the marquee
+   * Content to be displayed in the marqueenpx shadcn@latest add "https://magicui.design/r/animated-list"
+
    */
   children: React.ReactNode;
   /**
