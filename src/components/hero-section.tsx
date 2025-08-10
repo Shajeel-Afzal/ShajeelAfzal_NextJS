@@ -3,6 +3,7 @@ import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
 import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
 import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
+import { AuroraText } from "@/components/magicui/aurora-text";
 import { Globe as ThreeGlobe } from "@/components/magicui/globe";
 import { Button } from "@/components/ui/button";
 import { ThemeSwitcher } from "@/components/theme-switcher";
@@ -49,14 +50,16 @@ export function HeroSection() {
 
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
                 Transform Your
-                <span className="block bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
-                  Digital Vision
+                <span className="block">
+                  <AuroraText className="text-4xl md:text-6xl lg:text-7xl font-bold">
+                    AI Vision
+                  </AuroraText>
                 </span>
                 Into Reality
               </h1>
 
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
-                Expert Mobile App Developer, AI Engineer & Chatbot Specialist helping businesses
+                Expert AI Engineer & Chatbot Specialist helping businesses
                 build cutting-edge solutions that drive growth and innovation.
               </p>
             </div>
