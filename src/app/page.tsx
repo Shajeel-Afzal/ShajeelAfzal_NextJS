@@ -1,109 +1,357 @@
+import { Smartphone, Brain, Bot, Star, Users, Trophy, ChevronRight, MessageCircle, Code, Zap, Award } from "lucide-react";
+import { ShimmerButton } from "@/components/magicui/shimmer-button";
+import { BentoGrid, BentoCard } from "@/components/magicui/bento-grid";
+import { Marquee } from "@/components/magicui/marquee";
+import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
+import { GridPattern } from "@/components/magicui/grid-pattern";
+import { Globe as ThreeGlobe } from "@/components/magicui/globe";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { Globe } from "@/components/magicui/globe";
+import Link from "next/link";
+
+const testimonials = [
+  {
+    name: "Sarah Chen",
+    role: "CTO, TechStart Inc",
+    content: "Shajeel delivered our mobile app ahead of schedule with exceptional quality. His AI integration expertise is unmatched.",
+    avatar: "/api/placeholder/40/40",
+    rating: 5
+  },
+  {
+    name: "Marcus Rodriguez",
+    role: "Founder, E-Commerce Plus",
+    content: "The chatbot solution increased our customer engagement by 300%. Shajeel's technical skills are outstanding.",
+    avatar: "/api/placeholder/40/40",
+    rating: 5
+  },
+  {
+    name: "Emma Thompson",
+    role: "Product Manager, InnovateNow",
+    content: "From concept to deployment, Shajeel made the complex simple. Our AI-powered features work flawlessly.",
+    avatar: "/api/placeholder/40/40", 
+    rating: 5
+  }
+];
+
+const skills = [
+  { name: "React Native", icon: Smartphone },
+  { name: "AI Development", icon: Brain },
+  { name: "Chatbots", icon: Bot },
+  { name: "Node.js", icon: Code },
+  { name: "Flutter", icon: Smartphone },
+  { name: "Python", icon: Brain }
+];
+
+const features = [
+  {
+    title: "Mobile App Development",
+    description: "Cross-platform mobile apps using React Native and Flutter with native performance.",
+    icon: Smartphone,
+    className: "col-span-1 row-span-1"
+  },
+  {
+    title: "AI Agent Development", 
+    description: "Custom AI agents and chatbots that understand your business and deliver results.",
+    icon: Brain,
+    className: "col-span-1 row-span-2"
+  },
+  {
+    title: "Full-Stack Solutions",
+    description: "End-to-end development from backend APIs to stunning user interfaces.",
+    icon: Code,
+    className: "col-span-1 row-span-1"
+  },
+  {
+    title: "Performance Optimization",
+    description: "Lightning-fast applications optimized for scale and user experience.",
+    icon: Zap,
+    className: "col-span-1 row-span-1"
+  }
+];
+
+const stats = [
+  { label: "Projects Completed", value: "100+", icon: Trophy },
+  { label: "Happy Clients", value: "50+", icon: Users },
+  { label: "Years Experience", value: "5+", icon: Award },
+  { label: "Technologies", value: "15+", icon: Star }
+];
+
+function HeroSection() {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background to-muted">
+      <GridPattern
+        squares={[
+          [4, 4],
+          [5, 1],
+          [8, 2],
+          [5, 3],
+          [5, 5],
+          [10, 10],
+          [12, 15],
+          [15, 10],
+          [10, 15],
+        ]}
+        className="absolute inset-0 opacity-30"
+      />
+      
+      <div className="container mx-auto px-4 py-16 z-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left Content */}
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium">
+                <Star className="w-4 h-4" />
+                Certified Developer
+              </div>
+              
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+                Transform Your
+                <span className="block bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+                  Digital Vision
+                </span>
+                Into Reality
+              </h1>
+              
+              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
+                Expert Mobile App Developer, AI Engineer & Chatbot Specialist helping businesses 
+                build cutting-edge solutions that drive growth and innovation.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-4">
+              <Link href="#consultation">
+                <ShimmerButton className="text-lg px-8 py-6">
+                  Book Free Consultation
+                </ShimmerButton>
+              </Link>
+              
+              <Button variant="outline" size="lg" className="text-lg px-8 py-6" asChild>
+                <Link href="#portfolio">
+                  View Portfolio
+                  <ChevronRight className="ml-2 w-5 h-5" />
+                </Link>
+              </Button>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8">
+              {stats.map((stat) => (
+                <div key={stat.label} className="text-center p-4 rounded-lg bg-card">
+                  <stat.icon className="w-6 h-6 mx-auto mb-2 text-primary" />
+                  <div className="text-2xl font-bold">{stat.value}</div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Visual */}
+          <div className="relative">
+            <div className="relative h-[600px] w-full max-w-lg mx-auto">
+              {/* 3D Globe */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <ThreeGlobe />
+              </div>
+              
+              {/* Orbiting Icons */}
+              <OrbitingCircles
+                className="size-[50px] border-none bg-transparent"
+                duration={20}
+                delay={20}
+                radius={250}
+              >
+                <div className="flex h-full w-full items-center justify-center rounded-full bg-primary text-primary-foreground">
+                  <Smartphone className="h-6 w-6" />
+                </div>
+              </OrbitingCircles>
+              
+              <OrbitingCircles
+                className="size-[50px] border-none bg-transparent"
+                duration={20}
+                delay={10}
+                radius={200}
+              >
+                <div className="flex h-full w-full items-center justify-center rounded-full bg-blue-500 text-white">
+                  <Brain className="h-6 w-6" />
+                </div>
+              </OrbitingCircles>
+              
+              <OrbitingCircles
+                className="size-[50px] border-none bg-transparent" 
+                duration={20}
+                delay={0}
+                radius={150}
+              >
+                <div className="flex h-full w-full items-center justify-center rounded-full bg-green-500 text-white">
+                  <Bot className="h-6 w-6" />
+                </div>
+              </OrbitingCircles>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ServicesSection() {
+  return (
+    <section className="py-20 bg-muted/50">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Services That Drive Results
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Comprehensive technology solutions tailored to your business needs
+          </p>
+        </div>
+
+        <BentoGrid className="max-w-6xl mx-auto">
+          {features.map((feature) => (
+            <BentoCard
+              key={feature.title}
+              name={feature.title}
+              description={feature.description}
+              background={
+                <div className="flex h-60 w-full items-center justify-center bg-gradient-to-br from-primary/20 to-blue-600/20 rounded-lg">
+                  <feature.icon className="w-16 h-16 text-primary" />
+                </div>
+              }
+              Icon={feature.icon}
+              className={feature.className}
+              href="#services"
+              cta="Learn More"
+            />
+          ))}
+        </BentoGrid>
+      </div>
+    </section>
+  );
+}
+
+function TestimonialsSection() {
+  return (
+    <section className="py-20">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            What Clients Say
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Trusted by entrepreneurs and enterprises worldwide
+          </p>
+        </div>
+
+        <Marquee pauseOnHover className="[--duration:40s]">
+          {testimonials.map((testimonial) => (
+            <div
+              key={testimonial.name}
+              className="mx-4 max-w-sm rounded-lg border bg-card p-6 shadow-sm"
+            >
+              <div className="flex items-center gap-1 mb-4">
+                {[...Array(testimonial.rating)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              
+              <p className="text-sm text-muted-foreground mb-4">
+                &ldquo;{testimonial.content}&rdquo;
+              </p>
+              
+              <div className="flex items-center gap-3">
+                <Image
+                  src={testimonial.avatar}
+                  alt={testimonial.name}
+                  width={40}
+                  height={40}
+                  className="rounded-full"
+                />
+                <div>
+                  <p className="font-semibold text-sm">{testimonial.name}</p>
+                  <p className="text-xs text-muted-foreground">{testimonial.role}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </Marquee>
+      </div>
+    </section>
+  );
+}
+
+function SkillsSection() {
+  return (
+    <section className="py-20 bg-muted/50">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Technologies I Master
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Cutting-edge technologies for modern solutions
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          {skills.map((skill) => (
+            <div
+              key={skill.name}
+              className="flex flex-col items-center p-6 rounded-lg bg-card hover:bg-card/80 transition-colors group cursor-pointer"
+            >
+              <div className="p-4 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors mb-4">
+                <skill.icon className="w-8 h-8 text-primary" />
+              </div>
+              <p className="font-semibold text-center">{skill.name}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CTASection() {
+  return (
+    <section className="py-20">
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto text-center bg-gradient-to-r from-primary/10 to-blue-600/10 rounded-3xl p-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Ready to Build Something Amazing?
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Let&apos;s discuss your project and turn your ideas into reality. 
+            Book a free consultation and get expert guidance tailored to your needs.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link href="#consultation">
+              <ShimmerButton className="text-lg px-8 py-6">
+                Book Free Consultation
+              </ShimmerButton>
+            </Link>
+            
+            <Link href="https://wa.me/your-number" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+                <MessageCircle className="mr-2 w-5 h-5" />
+                WhatsApp Me
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        {/* Magic UI Globe Component Demo */}
-        <div className="relative h-[400px] w-[400px] mx-auto">
-          <Globe />
-        </div>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    <main className="font-sans">
+      <HeroSection />
+      <ServicesSection />
+      <TestimonialsSection />
+      <SkillsSection />
+      <CTASection />
+    </main>
   );
 }
