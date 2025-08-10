@@ -54,7 +54,7 @@ export function TypingAnimation({
   }, [delay, startOnView, isInView]);
 
   useEffect(() => {
-    if (!started) return;
+    if (!started || !children) return;
 
     const graphemes = Array.from(children);
     let i = 0;

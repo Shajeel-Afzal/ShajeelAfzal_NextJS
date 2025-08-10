@@ -44,7 +44,59 @@
           "1"
         ],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create SEO-optimized Hero Section with Value Proposition",
+            "description": "Design and implement compelling hero section with clear value proposition for Certified Mobile Apps Developer, ChatBots Developer, and AI Engineer",
+            "dependencies": [],
+            "details": "Replace placeholder content in page.tsx with professional hero section featuring headline, subheading, CTA buttons, and background animation. Integrate Magic UI components like animated text, particles, or gradient backgrounds. Ensure mobile-first responsive design and compelling messaging that targets tech entrepreneurs seeking mobile/AI development services.",
+            "status": "done",
+            "testStrategy": "Test hero section responsiveness across devices, verify text readability, validate CTA button functionality, and ensure smooth animations without performance impact"
+          },
+          {
+            "id": 2,
+            "title": "Implement Core Web Vitals Performance Optimization",
+            "description": "Optimize page performance to meet Core Web Vitals requirements (LCP < 2.5s, FID < 100ms, CLS < 0.1)",
+            "dependencies": [
+              "2.1"
+            ],
+            "details": "Configure Next.js optimization features including image optimization, font optimization, lazy loading, and code splitting. Implement proper loading states for Magic UI components. Configure next.config.ts with performance optimizations. Use next/image for all images with proper sizing and priority flags.",
+            "status": "pending",
+            "testStrategy": "Run Lighthouse audits to verify Core Web Vitals scores, test on slow 3G connections, monitor bundle size, and validate loading performance across different devices"
+          },
+          {
+            "id": 3,
+            "title": "Implement SEO Foundation with Meta Tags and Structured Data",
+            "description": "Add comprehensive SEO meta tags, Open Graph tags, and structured data markup for better search visibility",
+            "dependencies": [],
+            "details": "Update layout.tsx metadata with professional title, description, and Open Graph tags. Add JSON-LD structured data for personal/professional profile. Implement canonical URLs, robots meta tags, and Twitter Card tags. Create comprehensive meta tag strategy targeting AI/mobile development keywords.",
+            "status": "pending",
+            "testStrategy": "Validate structured data using Google Rich Results Test, verify Open Graph tags with Facebook Debugger, test meta tags in search results preview, and ensure proper crawling with robots.txt"
+          },
+          {
+            "id": 4,
+            "title": "Create Professional Services Showcase Section",
+            "description": "Develop services section highlighting Mobile Apps Development, ChatBot Development, and AI Engineering expertise",
+            "dependencies": [
+              "2.1"
+            ],
+            "details": "Create services cards showcasing three main expertise areas with descriptions, technologies used, and project examples. Use Magic UI components like animated cards, orbiting circles, or animated lists. Include pricing indicators and CTA buttons for each service. Ensure section is visually appealing and clearly communicates value proposition.",
+            "status": "pending",
+            "testStrategy": "Test service cards interaction, verify responsive layout, validate service descriptions clarity, and ensure proper CTAs linking to contact/consultation booking"
+          },
+          {
+            "id": 5,
+            "title": "Implement Advanced Performance Monitoring and Analytics Setup",
+            "description": "Set up performance monitoring, analytics integration, and ensure page load targets are met consistently",
+            "dependencies": [
+              "2.2"
+            ],
+            "details": "Configure Next.js analytics, implement Core Web Vitals reporting, add performance monitoring. Set up automatic performance regression detection. Implement lazy loading for heavy components like Globe. Add resource hints and preloading for critical resources. Configure compression and caching strategies.",
+            "status": "pending",
+            "testStrategy": "Monitor real user metrics, set up automated performance testing, validate Core Web Vitals in production environment, and ensure consistent sub-2.5s load times across different network conditions"
+          }
+        ]
       },
       {
         "id": 3,
@@ -163,7 +215,7 @@
     ],
     "metadata": {
       "created": "2025-08-09T20:08:29.888Z",
-      "updated": "2025-08-10T11:39:56.537Z",
+      "updated": "2025-08-10T17:08:19.560Z",
       "description": "MVP development tasks for the Professional Portfolio & Consultation Platform"
     }
   },
