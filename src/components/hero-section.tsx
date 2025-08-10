@@ -1,10 +1,11 @@
 import { Smartphone, Brain, Bot, Star, Users, Trophy, Award, ChevronRight } from "lucide-react";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
-import { GridPattern } from "@/components/magicui/grid-pattern";
+import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
 import { Globe as ThreeGlobe } from "@/components/magicui/globe";
 import { Button } from "@/components/ui/button";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 const stats = [
@@ -22,19 +23,15 @@ export function HeroSection() {
         <ThemeSwitcher />
       </div>
 
-      <GridPattern
-        squares={[
-          [4, 4],
-          [5, 1],
-          [8, 2],
-          [5, 3],
-          [5, 5],
-          [10, 10],
-          [12, 15],
-          [15, 10],
-          [10, 15],
-        ]}
-        className="absolute inset-0 opacity-30"
+      <AnimatedGridPattern
+        numSquares={30}
+        maxOpacity={0.1}
+        duration={3}
+        repeatDelay={1}
+        className={cn(
+          "absolute inset-0",
+          "[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]"
+        )}
       />
 
       <div className="container mx-auto px-4 py-16 z-10">
