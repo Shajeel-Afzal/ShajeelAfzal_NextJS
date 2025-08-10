@@ -1,13 +1,9 @@
-import { Smartphone, Brain, Bot, Star, Users, Trophy, Award, ChevronRight } from "lucide-react";
-import { ShimmerButton } from "@/components/magicui/shimmer-button";
-import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
+import { Star, Users, Trophy, Award } from "lucide-react";
 import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
 import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 import { AuroraText } from "@/components/magicui/aurora-text";
-import { Button } from "@/components/ui/button";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import Image from "next/image";
 
 const stats = [
