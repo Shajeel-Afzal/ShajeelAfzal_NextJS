@@ -1,9 +1,10 @@
 import { Smartphone, Brain, Bot, Star, Users, Trophy, ChevronRight, MessageCircle, Code, Zap, Award } from "lucide-react";
-import { BentoGrid, BentoCard } from "@/components/magicui/bento-grid";
-import { Marquee } from "@/components/magicui/marquee";
+import { OptimizedMarquee } from "@/components/optimized-magicui";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { HeroSection } from "@/components/hero-section";
+import { ClientServicesSection } from "@/components/client-services-section";
+import { ClientSkillsSection } from "@/components/client-skills-section";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -32,37 +33,37 @@ const testimonials = [
 ];
 
 const skills = [
-  { name: "React Native", icon: Smartphone },
-  { name: "AI Development", icon: Brain },
-  { name: "Chatbots", icon: Bot },
-  { name: "Node.js", icon: Code },
-  { name: "Flutter", icon: Smartphone },
-  { name: "Python", icon: Brain }
+  { name: "React Native", iconName: "smartphone" as const },
+  { name: "AI Development", iconName: "brain" as const },
+  { name: "Chatbots", iconName: "bot" as const },
+  { name: "Node.js", iconName: "code" as const },
+  { name: "Flutter", iconName: "smartphone" as const },
+  { name: "Python", iconName: "brain" as const }
 ];
 
 const features = [
   {
     title: "Mobile App Development",
     description: "Cross-platform mobile apps using React Native and Flutter with native performance.",
-    icon: Smartphone,
+    iconName: "smartphone" as const,
     className: "col-span-1 row-span-1"
   },
   {
     title: "AI Agent Development",
     description: "Custom AI agents and chatbots that understand your business and deliver results.",
-    icon: Brain,
+    iconName: "brain" as const,
     className: "col-span-1 row-span-2"
   },
   {
     title: "Full-Stack Solutions",
     description: "End-to-end development from backend APIs to stunning user interfaces.",
-    icon: Code,
+    iconName: "code" as const,
     className: "col-span-1 row-span-1"
   },
   {
     title: "Performance Optimization",
     description: "Lightning-fast applications optimized for scale and user experience.",
-    icon: Zap,
+    iconName: "zap" as const,
     className: "col-span-1 row-span-1"
   }
 ];
@@ -81,24 +82,7 @@ function ServicesSection() {
           </p>
         </div>
 
-        <BentoGrid className="max-w-6xl mx-auto">
-          {features.map((feature) => (
-            <BentoCard
-              key={feature.title}
-              name={feature.title}
-              description={feature.description}
-              background={
-                <div className="flex h-60 w-full items-center justify-center bg-gradient-to-br from-primary/20 to-blue-600/20 rounded-lg">
-                  <feature.icon className="w-16 h-16 text-primary" />
-                </div>
-              }
-              Icon={feature.icon}
-              className={feature.className}
-              href="#services"
-              cta="Learn More"
-            />
-          ))}
-        </BentoGrid>
+        <ClientServicesSection features={features} />
       </div>
     </section>
   );
@@ -117,7 +101,7 @@ function TestimonialsSection() {
           </p>
         </div>
 
-        <Marquee pauseOnHover className="[--duration:40s]">
+        <OptimizedMarquee pauseOnHover className="[--duration:40s]">
           {testimonials.map((testimonial) => (
             <div
               key={testimonial.name}
@@ -140,6 +124,8 @@ function TestimonialsSection() {
                   width={40}
                   height={40}
                   className="rounded-full"
+                  loading="lazy"
+                  sizes="40px"
                 />
                 <div>
                   <p className="font-semibold text-sm">{testimonial.name}</p>
@@ -148,7 +134,7 @@ function TestimonialsSection() {
               </div>
             </div>
           ))}
-        </Marquee>
+        </OptimizedMarquee>
       </div>
     </section>
   );
@@ -167,19 +153,7 @@ function SkillsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-          {skills.map((skill) => (
-            <div
-              key={skill.name}
-              className="flex flex-col items-center p-6 rounded-lg bg-card hover:bg-card/80 transition-colors group cursor-pointer"
-            >
-              <div className="p-4 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors mb-4">
-                <skill.icon className="w-8 h-8 text-primary" />
-              </div>
-              <p className="font-semibold text-center">{skill.name}</p>
-            </div>
-          ))}
-        </div>
+        <ClientSkillsSection skills={skills} />
       </div>
     </section>
   );

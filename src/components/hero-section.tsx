@@ -1,9 +1,11 @@
 import { Star, Users, Trophy, Award } from "lucide-react";
-import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
-import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
-import { AuroraText } from "@/components/magicui/aurora-text";
-import { TextAnimate } from "@/components/magicui/text-animate";
-import { NumberTicker } from "@/components/magicui/number-ticker";
+import {
+  OptimizedAnimatedGridPattern,
+  OptimizedAnimatedShinyText,
+  OptimizedAuroraText,
+  OptimizedTextAnimate,
+  OptimizedNumberTicker
+} from "@/components/optimized-magicui";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -24,7 +26,7 @@ export function HeroSection() {
         <ThemeSwitcher />
       </div>
 
-      <AnimatedGridPattern
+      <OptimizedAnimatedGridPattern
         numSquares={30}
         maxOpacity={0.1}
         duration={3}
@@ -42,17 +44,17 @@ export function HeroSection() {
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium">
                 <Star className="w-4 h-4" />
-                <AnimatedShinyText className="text-primary">
+                <OptimizedAnimatedShinyText className="text-primary">
                   Certified Developer
-                </AnimatedShinyText>
+                </OptimizedAnimatedShinyText>
               </div>
 
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
                 Transform Your
                 <span className="block">
-                  <AuroraText className="text-4xl md:text-6xl lg:text-7xl font-bold">
+                  <OptimizedAuroraText className="text-4xl md:text-6xl lg:text-7xl font-bold">
                     AI Vision
-                  </AuroraText>
+                  </OptimizedAuroraText>
                 </span>
                 Into Reality
               </h1>
@@ -66,14 +68,14 @@ export function HeroSection() {
             {/* CTA */}
             <div className="flex flex-col sm:flex-row gap-4">
               <button className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 rounded-lg font-semibold text-lg transition-colors">
-                <TextAnimate animation="slideUp" by="word" className="text-primary-foreground">
+                <OptimizedTextAnimate animation="slideUp" by="word" className="text-primary-foreground">
                   Schedule a Call
-                </TextAnimate>
+                </OptimizedTextAnimate>
               </button>
               <button className="border border-border hover:bg-accent hover:text-accent-foreground px-8 py-4 rounded-lg font-semibold text-lg transition-colors">
-                <TextAnimate animation="slideUp" by="word" delay={0.2} className="text-current">
+                <OptimizedTextAnimate animation="slideUp" by="word" delay={0.2} className="text-current">
                   View Portfolio
-                </TextAnimate>
+                </OptimizedTextAnimate>
               </button>
             </div>
 
@@ -84,7 +86,7 @@ export function HeroSection() {
                   <CardContent className="text-center p-4">
                     <stat.icon className="w-6 h-6 mx-auto mb-2 text-primary" />
                     <div className="text-2xl font-bold">
-                      <NumberTicker
+                      <OptimizedNumberTicker
                         value={stat.value}
                         delay={index * 0.2}
                         className="text-2xl font-bold"
@@ -109,6 +111,10 @@ export function HeroSection() {
                   fill
                   className="object-cover"
                   priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  quality={85}
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bsvrxeAKOtZ85VDMaK+tgZmjiuIkSGVwGV1m"
                 />
               </div>
             </div>

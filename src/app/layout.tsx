@@ -2,16 +2,21 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { PersonalWebsiteStructuredData } from "@/components/structured-data";
 import { ThemeProvider } from "@/components/theme-provider";
+import { WebVitals } from "@/components/web-vitals";
 import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap", // Improve font loading performance
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap", // Improve font loading performance
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -19,7 +24,7 @@ export const metadata: Metadata = {
   description: "Certified Mobile Apps Developer, AI Engineer & Chatbot Specialist. Transform your digital vision into reality with cutting-edge mobile apps, AI agents, and custom solutions.",
   keywords: [
     "mobile app developer",
-    "AI developer", 
+    "AI developer",
     "chatbot developer",
     "React Native developer",
     "Flutter developer",
@@ -39,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Shajeel Afzal | Mobile App & AI Developer", 
+    title: "Shajeel Afzal | Mobile App & AI Developer",
     description: "Expert Mobile Apps Developer, AI Engineer & Chatbot Specialist helping businesses build cutting-edge solutions.",
     creator: "@shajeelafzal",
   },
@@ -68,6 +73,13 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <PersonalWebsiteStructuredData />
+        {/* Resource hints for performance */}
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Preload critical image */}
+        <link rel="preload" as="image" href="/images/shajeel_afzal.png" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -79,6 +91,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <WebVitals />
         </ThemeProvider>
       </body>
     </html>
