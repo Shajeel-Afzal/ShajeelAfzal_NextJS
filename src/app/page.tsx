@@ -1,5 +1,4 @@
 import { Smartphone, Brain, Bot, Star, Users, Trophy, ChevronRight, MessageCircle, Code, Zap, Award } from "lucide-react";
-import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { BentoGrid, BentoCard } from "@/components/magicui/bento-grid";
 import { Marquee } from "@/components/magicui/marquee";
 import { Button } from "@/components/ui/button";
@@ -27,7 +26,7 @@ const testimonials = [
     name: "Emma Thompson",
     role: "Product Manager, InnovateNow",
     content: "From concept to deployment, Shajeel made the complex simple. Our AI-powered features work flawlessly.",
-    avatar: "/api/placeholder/40/40", 
+    avatar: "/api/placeholder/40/40",
     rating: 5
   }
 ];
@@ -49,7 +48,7 @@ const features = [
     className: "col-span-1 row-span-1"
   },
   {
-    title: "AI Agent Development", 
+    title: "AI Agent Development",
     description: "Custom AI agents and chatbots that understand your business and deliver results.",
     icon: Brain,
     className: "col-span-1 row-span-2"
@@ -129,11 +128,11 @@ function TestimonialsSection() {
                   <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              
+
               <p className="text-sm text-muted-foreground mb-4">
                 &ldquo;{testimonial.content}&rdquo;
               </p>
-              
+
               <div className="flex items-center gap-3">
                 <Image
                   src={testimonial.avatar}
@@ -195,7 +194,7 @@ function ThemeShowcaseSection() {
             Dynamic Theme System
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Experience 8 unique color schemes, each optimized for both light and dark modes. 
+            Experience 8 unique color schemes, each optimized for both light and dark modes.
             Use the theme switcher in the top-right corner to explore different styles.
           </p>
         </div>
@@ -236,7 +235,7 @@ function ThemeShowcaseSection() {
                   Accent background example
                 </div>
                 <div className="p-3 bg-muted rounded-lg">
-                  Muted background example  
+                  Muted background example
                 </div>
               </div>
             </CardContent>
@@ -281,7 +280,7 @@ function ThemeShowcaseSection() {
                   { name: "LWS Academy", color: "oklch(0.42 0.15 185)" },
                 ].map((theme) => (
                   <div key={theme.name} className="text-center p-3 rounded-lg bg-card">
-                    <div 
+                    <div
                       className="w-8 h-8 rounded-full mx-auto mb-2 border-2 border-border"
                       style={{ backgroundColor: theme.color }}
                     />
@@ -306,17 +305,17 @@ function CTASection() {
             Ready to Build Something Amazing?
           </h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Let&apos;s discuss your project and turn your ideas into reality. 
+            Let&apos;s discuss your project and turn your ideas into reality.
             Book a free consultation and get expert guidance tailored to your needs.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link href="#consultation">
-              <ShimmerButton className="text-lg px-8 py-6">
+              <Button size="lg" className="text-lg px-8 py-6">
                 Book Free Consultation
-              </ShimmerButton>
+              </Button>
             </Link>
-            
+
             <Link href="https://wa.me/your-number" target="_blank" rel="noopener noreferrer">
               <Button variant="outline" size="lg" className="text-lg px-8 py-6">
                 <MessageCircle className="mr-2 w-5 h-5" />

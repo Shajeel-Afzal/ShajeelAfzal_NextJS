@@ -2,6 +2,7 @@ import { Star, Users, Trophy, Award } from "lucide-react";
 import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
 import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 import { AuroraText } from "@/components/magicui/aurora-text";
+import { TextAnimate } from "@/components/magicui/text-animate";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -58,6 +59,20 @@ export function HeroSection() {
                 Expert AI Engineer & Chatbot Specialist helping businesses
                 build cutting-edge solutions that drive growth and innovation.
               </p>
+            </div>
+
+            {/* CTA */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 rounded-lg font-semibold text-lg transition-colors">
+                <TextAnimate animation="slideUp" by="word" className="text-primary-foreground">
+                  Schedule a Call
+                </TextAnimate>
+              </button>
+              <button className="border border-border hover:bg-accent hover:text-accent-foreground px-8 py-4 rounded-lg font-semibold text-lg transition-colors">
+                <TextAnimate animation="slideUp" by="word" delay={0.2} className="text-current">
+                  View Portfolio
+                </TextAnimate>
+              </button>
             </div>
 
             {/* Stats */}
