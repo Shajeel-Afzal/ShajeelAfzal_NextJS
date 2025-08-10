@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Globe } from "@/components/magicui/globe";
+import { Globe } from "@/components/magicui/components/globe";
 
 export default function Home() {
   return (
