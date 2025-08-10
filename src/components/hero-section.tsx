@@ -3,15 +3,16 @@ import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern"
 import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 import { AuroraText } from "@/components/magicui/aurora-text";
 import { TextAnimate } from "@/components/magicui/text-animate";
+import { NumberTicker } from "@/components/magicui/number-ticker";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 const stats = [
-  { label: "Projects Completed", value: "100+", icon: Trophy },
-  { label: "Happy Clients", value: "50+", icon: Users },
-  { label: "Years Experience", value: "5+", icon: Award },
-  { label: "Technologies", value: "15+", icon: Star }
+  { label: "Projects Completed", value: 100, suffix: "+", icon: Trophy },
+  { label: "Happy Clients", value: 50, suffix: "+", icon: Users },
+  { label: "Years Experience", value: 5, suffix: "+", icon: Award },
+  { label: "Technologies", value: 15, suffix: "+", icon: Star }
 ];
 
 export function HeroSection() {
@@ -77,10 +78,17 @@ export function HeroSection() {
 
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8">
-              {stats.map((stat) => (
+              {stats.map((stat, index) => (
                 <div key={stat.label} className="text-center p-4 rounded-lg bg-card">
                   <stat.icon className="w-6 h-6 mx-auto mb-2 text-primary" />
-                  <div className="text-2xl font-bold">{stat.value}</div>
+                  <div className="text-2xl font-bold">
+                    <NumberTicker
+                      value={stat.value}
+                      delay={index * 0.2}
+                      className="text-2xl font-bold"
+                    />
+                    {stat.suffix}
+                  </div>
                   <div className="text-sm text-muted-foreground">{stat.label}</div>
                 </div>
               ))}
