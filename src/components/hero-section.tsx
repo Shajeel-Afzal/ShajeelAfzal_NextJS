@@ -2,6 +2,7 @@ import { Smartphone, Brain, Bot, Star, Users, Trophy, Award, ChevronRight } from
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
 import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
+import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 import { Globe as ThreeGlobe } from "@/components/magicui/globe";
 import { Button } from "@/components/ui/button";
 import { ThemeSwitcher } from "@/components/theme-switcher";
@@ -41,7 +42,9 @@ export function HeroSection() {
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium">
                 <Star className="w-4 h-4" />
-                Certified Developer
+                <AnimatedShinyText className="text-primary">
+                  Certified Developer
+                </AnimatedShinyText>
               </div>
 
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
