@@ -71,7 +71,7 @@ const features = [
 
 function ServicesSection() {
   return (
-    <section className="py-20 bg-muted/50">
+    <section id="services" className="py-20 bg-muted/50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -90,7 +90,7 @@ function ServicesSection() {
 
 function TestimonialsSection() {
   return (
-    <section className="py-20">
+    <section id="testimonials" className="py-20">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -142,7 +142,7 @@ function TestimonialsSection() {
 
 function SkillsSection() {
   return (
-    <section className="py-20 bg-muted/50">
+    <section id="skills" className="py-20 bg-muted/50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -161,7 +161,7 @@ function SkillsSection() {
 
 function ThemeShowcaseSection() {
   return (
-    <section className="py-20">
+    <section id="themes" className="py-20">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -306,7 +306,9 @@ function CTASection() {
 export default function Home() {
   return (
     <main className="font-sans">
-      <HeroSection />
+      <section id="home">
+        <HeroSection />
+      </section>
       <ServicesSection />
       <TestimonialsSection />
       <SkillsSection />

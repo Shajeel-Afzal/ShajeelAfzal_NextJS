@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { PersonalWebsiteStructuredData } from "@/components/structured-data";
 import { ThemeProvider } from "@/components/theme-provider";
 import { WebVitals } from "@/components/web-vitals";
+import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -129,6 +130,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <SiteHeader />
           {children}
           <WebVitals />
         </ThemeProvider>

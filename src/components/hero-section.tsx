@@ -6,7 +6,6 @@ import {
   OptimizedTextAnimate,
   OptimizedNumberTicker
 } from "@/components/optimized-magicui";
-import { ThemeSwitcher } from "@/components/theme-switcher";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -21,10 +20,7 @@ const stats = [
 export function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background to-muted">
-      {/* Theme Switcher - Fixed Top Right */}
-      <div className="fixed top-4 right-4 z-50">
-        <ThemeSwitcher />
-      </div>
+      {/* Theme switcher moved to global SiteHeader to avoid duplication */}
 
       <OptimizedAnimatedGridPattern
         numSquares={30}
