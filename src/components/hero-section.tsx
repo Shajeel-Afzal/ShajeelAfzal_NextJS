@@ -5,6 +5,7 @@ import { AuroraText } from "@/components/magicui/aurora-text";
 import { TextAnimate } from "@/components/magicui/text-animate";
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
@@ -79,18 +80,20 @@ export function HeroSection() {
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8">
               {stats.map((stat, index) => (
-                <div key={stat.label} className="text-center p-4 rounded-lg bg-card">
-                  <stat.icon className="w-6 h-6 mx-auto mb-2 text-primary" />
-                  <div className="text-2xl font-bold">
-                    <NumberTicker
-                      value={stat.value}
-                      delay={index * 0.2}
-                      className="text-2xl font-bold"
-                    />
-                    {stat.suffix}
-                  </div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </div>
+                <Card key={stat.label} className="p-0">
+                  <CardContent className="text-center p-4">
+                    <stat.icon className="w-6 h-6 mx-auto mb-2 text-primary" />
+                    <div className="text-2xl font-bold">
+                      <NumberTicker
+                        value={stat.value}
+                        delay={index * 0.2}
+                        className="text-2xl font-bold"
+                      />
+                      {stat.suffix}
+                    </div>
+                    <div className="text-sm text-muted-foreground">{stat.label}</div>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
