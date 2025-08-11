@@ -1,10 +1,10 @@
-import { Smartphone, Brain, Bot, Star, Users, Trophy, ChevronRight, MessageCircle, Code, Zap, Award } from "lucide-react";
+import { Star, MessageCircle } from "lucide-react";
 import { OptimizedMarquee } from "@/components/optimized-magicui";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { HeroSection } from "@/components/hero-section";
-import { ClientServicesSection } from "@/components/client-services-section";
 import { ClientSkillsSection } from "@/components/client-skills-section";
+import { ServicesShowcase } from "@/components/services-showcase";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -41,49 +41,12 @@ const skills = [
   { name: "Python", iconName: "brain" as const }
 ];
 
-const features = [
-  {
-    title: "Mobile App Development",
-    description: "Cross-platform mobile apps using React Native and Flutter with native performance.",
-    iconName: "smartphone" as const,
-    className: "col-span-1 row-span-1"
-  },
-  {
-    title: "AI Agent Development",
-    description: "Custom AI agents and chatbots that understand your business and deliver results.",
-    iconName: "brain" as const,
-    className: "col-span-1 row-span-2"
-  },
-  {
-    title: "Full-Stack Solutions",
-    description: "End-to-end development from backend APIs to stunning user interfaces.",
-    iconName: "code" as const,
-    className: "col-span-1 row-span-1"
-  },
-  {
-    title: "Performance Optimization",
-    description: "Lightning-fast applications optimized for scale and user experience.",
-    iconName: "zap" as const,
-    className: "col-span-1 row-span-1"
-  }
-];
 
 
 function ServicesSection() {
   return (
-    <section id="services" className="py-20 bg-muted/50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Services That Drive Results
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Comprehensive technology solutions tailored to your business needs
-          </p>
-        </div>
-
-        <ClientServicesSection features={features} />
-      </div>
+    <section id="services" className="bg-muted/50">
+      <ServicesShowcase />
     </section>
   );
 }
