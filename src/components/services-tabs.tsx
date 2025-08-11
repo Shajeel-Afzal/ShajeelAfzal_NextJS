@@ -54,12 +54,16 @@ function ChatBotAnimatedBeam({ className }: { className?: string }) {
         { ref: telegramRef, icon: Icons.telegram, className: "size-12 bg-sky-50 border-sky-200", iconClass: "w-8 h-8 text-sky-600" },
     ];
     // List of services for mapping
+    const mailRef = useRef<HTMLDivElement>(null);
+    const excelRef = useRef<HTMLDivElement>(null);
     const services = [
         { ref: googleDriveRef, icon: Icons.googleDrive, className: "size-12 bg-yellow-50 border-yellow-200", iconClass: "w-8 h-8 text-yellow-600" },
         { ref: googleDocsRef, icon: Icons.googleDocs, className: "size-12 bg-blue-50 border-blue-200", iconClass: "w-8 h-8 text-blue-600" },
         { ref: notionRef, icon: Icons.notion, className: "size-12 bg-black border-gray-700", iconClass: "w-8 h-8 text-white" },
         { ref: googleRef, icon: Icons.google, className: "size-12 bg-red-50 border-red-200", iconClass: "w-8 h-8 text-red-600" },
         { ref: githubRef, icon: Icons.gitHub, className: "size-12 bg-gray-100 border-gray-300", iconClass: "w-8 h-8 text-gray-800" },
+        { ref: mailRef, icon: Icons.mail, className: "size-12 bg-rose-50 border-rose-200", iconClass: "w-8 h-8 text-rose-600" },
+        { ref: excelRef, icon: Icons.excel, className: "size-12 bg-green-50 border-green-200", iconClass: "w-8 h-8 text-green-700" },
     ];
 
     return (

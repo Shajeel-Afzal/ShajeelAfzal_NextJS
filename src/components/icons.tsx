@@ -1,3 +1,62 @@
+// Excel Icon
+export const ExcelIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg
+        width="47px"
+        height="65px"
+        viewBox="0 0 47 65"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+    >
+        <defs>
+            <linearGradient id="sheetsGreenGradient" x1="50%" y1="0%" x2="50%" y2="100%">
+                <stop stopColor="#0F9D58" offset="0%" />
+                <stop stopColor="#34A853" offset="100%" />
+            </linearGradient>
+            <radialGradient id="sheetsRadial" cx="3%" cy="3%" r="160%">
+                <stop stopColor="#fff" stopOpacity="0.10" offset="0%" />
+                <stop stopColor="#fff" stopOpacity="0" offset="100%" />
+            </radialGradient>
+        </defs>
+        <g fill="none" fillRule="evenodd">
+            {/* Main green document with folded corner */}
+            <path
+                d="M29.375,0 L4.40625,0 C1.98,0 0,1.99 0,4.43v56.14C0,63 1.98,65 4.41,65h38.19C45.02,65 47,63 47,60.57V17.73L29.375,0Z"
+                fill="url(#sheetsGreenGradient)"
+            />
+            <path
+                d="M29.375,0 L4.40625,0 C1.98,0 0,1.99 0,4.43v56.14C0,63 1.98,65 4.41,65h38.19C45.02,65 47,63 47,60.57V17.73L29.375,0Z"
+                fill="url(#sheetsRadial)"
+            />
+            {/* Folded corner */}
+            <polygon points="29.375,0 47,17.73 29.375,17.73" fill="#F1F3F4" />
+            {/* Spreadsheet grid motif */}
+            <g>
+                <rect x="12.5" y="26.5" width="22" height="20" rx="2" fill="#fff" fillOpacity="0.9" />
+                {/* Horizontal lines */}
+                <rect x="13.5" y="31" width="20" height="1.2" rx="0.6" fill="#D3EEDD" />
+                <rect x="13.5" y="36" width="20" height="1.2" rx="0.6" fill="#D3EEDD" />
+                <rect x="13.5" y="41" width="20" height="1.2" rx="0.6" fill="#D3EEDD" />
+                <rect x="13.5" y="46" width="20" height="1.2" rx="0.6" fill="#D3EEDD" />
+                {/* Vertical lines */}
+                <rect x="18" y="27.5" width="1.2" height="18" rx="0.6" fill="#D3EEDD" />
+                <rect x="23" y="27.5" width="1.2" height="18" rx="0.6" fill="#D3EEDD" />
+                <rect x="28" y="27.5" width="1.2" height="18" rx="0.6" fill="#D3EEDD" />
+            </g>
+            {/* Border */}
+            <rect
+                x="0.5"
+                y="0.5"
+                width="46"
+                height="64"
+                rx="4"
+                stroke="#0F9D58"
+                strokeOpacity="0.18"
+                fill="none"
+            />
+        </g>
+    </svg>
+);
 import { DiscordLogoIcon, InstagramLogoIcon } from "@radix-ui/react-icons";
 import { TelegramIcon } from "./telegram-icon";
 import {
@@ -25,10 +84,32 @@ import {
     X,
 } from "lucide-react";
 
+// Social Icons
+export const LinkedInIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <rect x="2" y="2" width="20" height="20" rx="2" ry="2" />
+        <path d="M16 8a6 6 0 016 6v6h-4v-6a2 2 0 00-4 0v6h-4v-6a6 6 0 016-6z" />
+        <line x1="8" y1="11" x2="8" y2="16" />
+        <line x1="8" y1="8" x2="8" y2="8" />
+    </svg>
+);
+
+// UI Icons
+export const MailIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <rect x="2" y="4" width="20" height="16" rx="2" />
+        <polyline points="22,6 12,13 2,6" />
+    </svg>
+);
+
 export type IconProps = React.SVGProps<SVGSVGElement>;
 
 export const Icons = {
     telegram: TelegramIcon,
+    linkedin: LinkedInIcon,
+    mail: MailIcon,
+    excel: ExcelIcon,
+    // Keep existing icons from lucide-react and custom logo
     logo: ({ className, ...props }: IconProps) => (
         <svg
             width="256"
