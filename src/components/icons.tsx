@@ -1,4 +1,5 @@
 import { DiscordLogoIcon, InstagramLogoIcon } from "@radix-ui/react-icons";
+import { TelegramIcon } from "./telegram-icon";
 import {
     AlertTriangle,
     ArrowRight,
@@ -27,6 +28,7 @@ import {
 export type IconProps = React.SVGProps<SVGSVGElement>;
 
 export const Icons = {
+    telegram: TelegramIcon,
     logo: ({ className, ...props }: IconProps) => (
         <svg
             width="256"

@@ -35,24 +35,50 @@ function ChatBotAnimatedBeam({ className }: { className?: string }) {
     const containerRef = useRef<HTMLDivElement>(null);
     const userRef = useRef<HTMLDivElement>(null);
     const openaiRef = useRef<HTMLDivElement>(null);
+    // Chat app refs
+    const whatsappRef = useRef<HTMLDivElement>(null);
+    const messengerRef = useRef<HTMLDivElement>(null);
+    const telegramRef = useRef<HTMLDivElement>(null);
+    // Service refs
     const googleDriveRef = useRef<HTMLDivElement>(null);
     const googleDocsRef = useRef<HTMLDivElement>(null);
-    const whatsappRef = useRef<HTMLDivElement>(null);
+
+    // List of chat apps for mapping
+    // Use size-12 for all, matching services, and consistent icon size
+    const chatApps = [
+        { ref: whatsappRef, icon: Icons.whatsapp, className: "size-12 bg-green-50 border-green-200", iconClass: "w-8 h-8 text-green-600" },
+        { ref: messengerRef, icon: Icons.messenger, className: "size-12 bg-blue-50 border-blue-200", iconClass: "w-8 h-8 text-blue-600" },
+        { ref: telegramRef, icon: Icons.telegram, className: "size-12 bg-sky-50 border-sky-200", iconClass: "w-8 h-8 text-sky-600" },
+    ];
+    // List of services for mapping
+    const services = [
+        { ref: googleDriveRef, icon: Icons.googleDrive, className: "size-12 bg-yellow-50 border-yellow-200", iconClass: "w-8 h-8 text-yellow-600" },
+        { ref: googleDocsRef, icon: Icons.googleDocs, className: "size-12 bg-blue-50 border-blue-200", iconClass: "w-8 h-8 text-blue-600" },
+    ];
 
     return (
         <div
             className={cn(
-                "relative flex h-[400px] w-full items-center justify-center overflow-hidden p-6",
+                "relative flex h-[420px] w-full items-center justify-center overflow-hidden p-6",
                 className,
             )}
             ref={containerRef}
         >
-            <div className="flex size-full max-w-lg flex-row items-stretch justify-between gap-10">
+            <div className="flex size-full max-w-2xl flex-row items-stretch justify-between gap-10">
                 {/* User */}
                 <div className="flex flex-col justify-center">
                     <Circle ref={userRef} className="bg-blue-50 border-blue-200">
                         <Icons.user className="w-6 h-6 text-blue-600" />
                     </Circle>
+                </div>
+
+                {/* Chat Apps */}
+                <div className="flex flex-col justify-center gap-3">
+                    {chatApps.map(({ ref, icon: Icon, className, iconClass }, idx) => (
+                        <Circle key={idx} ref={ref} className={className}>
+                            <Icon className={iconClass} />
+                        </Circle>
+                    ))}
                 </div>
 
                 {/* OpenAI (Center Hub) */}
@@ -64,70 +90,58 @@ function ChatBotAnimatedBeam({ className }: { className?: string }) {
 
                 {/* Services */}
                 <div className="flex flex-col justify-center gap-3">
-                    <Circle ref={googleDriveRef} className="bg-yellow-50 border-yellow-200">
-                        <Icons.googleDrive className="w-6 h-6 text-yellow-600" />
-                    </Circle>
-                    <Circle ref={googleDocsRef} className="bg-blue-50 border-blue-200">
-                        <Icons.googleDocs className="w-6 h-6 text-blue-600" />
-                    </Circle>
-                    <Circle ref={whatsappRef} className="bg-green-50 border-green-200">
-                        <Icons.whatsapp className="w-6 h-6 text-green-600" />
-                    </Circle>
+                    {services.map(({ ref, icon: Icon, className, iconClass }, idx) => (
+                        <Circle key={idx} ref={ref} className={className}>
+                            <Icon className={iconClass} />
+                        </Circle>
+                    ))}
                 </div>
             </div>
 
-            {/* AnimatedBeams - Services to OpenAI */}
-            <AnimatedBeam
-                containerRef={containerRef}
-                fromRef={googleDriveRef}
-                toRef={openaiRef}
-                duration={3}
-                pathColor="rgb(34 197 94)"
-                gradientStartColor="#22c55e"
-                gradientStopColor="#16a34a"
-            />
-            <AnimatedBeam
-                containerRef={containerRef}
-                fromRef={googleDocsRef}
-                toRef={openaiRef}
-                duration={3}
-                delay={0.5}
-                pathColor="rgb(59 130 246)"
-                gradientStartColor="#3b82f6"
-                gradientStopColor="#2563eb"
-            />
-            <AnimatedBeam
-                containerRef={containerRef}
-                fromRef={whatsappRef}
-                toRef={openaiRef}
-                duration={3}
-                delay={1}
-                pathColor="rgb(34 197 94)"
-                gradientStartColor="#22c55e"
-                gradientStopColor="#16a34a"
-            />
+            {/* AnimatedBeams - User to each Chat App */}
+            {chatApps.map(({ ref }, idx) => (
+                <AnimatedBeam
+                    key={`user-to-chatapp-${idx}`}
+                    containerRef={containerRef}
+                    fromRef={userRef}
+                    toRef={ref}
+                    duration={2.5 + idx * 0.3}
+                    delay={idx * 0.2}
+                    pathColor="rgb(59 130 246)"
+                    gradientStartColor="#3b82f6"
+                    gradientStopColor="#2563eb"
+                />
+            ))}
 
-            {/* AnimatedBeam - OpenAI to User (Bi-directional) */}
-            <AnimatedBeam
-                containerRef={containerRef}
-                fromRef={openaiRef}
-                toRef={userRef}
-                duration={2.5}
-                pathColor="rgb(99 102 241)"
-                gradientStartColor="#6366f1"
-                gradientStopColor="#4f46e5"
-            />
-            <AnimatedBeam
-                containerRef={containerRef}
-                fromRef={userRef}
-                toRef={openaiRef}
-                duration={2.5}
-                delay={1.25}
-                reverse
-                pathColor="rgb(99 102 241)"
-                gradientStartColor="#4f46e5"
-                gradientStopColor="#6366f1"
-            />
+            {/* AnimatedBeams - Chat Apps to OpenAI */}
+            {chatApps.map(({ ref }, idx) => (
+                <AnimatedBeam
+                    key={`chatapp-to-openai-${idx}`}
+                    containerRef={containerRef}
+                    fromRef={ref}
+                    toRef={openaiRef}
+                    duration={2.8 + idx * 0.3}
+                    delay={0.5 + idx * 0.2}
+                    pathColor="rgb(34 197 94)"
+                    gradientStartColor="#22c55e"
+                    gradientStopColor="#16a34a"
+                />
+            ))}
+
+            {/* AnimatedBeams - OpenAI to each Service */}
+            {services.map(({ ref }, idx) => (
+                <AnimatedBeam
+                    key={`openai-to-service-${idx}`}
+                    containerRef={containerRef}
+                    fromRef={openaiRef}
+                    toRef={ref}
+                    duration={3 + idx * 0.3}
+                    delay={1 + idx * 0.3}
+                    pathColor="rgb(251 191 36)"
+                    gradientStartColor="#fde68a"
+                    gradientStopColor="#fbbf24"
+                />
+            ))}
         </div>
     );
 }
