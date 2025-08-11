@@ -42,6 +42,9 @@ function ChatBotAnimatedBeam({ className }: { className?: string }) {
     // Service refs
     const googleDriveRef = useRef<HTMLDivElement>(null);
     const googleDocsRef = useRef<HTMLDivElement>(null);
+    const notionRef = useRef<HTMLDivElement>(null);
+    const googleRef = useRef<HTMLDivElement>(null);
+    const githubRef = useRef<HTMLDivElement>(null);
 
     // List of chat apps for mapping
     // Use size-12 for all, matching services, and consistent icon size
@@ -54,6 +57,9 @@ function ChatBotAnimatedBeam({ className }: { className?: string }) {
     const services = [
         { ref: googleDriveRef, icon: Icons.googleDrive, className: "size-12 bg-yellow-50 border-yellow-200", iconClass: "w-8 h-8 text-yellow-600" },
         { ref: googleDocsRef, icon: Icons.googleDocs, className: "size-12 bg-blue-50 border-blue-200", iconClass: "w-8 h-8 text-blue-600" },
+        { ref: notionRef, icon: Icons.notion, className: "size-12 bg-black border-gray-700", iconClass: "w-8 h-8 text-white" },
+        { ref: googleRef, icon: Icons.google, className: "size-12 bg-red-50 border-red-200", iconClass: "w-8 h-8 text-red-600" },
+        { ref: githubRef, icon: Icons.gitHub, className: "size-12 bg-gray-100 border-gray-300", iconClass: "w-8 h-8 text-gray-800" },
     ];
 
     return (
@@ -64,7 +70,7 @@ function ChatBotAnimatedBeam({ className }: { className?: string }) {
             )}
             ref={containerRef}
         >
-            <div className="flex size-full max-w-2xl flex-row items-stretch justify-between gap-10">
+            <div className="flex size-full max-w-4xl flex-row items-stretch justify-between gap-16">
                 {/* User */}
                 <div className="flex flex-col justify-center">
                     <Circle ref={userRef} className="bg-blue-50 border-blue-200">
@@ -73,7 +79,7 @@ function ChatBotAnimatedBeam({ className }: { className?: string }) {
                 </div>
 
                 {/* Chat Apps */}
-                <div className="flex flex-col justify-center gap-3">
+                <div className="flex flex-col justify-center gap-8">
                     {chatApps.map(({ ref, icon: Icon, className, iconClass }, idx) => (
                         <Circle key={idx} ref={ref} className={className}>
                             <Icon className={iconClass} />
@@ -210,7 +216,7 @@ export default function ServicesTabs() {
 
         if (key === 'chatbots') {
             return (
-                <div className="w-full max-w-md">
+                <div className="w-full max-w-4xl">
                     <ChatBotAnimatedBeam />
                 </div>
             );
