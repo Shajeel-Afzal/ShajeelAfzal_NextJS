@@ -91,11 +91,18 @@ function ChatBotAnimatedBeam({ className }: { className?: string }) {
                     ))}
                 </div>
 
-                {/* OpenAI (Center Hub) */}
+                {/* OpenAI (Center Hub) inside a vertical card */}
                 <div className="flex flex-col justify-center">
-                    <Circle ref={openaiRef} className="size-16 bg-green-50 border-green-200">
-                        <Icons.openai className="w-8 h-8 text-green-600" />
-                    </Circle>
+                    <div ref={openaiRef} className="bg-card border border-border rounded-xl p-4 w-28 h-44 flex items-center justify-center shadow-sm">
+                        <div className="flex flex-col items-center gap-3">
+                            <Circle className="size-14 bg-green-50 border-green-200">
+                                <Icons.openai className="w-7 h-7 text-green-600" />
+                            </Circle>
+                            <Circle className="size-14 bg-orange-50 border-orange-200">
+                                <Icons.anthropic className="w-7 h-7 text-orange-600" />
+                            </Circle>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Services */}
@@ -135,6 +142,7 @@ function ChatBotAnimatedBeam({ className }: { className?: string }) {
                     pathColor="rgb(34 197 94)"
                     gradientStartColor="#22c55e"
                     gradientStopColor="#16a34a"
+                    toEdge
                 />
             ))}
 
@@ -150,6 +158,7 @@ function ChatBotAnimatedBeam({ className }: { className?: string }) {
                     pathColor="rgb(251 191 36)"
                     gradientStartColor="#fde68a"
                     gradientStopColor="#fbbf24"
+                    fromEdge
                 />
             ))}
         </div>

@@ -23,6 +23,10 @@ export interface AnimatedBeamProps {
   startYOffset?: number;
   endXOffset?: number;
   endYOffset?: number;
+  /** If true, the beam will start at the boundary edge of the fromRef element toward the toRef element instead of the center. */
+  fromEdge?: boolean;
+  /** If true, the beam will end at the boundary edge of the toRef element from the fromRef element instead of the center. */
+  toEdge?: boolean;
 }
 
 export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
@@ -43,6 +47,8 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
   startYOffset = 0,
   endXOffset = 0,
   endYOffset = 0,
+  fromEdge = false,
+  toEdge = false,
 }) => {
   const id = useId();
   const [pathD, setPathD] = useState("");
@@ -51,19 +57,44 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
   // Calculate the gradient coordinates based on the reverse prop
   const gradientCoordinates = reverse
     ? {
-        x1: ["90%", "-10%"],
-        x2: ["100%", "0%"],
-        y1: ["0%", "0%"],
-        y2: ["0%", "0%"],
-      }
+      x1: ["90%", "-10%"],
+      x2: ["100%", "0%"],
+      y1: ["0%", "0%"],
+      y2: ["0%", "0%"],
+    }
     : {
-        x1: ["10%", "110%"],
-        x2: ["0%", "100%"],
-        y1: ["0%", "0%"],
-        y2: ["0%", "0%"],
-      };
+      x1: ["10%", "110%"],
+      x2: ["0%", "100%"],
+      y1: ["0%", "0%"],
+      y2: ["0%", "0%"],
+    };
 
   useEffect(() => {
+    // Helper: get point on rectangle boundary from its center in direction to a target point
+    const getEdgePoint = (
+      rect: DOMRect,
+      containerRect: DOMRect,
+      targetX: number,
+      targetY: number,
+    ) => {
+      const cx = rect.left - containerRect.left + rect.width / 2;
+      const cy = rect.top - containerRect.top + rect.height / 2;
+      const dx = targetX - cx;
+      const dy = targetY - cy;
+      // Normalize direction
+      const len = Math.hypot(dx, dy) || 1e-6;
+      const vx = dx / len;
+      const vy = dy / len;
+      const hw = rect.width / 2;
+      const hh = rect.height / 2;
+      const tx = hw / (Math.abs(vx) || 1e-6);
+      const ty = hh / (Math.abs(vy) || 1e-6);
+      const t = Math.min(tx, ty);
+      const ex = cx + vx * t;
+      const ey = cy + vy * t;
+      return { x: ex, y: ey };
+    };
+
     const updatePath = () => {
       if (containerRef.current && fromRef.current && toRef.current) {
         const containerRect = containerRef.current.getBoundingClientRect();
@@ -74,19 +105,31 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
         const svgHeight = containerRect.height;
         setSvgDimensions({ width: svgWidth, height: svgHeight });
 
-        const startX =
+        // Centers by default
+        let startX =
           rectA.left - containerRect.left + rectA.width / 2 + startXOffset;
-        const startY =
+        let startY =
           rectA.top - containerRect.top + rectA.height / 2 + startYOffset;
-        const endX =
+        let endX =
           rectB.left - containerRect.left + rectB.width / 2 + endXOffset;
-        const endY =
+        let endY =
           rectB.top - containerRect.top + rectB.height / 2 + endYOffset;
 
+        // If anchoring to edges, project to element boundaries
+        if (fromEdge) {
+          const edge = getEdgePoint(rectA, containerRect, endX, endY);
+          startX = edge.x + startXOffset;
+          startY = edge.y + startYOffset;
+        }
+        if (toEdge) {
+          const edge = getEdgePoint(rectB, containerRect, startX, startY);
+          endX = edge.x + endXOffset;
+          endY = edge.y + endYOffset;
+        }
+
         const controlY = startY - curvature;
-        const d = `M ${startX},${startY} Q ${
-          (startX + endX) / 2
-        },${controlY} ${endX},${endY}`;
+        const d = `M ${startX},${startY} Q ${(startX + endX) / 2
+          },${controlY} ${endX},${endY}`;
         setPathD(d);
       }
     };
@@ -121,6 +164,8 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
     startYOffset,
     endXOffset,
     endYOffset,
+    fromEdge,
+    toEdge,
   ]);
 
   return (

@@ -37,6 +37,7 @@ export const ExcelIcon = (props: React.SVGProps<SVGSVGElement>) => (
                 <rect x="13.5" y="31" width="20" height="1.2" rx="0.6" fill="#D3EEDD" />
                 <rect x="13.5" y="36" width="20" height="1.2" rx="0.6" fill="#D3EEDD" />
                 <rect x="13.5" y="41" width="20" height="1.2" rx="0.6" fill="#D3EEDD" />
+
                 <rect x="13.5" y="46" width="20" height="1.2" rx="0.6" fill="#D3EEDD" />
                 {/* Vertical lines */}
                 <rect x="18" y="27.5" width="1.2" height="18" rx="0.6" fill="#D3EEDD" />
@@ -105,6 +106,15 @@ export const MailIcon = (props: React.SVGProps<SVGSVGElement>) => (
 export type IconProps = React.SVGProps<SVGSVGElement>;
 
 export const Icons = {
+    anthropic: (props: IconProps) => (
+        // Monogram "A" rendered as a solid single-path for better brand fidelity in small sizes
+        <svg role="img" viewBox="0 0 24 24" aria-label="Anthropic" xmlns="http://www.w3.org/2000/svg" {...props}>
+            <path
+                fill="currentColor"
+                d="M12 2L3.1 21h3.27l2.06-4.9h7.14l2.06 4.9H20.9L12 2Zm-1.74 11.32L12 8.45l1.74 4.87h-3.48Z"
+            />
+        </svg>
+    ),
     telegram: TelegramIcon,
     linkedin: LinkedInIcon,
     mail: MailIcon,
