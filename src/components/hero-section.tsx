@@ -19,7 +19,7 @@ const stats = [
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background to-muted">
+    <section className="relative h-screen overflow-hidden bg-gradient-to-br from-background to-muted">
       {/* Theme switcher moved to global SiteHeader to avoid duplication */}
 
       <OptimizedAnimatedGridPattern
@@ -33,7 +33,8 @@ export function HeroSection() {
         )}
       />
 
-      <div className="container mx-auto px-4 py-16 z-10">
+      <div className="absolute inset-0 flex items-center justify-center z-10">
+        <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-8">
@@ -115,6 +116,7 @@ export function HeroSection() {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </section>
