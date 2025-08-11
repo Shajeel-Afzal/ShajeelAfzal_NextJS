@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
+import { MagicCard } from "@/components/magicui/magic-card";
 import { cn } from "@/lib/utils";
 import { services } from "@/data/services";
 // Removed Lucide icons, using Icons from icons.tsx instead
@@ -69,7 +70,7 @@ function ChatBotAnimatedBeam({ className }: { className?: string }) {
     return (
         <div
             className={cn(
-                "relative flex h-[420px] w-full items-center justify-center overflow-hidden p-6",
+                "relative flex h-[420px] w-full items-center justify-center overflow-hidden",
                 className,
             )}
             ref={containerRef}
@@ -229,7 +230,7 @@ export default function ServicesTabs() {
 
         if (key === 'chatbots') {
             return (
-                <div className="w-full max-w-4xl">
+                <div className="w-full max-w-4xl flex items-center justify-center">
                     <ChatBotAnimatedBeam />
                 </div>
             );
@@ -283,8 +284,8 @@ export default function ServicesTabs() {
                     const MainIcon = svc.icon;
                     return (
                         <TabsContent key={key} value={key} className="mt-6">
-                            <div className="bg-card border border-border rounded-xl p-8 hover:shadow-lg transition-all duration-300">
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                            <MagicCard className="rounded-xl hover:shadow-lg transition-all duration-300">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start p-8">
                                     {/* Left side - Content */}
                                     <div className="space-y-6">
                                         {/* Header with icon and title */}
@@ -341,7 +342,7 @@ export default function ServicesTabs() {
                                         {renderVisualContent(key, svc)}
                                     </div>
                                 </div>
-                            </div>
+                            </MagicCard>
                         </TabsContent>
                     );
                 })}
