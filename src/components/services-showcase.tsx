@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { 
   Brain, 
   Bot, 
@@ -22,13 +22,14 @@ import {
   Lock
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
+import { MagicCard } from "@/components/magicui/magic-card";
 
 const services = {
   "ai-agents": {
     title: "AI Agent Development",
     icon: Brain,
     description: "Intelligent AI agents that understand your business and deliver autonomous results",
-    color: "from-purple-500 to-pink-500",
     subcategories: [
       {
         title: "Custom GPT Development",
@@ -56,7 +57,6 @@ const services = {
     title: "ChatBot Development",
     icon: Bot,
     description: "Smart conversational interfaces that engage customers 24/7",
-    color: "from-blue-500 to-cyan-500",
     subcategories: [
       {
         title: "WhatsApp Business Bots",
@@ -84,7 +84,6 @@ const services = {
     title: "Mobile App Development",
     icon: Smartphone,
     description: "Cross-platform mobile applications with native performance",
-    color: "from-green-500 to-emerald-500",
     subcategories: [
       {
         title: "Complete Solution Development",
@@ -112,7 +111,6 @@ const services = {
     title: "Website Development",
     icon: Globe,
     description: "Modern, responsive websites built with cutting-edge technologies",
-    color: "from-orange-500 to-red-500",
     subcategories: [
       {
         title: "Full-Stack Web Applications",
@@ -140,7 +138,6 @@ const services = {
     title: "Backend Development",
     icon: Server,
     description: "Scalable server infrastructure and APIs that power your applications",
-    color: "from-slate-500 to-gray-600",
     subcategories: [
       {
         title: "REST & GraphQL APIs",
@@ -168,7 +165,6 @@ const services = {
     title: "Automation Solutions",
     icon: Zap,
     description: "Streamline operations with intelligent automation workflows",
-    color: "from-yellow-500 to-amber-500",
     subcategories: [
       {
         title: "Business Process Automation",
@@ -204,9 +200,11 @@ export function ServicesShowcase() {
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-            Services That Drive Innovation
-          </h2>
+          <div className="mb-4">
+            <AnimatedShinyText className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+              Services That Drive Innovation
+            </AnimatedShinyText>
+          </div>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Comprehensive technology solutions designed to transform your business and accelerate growth through cutting-edge development
           </p>
@@ -214,58 +212,80 @@ export function ServicesShowcase() {
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           {/* Tabs List */}
-          <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-6 mb-12 h-auto p-1 bg-muted/30 backdrop-blur-sm">
+          <div className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 mb-12 p-2 bg-muted/20 backdrop-blur-sm rounded-xl border border-border/40">
             {Object.entries(services).map(([key, service]) => {
               const Icon = service.icon;
-              return (
-                <TabsTrigger
+              const isActive = activeTab === key;
+              
+              return isActive ? (
+                <div key={key} className="relative rounded-lg p-0.5 overflow-hidden">
+                  {/* Rotating border gradient */}
+                  <div 
+                    className="absolute inset-0 rounded-lg"
+                    style={{
+                      background: `conic-gradient(from 0deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary)))`,
+                      animation: 'spin 6s linear infinite'
+                    }}
+                  />
+                  <button
+                    onClick={() => setActiveTab(key)}
+                    className="relative flex flex-col items-center gap-2 p-4 h-auto transition-all duration-300 rounded-[6px] shadow-lg hover:shadow-xl hover:scale-102 bg-gradient-to-br from-primary/8 to-accent/8 hover:from-primary/12 hover:to-accent/12 w-full"
+                  >
+                    <Icon className="w-5 h-5 transition-colors text-primary" />
+                    <span className="text-xs font-medium text-center leading-tight text-foreground">
+                      {service.title}
+                    </span>
+                  </button>
+                </div>
+              ) : (
+                <button
                   key={key}
-                  value={key}
+                  onClick={() => setActiveTab(key)}
                   className={cn(
                     "flex flex-col items-center gap-2 p-4 h-auto transition-all duration-300",
-                    "data-[state=active]:bg-background data-[state=active]:shadow-lg",
-                    "data-[state=active]:scale-105 hover:scale-102"
+                    "bg-background/50 hover:bg-background/80 hover:scale-102 rounded-lg border border-border/20",
+                    "hover:shadow-md text-foreground/80 hover:text-foreground"
                   )}
                 >
                   <Icon className="w-5 h-5" />
                   <span className="text-xs font-medium text-center leading-tight">
                     {service.title}
                   </span>
-                </TabsTrigger>
+                </button>
               );
             })}
-          </TabsList>
+          </div>
 
           {/* Tabs Content */}
           {Object.entries(services).map(([key, service]) => (
             <TabsContent key={key} value={key} className="mt-0">
               <div className="space-y-12">
                 {/* Subcategories Grid */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {service.subcategories.map((subcategory, index) => {
                     const SubIcon = subcategory.icon;
                     return (
-                      <div
+                      <MagicCard
                         key={index}
-                        className="group text-center space-y-4 transition-all duration-300 hover:scale-105"
+                        className="group cursor-pointer text-center p-6 transition-all duration-300 bg-gradient-to-b from-background/80 to-background/40 border-border/30 hover:shadow-xl"
+                        gradientColor="rgba(59, 130, 246, 0.15)"
+                        gradientSize={200}
                       >
-                        <div className={cn(
-                          "mx-auto w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300",
-                          "bg-muted/50 group-hover:bg-gradient-to-br group-hover:shadow-lg",
-                          "group-hover:" + service.color.replace("from-", "from-") + "/20 group-hover:to-transparent"
-                        )}>
-                          <SubIcon className="w-7 h-7 text-foreground group-hover:text-primary transition-colors duration-300" />
+                        <div className="space-y-4">
+                          <div className="mx-auto w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 bg-gradient-to-br from-primary/20 to-accent/20 group-hover:from-primary/30 group-hover:to-accent/30 group-hover:shadow-xl group-hover:scale-110">
+                            <SubIcon className="w-7 h-7 transition-all duration-300 text-primary group-hover:text-accent" />
+                          </div>
+                          
+                          <div className="space-y-3">
+                            <h4 className="text-lg font-semibold leading-tight text-foreground group-hover:text-foreground/90">
+                              {subcategory.title}
+                            </h4>
+                            <p className="text-sm text-muted-foreground leading-relaxed group-hover:text-muted-foreground/90">
+                              {subcategory.description}
+                            </p>
+                          </div>
                         </div>
-                        
-                        <div className="space-y-2">
-                          <h4 className="text-lg font-semibold leading-tight">
-                            {subcategory.title}
-                          </h4>
-                          <p className="text-sm text-muted-foreground leading-relaxed">
-                            {subcategory.description}
-                          </p>
-                        </div>
-                      </div>
+                      </MagicCard>
                     );
                   })}
                 </div>
