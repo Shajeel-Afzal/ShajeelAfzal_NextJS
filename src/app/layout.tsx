@@ -78,10 +78,9 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+    apple: "/apple-icon.png",
   },
-  manifest: "/site.webmanifest",
+  manifest: "/manifest.json",
   verification: {
     google: "your-google-verification-code",
   },
@@ -114,12 +113,6 @@ export default function RootLayout({
         {/* Preload critical resources */}
         <link rel="preload" as="image" href="/images/shajeel_afzal.png" />
 
-        {/* Favicon and app icons */}
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
