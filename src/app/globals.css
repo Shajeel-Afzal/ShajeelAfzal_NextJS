@@ -163,32 +163,47 @@
       transform: rotate(-5deg) scale(0.9);
     }
   }
+
   --animate-rippling: rippling 0.6s linear;
 
   @keyframes rippling {
     0% {
       transform: scale(0);
     }
+
     100% {
       transform: scale(4);
     }
   }
 
-  --animate-background-position-spin: background-position-spin 3000ms infinite alternate
-;
+  --animate-background-position-spin: background-position-spin 3000ms infinite alternate;
+
   @keyframes background-position-spin {
-  0% {
-    background-position: top center;}
-  100% {
-    background-position: bottom center;}}
+    0% {
+      background-position: top center;
+    }
+
+    100% {
+      background-position: bottom center;
+    }
+  }
+
   --animate-shine: shine var(--duration) infinite linear;
+
   @keyframes shine {
-  0% {
-    background-position: 0% 0%;}
-  50% {
-    background-position: 100% 100%;}
-  to {
-    background-position: 0% 0%;}}}
+    0% {
+      background-position: 0% 0%;
+    }
+
+    50% {
+      background-position: 100% 100%;
+    }
+
+    to {
+      background-position: 0% 0%;
+    }
+  }
+}
 
 :root {
   --radius: 0.625rem;
@@ -768,4 +783,17 @@ html {
 section[id] {
   scroll-margin-top: 5rem;
   /* header height offset */
+}
+
+/* Utility: hide scrollbars but keep scroll functionality */
+.no-scrollbar {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE 10+ */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  /* Chrome/Safari */
 }

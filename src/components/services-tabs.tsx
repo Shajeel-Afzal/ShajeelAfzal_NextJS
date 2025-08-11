@@ -1,0 +1,318 @@
+"use client";
+
+import React, { forwardRef, useRef } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
+import { AnimatedBeam } from "@/components/magicui/animated-beam";
+import { cn } from "@/lib/utils";
+import { services } from "@/data/services";
+// Removed Lucide icons, using Icons from icons.tsx instead
+import { Icons } from "@/components/icons";
+
+// Circle component for animated beam nodes
+const Circle = forwardRef<
+    HTMLDivElement,
+    { className?: string; children?: React.ReactNode }
+>(({ className, children }, ref) => {
+    return (
+        <div
+            ref={ref}
+            className={cn(
+                "z-10 flex size-12 items-center justify-center rounded-full border-2 bg-white p-3 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]",
+                className,
+            )}
+        >
+            {children}
+        </div>
+    );
+});
+
+Circle.displayName = "Circle";
+
+// ChatBot Animated Beam Component
+function ChatBotAnimatedBeam({ className }: { className?: string }) {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const userRef = useRef<HTMLDivElement>(null);
+    const openaiRef = useRef<HTMLDivElement>(null);
+    const googleDriveRef = useRef<HTMLDivElement>(null);
+    const googleDocsRef = useRef<HTMLDivElement>(null);
+    const whatsappRef = useRef<HTMLDivElement>(null);
+
+    return (
+        <div
+            className={cn(
+                "relative flex h-[400px] w-full items-center justify-center overflow-hidden p-6",
+                className,
+            )}
+            ref={containerRef}
+        >
+            <div className="flex size-full max-w-lg flex-row items-stretch justify-between gap-10">
+                {/* User */}
+                <div className="flex flex-col justify-center">
+                    <Circle ref={userRef} className="bg-blue-50 border-blue-200">
+                        <Icons.user className="w-6 h-6 text-blue-600" />
+                    </Circle>
+                </div>
+
+                {/* OpenAI (Center Hub) */}
+                <div className="flex flex-col justify-center">
+                    <Circle ref={openaiRef} className="size-16 bg-green-50 border-green-200">
+                        <Icons.openai className="w-8 h-8 text-green-600" />
+                    </Circle>
+                </div>
+
+                {/* Services */}
+                <div className="flex flex-col justify-center gap-3">
+                    <Circle ref={googleDriveRef} className="bg-yellow-50 border-yellow-200">
+                        <Icons.googleDrive className="w-6 h-6 text-yellow-600" />
+                    </Circle>
+                    <Circle ref={googleDocsRef} className="bg-blue-50 border-blue-200">
+                        <Icons.googleDocs className="w-6 h-6 text-blue-600" />
+                    </Circle>
+                    <Circle ref={whatsappRef} className="bg-green-50 border-green-200">
+                        <Icons.whatsapp className="w-6 h-6 text-green-600" />
+                    </Circle>
+                </div>
+            </div>
+
+            {/* AnimatedBeams - Services to OpenAI */}
+            <AnimatedBeam
+                containerRef={containerRef}
+                fromRef={googleDriveRef}
+                toRef={openaiRef}
+                duration={3}
+                pathColor="rgb(34 197 94)"
+                gradientStartColor="#22c55e"
+                gradientStopColor="#16a34a"
+            />
+            <AnimatedBeam
+                containerRef={containerRef}
+                fromRef={googleDocsRef}
+                toRef={openaiRef}
+                duration={3}
+                delay={0.5}
+                pathColor="rgb(59 130 246)"
+                gradientStartColor="#3b82f6"
+                gradientStopColor="#2563eb"
+            />
+            <AnimatedBeam
+                containerRef={containerRef}
+                fromRef={whatsappRef}
+                toRef={openaiRef}
+                duration={3}
+                delay={1}
+                pathColor="rgb(34 197 94)"
+                gradientStartColor="#22c55e"
+                gradientStopColor="#16a34a"
+            />
+
+            {/* AnimatedBeam - OpenAI to User (Bi-directional) */}
+            <AnimatedBeam
+                containerRef={containerRef}
+                fromRef={openaiRef}
+                toRef={userRef}
+                duration={2.5}
+                pathColor="rgb(99 102 241)"
+                gradientStartColor="#6366f1"
+                gradientStopColor="#4f46e5"
+            />
+            <AnimatedBeam
+                containerRef={containerRef}
+                fromRef={userRef}
+                toRef={openaiRef}
+                duration={2.5}
+                delay={1.25}
+                reverse
+                pathColor="rgb(99 102 241)"
+                gradientStartColor="#4f46e5"
+                gradientStopColor="#6366f1"
+            />
+        </div>
+    );
+}
+
+// Minimal services tabs using the same visual style as tabs-06
+export default function ServicesTabs() {
+    const entries = Object.entries(services);
+    if (entries.length === 0) return null;
+
+    // AI tools icons for orbiting animation (using Icons from icons.tsx)
+    const aiIcons = [
+        { icon: Icons.openai, className: "w-6 h-6 text-green-600 bg-background border border-green-200 rounded-full p-1" },
+        { icon: Icons.user, className: "w-6 h-6 text-blue-600 bg-background border border-blue-200 rounded-full p-1" },
+        { icon: Icons.googleDrive, className: "w-6 h-6 text-yellow-600 bg-background border border-yellow-200 rounded-full p-1" },
+        { icon: Icons.googleDocs, className: "w-6 h-6 text-blue-600 bg-background border border-blue-200 rounded-full p-1" },
+        { icon: Icons.whatsapp, className: "w-6 h-6 text-green-600 bg-background border border-green-200 rounded-full p-1" },
+    ];
+
+    const aiIconsInner = [
+        { icon: Icons.settings, className: "w-5 h-5 text-orange-500 bg-background border border-orange-500/20 rounded-full p-1" },
+        { icon: Icons.help, className: "w-5 h-5 text-purple-500 bg-background border border-purple-500/20 rounded-full p-1" },
+    ];
+
+    const renderVisualContent = (key: string, svc: any) => {
+        if (key === 'ai-agents') {
+            return (
+                <div className="relative w-full max-w-md aspect-square flex items-center justify-center">
+                    <OrbitingCircles
+                        className="size-8"
+                        duration={20}
+                        delay={0}
+                        radius={120}
+                        iconSize={32}
+                    >
+                        {aiIcons.map(({ icon: Icon, className }, index) => (
+                            <div key={index} className={className}>
+                                <Icon className="w-4 h-4" />
+                            </div>
+                        ))}
+                    </OrbitingCircles>
+
+                    <OrbitingCircles
+                        className="size-6"
+                        duration={15}
+                        delay={5}
+                        radius={60}
+                        reverse
+                        iconSize={24}
+                    >
+                        {aiIconsInner.map(({ icon: Icon, className }, index) => (
+                            <div key={index} className={className}>
+                                <Icon className="w-3 h-3" />
+                            </div>
+                        ))}
+                    </OrbitingCircles>
+
+                    {/* Center AI OpenAI icon */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-16 h-16 bg-primary/10 border-2 border-primary/30 rounded-full flex items-center justify-center">
+                            <Icons.openai className="w-8 h-8 text-primary" />
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        if (key === 'chatbots') {
+            return (
+                <div className="w-full max-w-md">
+                    <ChatBotAnimatedBeam />
+                </div>
+            );
+        }
+
+        // Default placeholder for other services
+        const MainIcon = svc.icon;
+        return (
+            <div className="w-full max-w-md aspect-square bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-2xl border border-primary/20 flex items-center justify-center">
+                <div className="text-center space-y-4">
+                    <MainIcon className="w-16 h-16 text-primary mx-auto" />
+                    <div className="space-y-2">
+                        <div className="text-sm font-medium text-foreground">
+                            {svc.title}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                            Visual representation coming soon
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    return (
+        <section className="container mx-auto px-4 py-12">
+            <div className="mb-6">
+                <h2 className="text-2xl md:text-3xl font-bold">Services</h2>
+                <p className="text-muted-foreground">Explore offerings by category</p>
+            </div>
+            <Tabs defaultValue={entries[0][0]} className="w-full">
+                <TabsList className="w-full h-12 md:h-14 p-0 bg-background justify-start border-b border-b-border rounded-none overflow-x-auto overflow-y-visible no-scrollbar">
+                    {entries.map(([key, svc]) => {
+                        const Icon = svc.icon;
+                        return (
+                            <TabsTrigger
+                                key={key}
+                                value={key}
+                                className="rounded-none bg-background h-full data-[state=active]:shadow-none border border-transparent border-b-border data-[state=active]:border-primary dark:data-[state=active]:border-primary data-[state=active]:border-b-background -mb-[2px] rounded-t data-[state=active]:text-primary dark:data-[state=active]:text-primary px-3 md:px-4"
+                            >
+                                <span className="inline-flex items-center gap-2">
+                                    <Icon className="size-4 text-current" />
+                                    <span className="whitespace-nowrap font-sans text-current">{svc.title}</span>
+                                </span>
+                            </TabsTrigger>
+                        )
+                    })}
+                </TabsList>
+
+                {entries.map(([key, svc]) => {
+                    const MainIcon = svc.icon;
+                    return (
+                        <TabsContent key={key} value={key} className="mt-6">
+                            <div className="bg-card border border-border rounded-xl p-8 hover:shadow-lg transition-all duration-300">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                                    {/* Left side - Content */}
+                                    <div className="space-y-6">
+                                        {/* Header with icon and title */}
+                                        <div className="flex items-center gap-4">
+                                            <div className="flex items-center justify-center w-12 h-12 bg-primary/10 rounded-xl">
+                                                <MainIcon className="w-6 h-6 text-primary" />
+                                            </div>
+                                            <h3 className="text-2xl font-bold text-foreground">
+                                                {svc.title}
+                                            </h3>
+                                        </div>
+
+                                        {/* Main description */}
+                                        <p className="text-muted-foreground text-base leading-relaxed">
+                                            {svc.description}
+                                        </p>
+
+                                        {/* Sub-services list */}
+                                        <div className="space-y-3">
+                                            <h4 className="text-sm font-semibold text-foreground uppercase tracking-wide">
+                                                What's Included:
+                                            </h4>
+                                            <ul className="space-y-2">
+                                                {svc.subcategories.map((subcategory, index) => (
+                                                    <li key={index} className="flex items-start gap-3">
+                                                        <div className="flex items-center justify-center w-5 h-5 bg-primary/20 rounded-full mt-0.5 flex-shrink-0">
+                                                            <div className="w-2 h-2 bg-primary rounded-full" />
+                                                        </div>
+                                                        <div>
+                                                            <span className="text-sm font-medium text-foreground">
+                                                                {subcategory.title}
+                                                            </span>
+                                                            <p className="text-xs text-muted-foreground mt-1">
+                                                                {subcategory.description}
+                                                            </p>
+                                                        </div>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+
+                                        {/* CTA Button */}
+                                        <Button
+                                            variant="default"
+                                            size="lg"
+                                            className="w-auto bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-3 text-base font-semibold"
+                                        >
+                                            Let's Chat 💬
+                                        </Button>
+                                    </div>
+
+                                    {/* Right side - Visual/Image placeholder */}
+                                    <div className="flex items-center justify-center">
+                                        {renderVisualContent(key, svc)}
+                                    </div>
+                                </div>
+                            </div>
+                        </TabsContent>
+                    );
+                })}
+            </Tabs>
+        </section>
+    );
+}

@@ -7,6 +7,7 @@ import { ClientSkillsSection } from "@/components/client-skills-section";
 import { ServicesShowcase } from "@/components/services-showcase";
 import Image from "next/image";
 import Link from "next/link";
+import ServicesTabs from "@/components/services-tabs";
 
 const testimonials = [
   {
@@ -272,7 +273,9 @@ export default function Home() {
       <section id="home">
         <HeroSection />
       </section>
-      <ServicesSection />
+      {/* Minimal services tabs preview */}
+      <ServicesTabs />
+      <ServicesShowcase />
       <TestimonialsSection />
       <SkillsSection />
       <ThemeShowcaseSection />
