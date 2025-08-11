@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
 import { MagicCard } from "@/components/magicui/magic-card";
+import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 import { cn } from "@/lib/utils";
 import { services } from "@/data/services";
 // Removed Lucide icons, using Icons from icons.tsx instead
@@ -257,9 +258,15 @@ export default function ServicesTabs() {
 
     return (
         <section className="container mx-auto px-4 py-12">
-            <div className="mb-6">
-                <h2 className="text-2xl md:text-3xl font-bold">Services</h2>
-                <p className="text-muted-foreground">Explore offerings by category</p>
+            <div className="mb-16">
+                <div className="mb-4">
+                    <AnimatedShinyText className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+                        Services That Drive Innovation
+                    </AnimatedShinyText>
+                </div>
+                <p className="text-lg text-muted-foreground max-w-3xl">
+                    Comprehensive technology solutions designed to transform your business and accelerate growth through cutting-edge development
+                </p>
             </div>
             <Tabs defaultValue={entries[0][0]} className="w-full">
                 <TabsList className="w-full h-12 md:h-14 p-0 bg-background justify-start border-b border-b-border rounded-none overflow-x-auto overflow-y-visible no-scrollbar">
