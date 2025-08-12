@@ -7,6 +7,7 @@ import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
 import { MagicCard } from "@/components/magicui/magic-card";
 import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
+import { DotPattern } from "@/components/magicui/dot-pattern";
 import { cn } from "@/lib/utils";
 import { services } from "@/data/services";
 // Removed Lucide icons, using Icons from icons.tsx instead
@@ -186,7 +187,7 @@ export default function ServicesTabs() {
         { icon: Icons.help, className: "w-5 h-5 text-purple-500 bg-background border border-purple-500/20 rounded-full p-1" },
     ];
 
-    const renderVisualContent = (key: string, svc: any) => {
+    const renderVisualContent = (key: string, svc: typeof services[keyof typeof services]) => {
         if (key === 'ai-agents') {
             return (
                 <div className="relative w-full max-w-md aspect-square flex items-center justify-center">
@@ -289,10 +290,26 @@ export default function ServicesTabs() {
 
                 {entries.map(([key, svc]) => {
                     const MainIcon = svc.icon;
+                    
+                    // Consistent background pattern for all service cards
+                    const getBackgroundPattern = () => {
+                        return (
+                            <DotPattern 
+                                className="absolute inset-0 opacity-10 [mask-image:radial-gradient(500px_circle_at_center,white,transparent)]"
+                                width={18}
+                                height={18}
+                                cr={1}
+                            />
+                        );
+                    };
+                    
                     return (
                         <TabsContent key={key} value={key} className="mt-6">
-                            <MagicCard className="rounded-xl hover:shadow-lg transition-all duration-300">
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start p-8">
+                            <MagicCard className="relative overflow-hidden rounded-xl hover:shadow-lg transition-all duration-300">
+                                {/* Background Pattern */}
+                                {getBackgroundPattern()}
+                                
+                                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start p-8">
                                     {/* Left side - Content */}
                                     <div className="space-y-6">
                                         {/* Header with icon and title */}
@@ -313,16 +330,16 @@ export default function ServicesTabs() {
                                         {/* Sub-services list */}
                                         <div className="space-y-3">
                                             <h4 className="text-sm font-semibold text-foreground uppercase tracking-wide">
-                                                What's Included:
+                                                What&apos;s Included:
                                             </h4>
                                             <ul className="space-y-2">
                                                 {svc.subcategories.map((subcategory, index) => (
-                                                    <li key={index} className="flex items-start gap-3">
-                                                        <div className="flex items-center justify-center w-5 h-5 bg-primary/20 rounded-full mt-0.5 flex-shrink-0">
+                                                    <li key={index} className="flex items-start gap-3 group">
+                                                        <div className="flex items-center justify-center w-5 h-5 bg-primary/20 rounded-full mt-0.5 flex-shrink-0 group-hover:bg-primary/30 transition-colors">
                                                             <div className="w-2 h-2 bg-primary rounded-full" />
                                                         </div>
                                                         <div>
-                                                            <span className="text-sm font-medium text-foreground">
+                                                            <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
                                                                 {subcategory.title}
                                                             </span>
                                                             <p className="text-xs text-muted-foreground mt-1">
@@ -340,7 +357,7 @@ export default function ServicesTabs() {
                                             size="lg"
                                             className="w-auto bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-3 text-base font-semibold"
                                         >
-                                            Let's Chat 💬
+                                            Let&apos;s Chat 💬
                                         </Button>
                                     </div>
 

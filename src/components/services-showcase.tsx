@@ -28,13 +28,8 @@ export function ServicesShowcase() {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          {/* Tabs List - shadcn tabs-06 style */}
-          <TabsList
-            className={cn(
-              "mb-12 h-12 w-full max-w-full overflow-x-auto rounded-xl border border-border/40 bg-muted/20 p-2 backdrop-blur-sm",
-              "flex gap-2 md:justify-center"
-            )}
-          >
+          {/* Tabs List - copied from services-tabs.tsx */}
+          <TabsList className="w-full h-12 md:h-14 p-0 bg-background justify-start border-b border-b-border rounded-none overflow-x-auto overflow-y-visible no-scrollbar mb-12">
             {Object.entries(services).map(([key, service]) => {
               const Icon = service.icon;
               return (
@@ -42,13 +37,13 @@ export function ServicesShowcase() {
                   key={key}
                   value={key}
                   className={cn(
-                    "group min-w-max gap-2 rounded-lg px-3 py-2 text-sm font-medium flex-none",
-                    "data-[state=active]:bg-background data-[state=active]:text-foreground",
-                    "text-foreground/80 hover:text-foreground"
+                    "rounded-none bg-background h-full data-[state=active]:shadow-none border border-transparent border-b-border data-[state=active]:border-primary dark:data-[state=active]:border-primary data-[state=active]:border-b-background -mb-[2px] rounded-t data-[state=active]:text-primary dark:data-[state=active]:text-primary px-3 md:px-4",
                   )}
                 >
-                  <Icon className="h-4 w-4 shrink-0 transition-colors group-data-[state=active]:text-primary" />
-                  <span className="whitespace-nowrap">{service.title}</span>
+                  <span className="inline-flex items-center gap-2">
+                    <Icon className="size-4 text-current" />
+                    <span className="whitespace-nowrap font-sans text-current">{service.title}</span>
+                  </span>
                 </TabsTrigger>
               );
             })}
