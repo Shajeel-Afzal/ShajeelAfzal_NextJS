@@ -273,8 +273,6 @@ export default function Home() {
       <section id="home">
         <HeroSection />
       </section>
-      {/* Minimal services tabs preview */}
-      <ServicesTabs />
       <ServicesShowcase />
       <TestimonialsSection />
       <SkillsSection />
