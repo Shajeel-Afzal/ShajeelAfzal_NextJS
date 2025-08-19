@@ -5,9 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { HeroSection } from "@/components/hero-section";
 import { ClientSkillsSection } from "@/components/client-skills-section";
 import { ServicesShowcase } from "@/components/services-showcase";
+import { PortfolioSection } from "@/components/portfolio-section";
 import Image from "next/image";
 import Link from "next/link";
-import ServicesTabs from "@/components/services-tabs";
 
 const testimonials = [
   {
@@ -44,13 +44,6 @@ const skills = [
 
 
 
-function ServicesSection() {
-  return (
-    <section id="services" className="bg-muted/50">
-      <ServicesShowcase />
-    </section>
-  );
-}
 
 function TestimonialsSection() {
   return (
@@ -274,6 +267,7 @@ export default function Home() {
         <HeroSection />
       </section>
       <ServicesShowcase />
+      <PortfolioSection />
       <TestimonialsSection />
       <SkillsSection />
       <ThemeShowcaseSection />
