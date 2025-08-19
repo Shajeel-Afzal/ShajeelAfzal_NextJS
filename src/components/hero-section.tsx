@@ -1,0 +1,124 @@
+import { Star, Users, Trophy, Award } from "lucide-react";
+import {
+  OptimizedAnimatedGridPattern,
+  OptimizedAnimatedShinyText,
+  OptimizedAuroraText,
+  OptimizedTextAnimate,
+  OptimizedNumberTicker
+} from "@/components/optimized-magicui";
+import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+
+const stats = [
+  { label: "Projects Completed", value: 100, suffix: "+", icon: Trophy },
+  { label: "Happy Clients", value: 50, suffix: "+", icon: Users },
+  { label: "Years Experience", value: 5, suffix: "+", icon: Award },
+  { label: "Technologies", value: 15, suffix: "+", icon: Star }
+];
+
+export function HeroSection() {
+  return (
+    <section className="relative h-screen overflow-hidden bg-gradient-to-br from-background to-muted">
+      {/* Theme switcher moved to global SiteHeader to avoid duplication */}
+
+      <OptimizedAnimatedGridPattern
+        numSquares={30}
+        maxOpacity={0.1}
+        duration={3}
+        repeatDelay={1}
+        className={cn(
+          "absolute inset-0",
+          "[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]"
+        )}
+      />
+
+      <div className="absolute inset-0 flex items-center justify-center z-10">
+        <div className="container mx-auto px-4">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left Content */}
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium">
+                <Star className="w-4 h-4" />
+                <OptimizedAnimatedShinyText className="text-primary">
+                  Certified Developer
+                </OptimizedAnimatedShinyText>
+              </div>
+
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+                Transform Your
+                <span className="block">
+                  <OptimizedAuroraText className="text-4xl md:text-6xl lg:text-7xl font-bold">
+                    AI Vision
+                  </OptimizedAuroraText>
+                </span>
+                Into Reality
+              </h1>
+
+              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
+                Expert AI Engineer & Chatbot Specialist helping businesses
+                build cutting-edge solutions that drive growth and innovation.
+              </p>
+            </div>
+
+            {/* CTA */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 rounded-lg font-semibold text-lg transition-colors">
+                <OptimizedTextAnimate animation="slideUp" by="word" className="text-primary-foreground">
+                  Schedule a Call
+                </OptimizedTextAnimate>
+              </button>
+              <button className="border border-border hover:bg-accent hover:text-accent-foreground px-8 py-4 rounded-lg font-semibold text-lg transition-colors">
+                <OptimizedTextAnimate animation="slideUp" by="word" delay={0.2} className="text-current">
+                  View Portfolio
+                </OptimizedTextAnimate>
+              </button>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8">
+              {stats.map((stat, index) => (
+                <Card key={stat.label} className="p-0">
+                  <CardContent className="text-center p-4">
+                    <stat.icon className="w-6 h-6 mx-auto mb-2 text-primary" />
+                    <div className="text-2xl font-bold">
+                      <OptimizedNumberTicker
+                        value={stat.value}
+                        delay={index * 0.2}
+                        className="text-2xl font-bold"
+                      />
+                      {stat.suffix}
+                    </div>
+                    <div className="text-sm text-muted-foreground">{stat.label}</div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Visual */}
+          <div className="relative">
+            <div className="relative h-[700px] w-full max-w-lg mx-auto">
+              {/* Profile Image */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Image
+                  src="/images/shajeel_afzal.png"
+                  alt="Shajeel Afzal - AI Engineer & Chatbot Specialist"
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  quality={85}
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bsvrxeAKOtZ85VDMaK+tgZmjiuIkSGVwGV1m"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+  );
+}
