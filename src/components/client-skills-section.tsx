@@ -1,6 +1,17 @@
 'use client';
 
-import { Smartphone, Brain, Bot, Code } from "lucide-react";
+import { 
+  Smartphone, 
+  Brain, 
+  Bot, 
+  Code, 
+  Database, 
+  Cloud, 
+  Server, 
+  Globe, 
+  Zap,
+  Settings
+} from "lucide-react";
 
 // Icon mapping for skills
 const skillIconMap = {
@@ -8,6 +19,12 @@ const skillIconMap = {
     brain: Brain,
     bot: Bot,
     code: Code,
+    database: Database,
+    cloud: Cloud,
+    server: Server,
+    globe: Globe,
+    zap: Zap,
+    settings: Settings,
 } as const;
 
 type SkillIconName = keyof typeof skillIconMap;
