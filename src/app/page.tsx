@@ -1,5 +1,6 @@
 import { 
-  MessageCircle
+  MessageCircle,
+  Bot
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HeroSection } from "@/components/hero-section";
@@ -26,6 +27,13 @@ function CTASection() {
             <Link href="#consultation">
               <Button size="lg" className="text-lg px-8 py-6">
                 Book Free Consultation
+              </Button>
+            </Link>
+
+            <Link href="/ai-assistant">
+              <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+                <Bot className="mr-2 w-5 h-5" />
+                Try AI Assistant
               </Button>
             </Link>
 

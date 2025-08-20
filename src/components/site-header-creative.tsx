@@ -121,6 +121,11 @@ export function SiteHeaderCreative() {
               <div className="hidden sm:flex">
                 <ThemeSwitcher />
               </div>
+              <Link href="/ai-assistant">
+                <Button variant="outline" size="sm" className="hidden sm:inline-flex">
+                  AI Assistant
+                </Button>
+              </Link>
               <Link href="#consultation">
                 <Button size="sm" className="hidden md:inline-flex bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-sm hover:brightness-110">
                   Hire me
@@ -166,6 +171,13 @@ export function SiteHeaderCreative() {
                 {item.label}
               </Link>
             ))}
+            <Link
+              href="/ai-assistant"
+              className="rounded-md px-3 py-2 text-sm font-medium hover:bg-muted/60"
+              onClick={close}
+            >
+              AI Assistant
+            </Link>
             <Link href="#consultation" onClick={close}>
               <Button className="mt-2 w-full">Hire me</Button>
             </Link>
