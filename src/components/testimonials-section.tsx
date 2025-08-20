@@ -1,5 +1,6 @@
 import { Star } from "lucide-react";
 import { Marquee } from "@/components/magicui/marquee";
+import { AuroraText } from "@/components/magicui/aurora-text";
 import Image from "next/image";
 
 const testimonials = [
@@ -31,10 +32,14 @@ export function TestimonialsSection() {
     <section id="testimonials" className="py-20">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            What Clients Say
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            What{" "}
+            <AuroraText className="text-4xl md:text-5xl font-bold">
+              Clients Say
+            </AuroraText>{" "}
+            💬 About My Work
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Trusted by entrepreneurs and enterprises worldwide
           </p>
         </div>
