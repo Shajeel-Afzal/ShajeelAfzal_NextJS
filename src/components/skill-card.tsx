@@ -29,7 +29,7 @@ export function SkillCard({ skill }: SkillCardProps) {
         className="w-16 h-16 theme-adaptive-icon transition-transform group-hover:scale-110" 
         data-icon={iconToUse}
         style={{ 
-          // color: skill.brandColor,
+          ...(skill.brandColor && { color: skill.brandColor }),
           filter: "drop-shadow(0 0 2px rgba(0,0,0,0.1))",
           display: 'block'
         }} 

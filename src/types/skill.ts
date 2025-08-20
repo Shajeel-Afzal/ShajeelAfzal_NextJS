@@ -13,5 +13,5 @@ export interface Skill {
     light: string;
     dark: string;
   };
-  brandColor: string;
+  brandColor?: string;
 }

@@ -19,7 +19,7 @@ import { Skill } from '@/types/skill';
 const skills: Skill[] = [
   // Frontend & Web Technologies
   { name: "React", icon: { light: "logos:react", dark: "logos:react" }, brandColor: "#61DAFB" },
-  { name: "Next.js", icon: { light: "logos:nextjs-icon", dark: "simple-icons:nextdotjs" }, brandColor: "#000000" },
+  { name: "Next.js", icon: { light: "logos:nextjs-icon", dark: "simple-icons:nextdotjs" }},
   { name: "TypeScript", icon: { light: "logos:typescript-icon", dark: "logos:typescript-icon" }, brandColor: "#3178C6" },
   { name: "JavaScript", icon: { light: "logos:javascript", dark: "logos:javascript" }, brandColor: "#F7DF1E" },
   { name: "Tailwind CSS", icon: { light: "logos:tailwindcss-icon", dark: "logos:tailwindcss-icon" }, brandColor: "#06B6D4" },
@@ -52,8 +52,8 @@ const skills: Skill[] = [
   { name: "REST APIs", icon: { light: "lucide:zap", dark: "lucide:zap" }, brandColor: "hsl(var(--primary))" },
   { name: "GraphQL", icon: { light: "logos:graphql", dark: "logos:graphql" }, brandColor: "#E10098" },
   { name: "Firebase", icon: { light: "simple-icons:firebase", dark: "simple-icons:firebase" }, brandColor: "#FFCA28" },
-  { name: "Vercel", icon: { light: "logos:vercel-icon", dark: "simple-icons:vercel" }, brandColor: "#000000" },
-  { name: "WordPress", icon: { light: "logos:wordpress-icon", dark: "logos:wordpress-icon" }, brandColor: "#21759B" },
+  { name: "Vercel", icon: { light: "logos:vercel-icon", dark: "simple-icons:vercel" } },
+  { name: "WordPress", icon: { light: "logos:wordpress-icon", dark: "logos:wordpress-icon" }},
   { name: "OpenAI", icon: { light: "simple-icons:openai", dark: "simple-icons:openai" }, brandColor: "#00A67E" },
   { name: "Langchain", icon: { light: "lucide:brain", dark: "lucide:brain" }, brandColor: "#1C3AA9" },
   { name: "Stripe", icon: { light: "logos:stripe", dark: "logos:stripe" }, brandColor: "#635BFF" },
@@ -61,7 +61,7 @@ const skills: Skill[] = [
   { name: "Postman", icon: { light: "logos:postman-icon", dark: "logos:postman-icon" }, brandColor: "#FF6C37" },
   { name: "N8N", icon: { light: "simple-icons:n8n", dark: "simple-icons:n8n" }, brandColor: "#EA4B71" },
   { name: "Git", icon: { light: "logos:git-icon", dark: "logos:git-icon" }, brandColor: "#F05032" },
-  { name: "Github", icon: { light: "logos:github-icon", dark: "simple-icons:github" }, brandColor: "#181717" },
+  { name: "Github", icon: { light: "logos:github-icon", dark: "simple-icons:github" } },
   { name: "Atlassian", icon: { light: "logos:atlassian", dark: "logos:atlassian" }, brandColor: "#0052CC" },
   { name: "VS Code", icon: { light: "logos:visual-studio-code", dark: "logos:visual-studio-code" }, brandColor: "#007ACC" }
 ];
