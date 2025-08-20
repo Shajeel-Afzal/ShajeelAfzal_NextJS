@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { SkillCard } from '@/components/skill-card';
 import { Marquee } from "@/components/magicui/marquee";
+import { AuroraText } from "@/components/magicui/aurora-text";
 
 // First row of skills - Frontend & Web Technologies
 const skillsRowOne: { name: string }[] = [
@@ -59,12 +60,15 @@ export function SkillsSection() {
     <section id="skills" className="py-20 bg-muted/50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Technical Skills & Technologies
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Expertise Across{" "}
+            <AuroraText className="text-4xl md:text-5xl font-bold">
+              Modern Technologies
+            </AuroraText>{" "}
+            💻 & Frameworks
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Expertise across modern web, mobile, AI, and cloud technologies. 
-            Building scalable solutions with cutting-edge tools and frameworks.
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            Building scalable solutions with cutting-edge tools across web, mobile, AI, and cloud technologies
           </p>
         </div>
 
