@@ -122,7 +122,7 @@ export function SiteHeaderCreative() {
               <div className="hidden sm:flex">
                 <ThemeSwitcher />
               </div>
-              <Link href="#consultation">
+              <Link href="/consultation">
                 <Button size="sm" className="hidden md:inline-flex bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-sm hover:brightness-110">
                   Hire me
                 </Button>
@@ -167,7 +167,7 @@ export function SiteHeaderCreative() {
                 {item.label}
               </Link>
             ))}
-            <Link href="#consultation" onClick={close}>
+            <Link href="/consultation" onClick={close}>
               <Button className="mt-2 w-full">Hire me</Button>
             </Link>
             <div className="mt-2">

@@ -38,7 +38,7 @@ const contactMethods = [
     title: "Schedule Call",
     description: "Book a consultation",
     value: "Free 30-min consultation",
-    href: "#consultation",
+    href: "/consultation",
     note: "Available Mon-Fri"
   },
   {
@@ -98,7 +98,7 @@ export default function ContactPage() {
                 </Link>
               </Button>
               <Button variant="outline" size="lg" asChild>
-                <Link href="#consultation">
+                <Link href="/consultation">
                   Book Free Consultation
                 </Link>
               </Button>

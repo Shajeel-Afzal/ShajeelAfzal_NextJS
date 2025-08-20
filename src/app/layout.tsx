@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { WebVitals } from "@/components/web-vitals";
 import { SiteHeaderCreative } from "@/components/site-header-creative";
 import { SiteFooter } from "@/components/site-footer";
+import { CSPostHogProvider, PostHogPageview } from "@/components/posthog-provider";
 import "./globals.css";
 
 // Use system fonts as fallback when Google Fonts are not available
@@ -115,17 +116,20 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${geistSans.className} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <SiteHeaderCreative />
-          {children}
-          <SiteFooter />
-          <WebVitals />
-        </ThemeProvider>
+        <CSPostHogProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <PostHogPageview />
+            <SiteHeaderCreative />
+            {children}
+            <SiteFooter />
+            <WebVitals />
+          </ThemeProvider>
+        </CSPostHogProvider>
       </body>
     </html>
   );

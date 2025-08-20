@@ -213,7 +213,7 @@ export function SiteFooter() {
               </div>
             </div>
             <Button asChild className="w-full mt-4 min-h-[44px]">
-              <Link href="#consultation">
+              <Link href="/consultation">
                 Schedule Consultation
               </Link>
             </Button>

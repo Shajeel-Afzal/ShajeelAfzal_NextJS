@@ -112,7 +112,7 @@ export default function AboutPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button size="lg" asChild>
-                  <Link href="#consultation">
+                  <Link href="/consultation">
                     Schedule Consultation
                   </Link>
                 </Button>
@@ -276,7 +276,7 @@ export default function AboutPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" asChild>
-              <Link href="#consultation">
+              <Link href="/consultation">
                 Book Free Consultation
               </Link>
             </Button>

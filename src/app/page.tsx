@@ -23,11 +23,11 @@ function CTASection() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="#consultation">
-              <Button size="lg" className="text-lg px-8 py-6">
-                Book Free Consultation
-              </Button>
-            </Link>
+              <Link href="/consultation">
+                <Button size="lg" className="text-lg px-8 py-6">
+                  Book Free Consultation
+                </Button>
+              </Link>
 
             <Link href="https://wa.me/your-number" target="_blank" rel="noopener noreferrer">
               <Button variant="outline" size="lg" className="text-lg px-8 py-6">
