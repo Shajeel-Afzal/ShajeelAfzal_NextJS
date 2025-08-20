@@ -1,6 +1,6 @@
 'use client';
 
-import { useChat } from '@ai-sdk/react';
+import { useState } from 'react';
 import { Bot, Send, User, Loader2, MessageCircle, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -9,11 +9,16 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 
-export function AIAssistant() {
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
-    api: '/api/chat',
-  });
+interface Message {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+}
 
+export function AIAssistant() {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -24,11 +29,95 @@ export function AIAssistant() {
     scrollToBottom();
   }, [messages]);
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (input.trim()) {
-      handleSubmit(e);
+    if (!input.trim() || isLoading) return;
+
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      role: 'user',
+      content: input,
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: [...messages, userMessage].map(msg => ({
+            role: msg.role,
+            content: msg.content,
+          })),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get response');
+      }
+
+      const reader = response.body?.getReader();
+      if (!reader) {
+        throw new Error('No response body');
+      }
+
+      const assistantMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: '',
+      };
+
+      setMessages(prev => [...prev, assistantMessage]);
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = new TextDecoder().decode(value);
+        const lines = chunk.split('\n');
+        
+        for (const line of lines) {
+          if (line.startsWith('data: ') && line !== 'data: [DONE]') {
+            try {
+              const data = JSON.parse(line.slice(6));
+              if (data.choices?.[0]?.delta?.content) {
+                setMessages(prev => prev.map(msg => 
+                  msg.id === assistantMessage.id 
+                    ? { ...msg, content: msg.content + data.choices[0].delta.content }
+                    : msg
+                ));
+              }
+            } catch (e) {
+              // Handle non-JSON chunks
+              setMessages(prev => prev.map(msg => 
+                msg.id === assistantMessage.id 
+                  ? { ...msg, content: msg.content + chunk }
+                  : msg
+              ));
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: 'Sorry, I encountered an error. Please try again or contact Shajeel directly via email or WhatsApp.',
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
     }
+  };
+
+  const handleSampleQuestion = (question: string) => {
+    setInput(question);
   };
 
   return (
@@ -75,7 +164,7 @@ export function AIAssistant() {
                   <Button 
                     variant="outline" 
                     className="justify-start text-left h-auto p-4"
-                    onClick={() => handleInputChange({ target: { value: "What services does Shajeel offer?" } } as any)}
+                    onClick={() => handleSampleQuestion("What services does Shajeel offer?")}
                   >
                     <div>
                       <div className="font-medium">What services does Shajeel offer?</div>
@@ -85,7 +174,7 @@ export function AIAssistant() {
                   <Button 
                     variant="outline" 
                     className="justify-start text-left h-auto p-4"
-                    onClick={() => handleInputChange({ target: { value: "How much does a mobile app cost?" } } as any)}
+                    onClick={() => handleSampleQuestion("How much does a mobile app cost?")}
                   >
                     <div>
                       <div className="font-medium">How much does a mobile app cost?</div>
@@ -95,7 +184,7 @@ export function AIAssistant() {
                   <Button 
                     variant="outline" 
                     className="justify-start text-left h-auto p-4"
-                    onClick={() => handleInputChange({ target: { value: "Can you build AI chatbots?" } } as any)}
+                    onClick={() => handleSampleQuestion("Can you build AI chatbots?")}
                   >
                     <div>
                       <div className="font-medium">Can you build AI chatbots?</div>
@@ -105,7 +194,7 @@ export function AIAssistant() {
                   <Button 
                     variant="outline" 
                     className="justify-start text-left h-auto p-4"
-                    onClick={() => handleInputChange({ target: { value: "How do I get started with a project?" } } as any)}
+                    onClick={() => handleSampleQuestion("How do I get started with a project?")}
                   >
                     <div>
                       <div className="font-medium">How do I get started?</div>
@@ -167,10 +256,10 @@ export function AIAssistant() {
       {/* Input Area */}
       <div className="border-t bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-card/50">
         <div className="container mx-auto px-4 py-4 max-w-4xl">
-          <form onSubmit={handleFormSubmit} className="flex gap-3">
+          <form onSubmit={handleSubmit} className="flex gap-3">
             <Input
               value={input}
-              onChange={handleInputChange}
+              onChange={(e) => setInput(e.target.value)}
               placeholder="Ask me about services, pricing, or anything else..."
               className="flex-1 bg-background"
               disabled={isLoading}

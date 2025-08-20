@@ -1,4 +1,4 @@
-import { AIAssistantSimple } from "@/components/ai-assistant-simple";
+import { AIAssistant } from "@/components/ai-assistant";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function AIAssistantPage() {
   return (
     <div className="min-h-screen bg-background">
-      <AIAssistantSimple />
+      <AIAssistant />
     </div>
   );
 }
