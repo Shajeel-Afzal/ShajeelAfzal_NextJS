@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import { PersonalWebsiteStructuredData } from "@/components/structured-data";
 import { ThemeProvider } from "@/components/theme-provider";
 import { WebVitals } from "@/components/web-vitals";
@@ -7,19 +6,14 @@ import { SiteHeaderCreative } from "@/components/site-header-creative";
 import { SiteFooter } from "@/components/site-footer";
 import "./globals.css";
 
-const geistSans = Geist({
+// Temporary fallback fonts for development
+const geistSans = {
   variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap", // Improve font loading performance
-  preload: true,
-});
+};
 
-const geistMono = Geist_Mono({
+const geistMono = {
   variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap", // Improve font loading performance
-  preload: true,
-});
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://shajeelafzal.com"),

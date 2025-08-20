@@ -17,6 +17,21 @@ const nextConfig: NextConfig = {
     // Optimize for different device sizes
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Allow external image hosts for course placeholders
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'shajeelafzal.com',
+        port: '',
+        pathname: '/images/**',
+      },
+    ],
   },
 
   // Enable experimental features for performance

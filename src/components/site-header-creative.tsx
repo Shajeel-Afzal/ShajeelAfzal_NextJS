@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { useEffect, useMemo, useState } from "react"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -8,19 +9,23 @@ import { ThemeSwitcher } from "@/components/theme-switcher"
 
 // Shared nav items with anchors on the page
 const navItems = [
-  { href: "#home", label: "Home" },
-  { href: "#services", label: "Services" },
-  { href: "#testimonials", label: "Testimonials" },
-  { href: "#skills", label: "Skills" },
-  { href: "#themes", label: "Themes" },
+  { href: "#home", label: "Home", type: "anchor" },
+  { href: "#services", label: "Services", type: "anchor" },
+  { href: "/courses", label: "Courses", type: "page" },
+  { href: "#testimonials", label: "Testimonials", type: "anchor" },
+  { href: "#skills", label: "Skills", type: "anchor" },
+  { href: "#themes", label: "Themes", type: "anchor" },
 ]
 
 export function SiteHeaderCreative() {
+  const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState<string | null>(null)
   const [progress, setProgress] = useState(0)
 
-  const sectionIds = useMemo(() => navItems.map((n) => n.href.replace('#', '')), [])
+  const sectionIds = useMemo(() => navItems
+    .filter(n => n.type === "anchor")
+    .map((n) => n.href.replace('#', '')), [])
 
   useEffect(() => {
     // Scroll progress indicator
@@ -58,6 +63,15 @@ export function SiteHeaderCreative() {
 
   const close = () => setOpen(false)
 
+  const isActiveItem = (item: typeof navItems[0]) => {
+    if (item.type === "page") {
+      return pathname === item.href
+    } else {
+      const id = item.href.replace('#', '')
+      return active === id
+    }
+  }
+
   return (
     <header className="sticky top-0 z-50 w-full">
       {/* Scroll progress bar (reduced motion friendly) */}
@@ -88,8 +102,7 @@ export function SiteHeaderCreative() {
             {/* Desktop nav */}
             <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
               {navItems.map((item) => {
-                const id = item.href.replace('#', '')
-                const isActive = active === id
+                const isActive = isActiveItem(item)
                 return (
                   <Link
                     key={item.href}
