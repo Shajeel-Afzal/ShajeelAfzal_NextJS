@@ -4,7 +4,7 @@ import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 import { AuroraText } from "@/components/magicui/aurora-text";
 import { TextAnimate } from "@/components/magicui/text-animate";
 import { NumberTicker } from "@/components/magicui/number-ticker";
-import { Card, CardContent } from "@/components/ui/card";
+import { MagicCard } from "@/components/magicui/magic-card";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
@@ -77,20 +77,26 @@ export function HeroSection() {
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8">
               {stats.map((stat, index) => (
-                <Card key={stat.label} className="p-0">
-                  <CardContent className="text-center p-4">
-                    <stat.icon className="w-6 h-6 mx-auto mb-2 text-primary" />
-                    <div className="text-2xl font-bold">
-                      <NumberTicker
-                        value={stat.value}
-                        delay={index * 0.2}
-                        className="text-2xl font-bold"
-                      />
-                      {stat.suffix}
-                    </div>
-                    <div className="text-sm text-muted-foreground">{stat.label}</div>
-                  </CardContent>
-                </Card>
+                <MagicCard 
+                  key={stat.label} 
+                  className="text-center p-4 rounded-lg border shadow-sm"
+                  gradientSize={150}
+                  gradientColor="rgba(99, 102, 241, 0.1)"
+                  gradientOpacity={0.6}
+                  gradientFrom="#8B5CF6"
+                  gradientTo="#06B6D4"
+                >
+                  <stat.icon className="w-6 h-6 mx-auto mb-2 text-primary" />
+                  <div className="text-2xl font-bold">
+                    <NumberTicker
+                      value={stat.value}
+                      delay={index * 0.2}
+                      className="text-2xl font-bold"
+                    />
+                    {stat.suffix}
+                  </div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                </MagicCard>
               ))}
             </div>
           </div>
