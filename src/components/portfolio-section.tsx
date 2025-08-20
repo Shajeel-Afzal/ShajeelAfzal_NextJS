@@ -2,7 +2,7 @@
 
 import { MagicCard } from "@/components/magicui/magic-card";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
-import { OptimizedAuroraText } from "@/components/optimized-magicui";
+import { AuroraText } from "@/components/magicui/aurora-text";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -176,9 +176,9 @@ export function PortfolioSection() {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Here&apos;s a Glimpse of{" "}
-            <OptimizedAuroraText className="text-4xl md:text-5xl font-bold">
+            <AuroraText className="text-4xl md:text-5xl font-bold">
               Some Exciting 🚀 Projects
-            </OptimizedAuroraText>{" "}
+            </AuroraText>{" "}
             I&apos;ve Done
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">

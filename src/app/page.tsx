@@ -2,7 +2,7 @@ import {
   Star, 
   MessageCircle
 } from "lucide-react";
-import { OptimizedMarquee } from "@/components/optimized-magicui";
+import { Marquee } from "@/components/magicui/marquee";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { HeroSection } from "@/components/hero-section";
@@ -49,7 +49,7 @@ function TestimonialsSection() {
           </p>
         </div>
 
-        <OptimizedMarquee pauseOnHover className="[--duration:40s]">
+        <Marquee pauseOnHover className="[--duration:40s]">
           {testimonials.map((testimonial) => (
             <div
               key={testimonial.name}
@@ -82,7 +82,7 @@ function TestimonialsSection() {
               </div>
             </div>
           ))}
-        </OptimizedMarquee>
+        </Marquee>
       </div>
     </section>
   );

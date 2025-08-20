@@ -1,7 +1,7 @@
 'use client';
 
 import { SkillCard } from '@/components/skill-card';
-import { OptimizedMarquee } from "@/components/optimized-magicui";
+import { Marquee } from "@/components/magicui/marquee";
 
 // First row of skills - Frontend & Web Technologies
 const skillsRowOne: { name: string }[] = [
@@ -67,25 +67,25 @@ export function SkillsSection() {
 
         <div className="space-y-8">
           {/* Frontend & Web Technologies */}
-          <OptimizedMarquee className="[--duration:20s]" pauseOnHover>
+          <Marquee className="[--duration:20s]" pauseOnHover>
             {skillsRowOne.map((skill) => (
               <SkillCard key={skill.name} skill={skill} />
             ))}
-          </OptimizedMarquee>
+          </Marquee>
 
           {/* Mobile & Cross-Platform */}
-          <OptimizedMarquee className="[--duration:25s]" reverse pauseOnHover>
+          <Marquee className="[--duration:25s]" reverse pauseOnHover>
             {skillsRowTwo.map((skill) => (
               <SkillCard key={skill.name} skill={skill} />
             ))}
-          </OptimizedMarquee>
+          </Marquee>
 
           {/* Backend, AI & Cloud */}
-          <OptimizedMarquee className="[--duration:30s]" pauseOnHover>
+          <Marquee className="[--duration:30s]" pauseOnHover>
             {skillsRowThree.map((skill) => (
               <SkillCard key={skill.name} skill={skill} />
             ))}
-          </OptimizedMarquee>
+          </Marquee>
         </div>
       </div>
     </section>
