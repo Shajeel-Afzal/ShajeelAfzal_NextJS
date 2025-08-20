@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { HeroSection } from "@/components/hero-section";
 import { ClientSkillsSection } from "@/components/client-skills-section";
 import { ServicesShowcase } from "@/components/services-showcase";
+import { ServicesCardsShowcase } from "@/components/services-cards-showcase";
 import { PortfolioSection } from "@/components/portfolio-section";
 import Image from "next/image";
 import Link from "next/link";
@@ -265,8 +266,8 @@ export default function Home() {
     <main className="font-sans">
       <section id="home">
         <HeroSection />
-      </section>
-      <ServicesShowcase />
+      </section>      
+      <ServicesCardsShowcase />
       <PortfolioSection />
       <TestimonialsSection />
       <SkillsSection />
