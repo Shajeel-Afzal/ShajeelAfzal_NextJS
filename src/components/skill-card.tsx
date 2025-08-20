@@ -34,6 +34,8 @@ export function SkillCard({ skill }: SkillCardProps) {
       "Electron": "#47848F",
       "AI Development": "#00A67E",
       "Node.js": "#339933",
+      "Claude": "#CD7F32",
+      "Perplexity": "#20B2AA",
       "Python": "#3776AB",
       "Django": "#092E20",
       "FastAPI": "#009688",

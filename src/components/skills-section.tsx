@@ -22,16 +22,13 @@ const skills: { name: string }[] = [
   { name: "JavaScript" },
   { name: "Tailwind CSS" },
   { name: "HTML5" },
-  { name: "CSS3" },
-  { name: "Shadcn" },
+  { name: "CSS3" },  
   { name: "Supabase" },
-    { name: "Vector Database" },
-    { name: "Pinecone" },
+    { name: "Vector Database" },    
   
   // Mobile & Cross-Platform
     { name: "Flutter" },
-    { name: "Dart" },
-    { name: "Expo" },
+    { name: "Dart" },    
     { name: "PWA" },
     { name: "Google Play" },
     { name: "App Store" },
@@ -40,6 +37,8 @@ const skills: { name: string }[] = [
   // Backend, AI & Cloud
     { name: "AI Development" },
     { name: "Chatbots" },
+    { name: "Claude" },
+    { name: "Perplexity" },
     { name: "Node.js" },
     { name: "Python" },
     { name: "FastAPI" },
