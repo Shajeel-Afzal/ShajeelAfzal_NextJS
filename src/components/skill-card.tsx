@@ -54,7 +54,7 @@ export function SkillCard({ skill }: SkillCardProps) {
 
   return (
     <MagicCard
-      className="mx-4 flex flex-col items-center justify-center p-6 rounded-lg bg-card hover:bg-card/80 transition-colors group cursor-pointer min-w-[160px] border shadow-sm"
+      className="mx-2 flex flex-col items-center justify-center p-6 rounded-lg bg-card hover:bg-card/80 transition-colors group cursor-pointer min-w-[160px] border shadow-sm"
       gradientSize={200}
       gradientColor="rgba(59, 130, 246, 0.1)"
       gradientOpacity={0.6}
