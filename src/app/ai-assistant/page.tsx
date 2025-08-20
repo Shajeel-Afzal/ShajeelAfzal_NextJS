@@ -1,7 +1,6 @@
 'use client';
 
-import { useChat } from 'ai';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { Send, Bot, User, ArrowLeft, Loader2, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,7 +11,6 @@ interface Message {
   id: string;
   role: 'user' | 'assistant';
   content: string;
-  toolInvocations?: any[];
 }
 
 function MessageBubble({ message }: { message: Message }) {
@@ -47,26 +45,6 @@ function MessageBubble({ message }: { message: Message }) {
           <div className="whitespace-pre-wrap text-sm leading-relaxed">
             {message.content}
           </div>
-          
-          {/* Tool Results */}
-          {message.toolInvocations && message.toolInvocations.length > 0 && (
-            <div className="mt-3 pt-3 border-t border-border/20">
-              {message.toolInvocations.map((tool, index) => (
-                <div key={index} className="text-xs opacity-75">
-                  <div className="font-medium">{tool.toolName}</div>
-                  {tool.result && (
-                    <div className="mt-1 space-y-1">
-                      {Object.entries(tool.result).map(([key, value]) => (
-                        <div key={key}>
-                          <span className="font-medium">{key}:</span> {String(value)}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
         </div>
       </div>
     </div>
@@ -93,9 +71,10 @@ function TypingIndicator() {
 }
 
 export default function AIAssistantPage() {
-  const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
-    api: '/api/chat',
-  });
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -117,6 +96,83 @@ export default function AIAssistantPage() {
       setHasStarted(true);
     }
   }, [messages]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
+
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!input.trim() || isLoading) return;
+
+    const userMessage: Message = {
+      id: `user-${Date.now()}`,
+      role: 'user',
+      content: input.trim(),
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: [...messages, userMessage].map(msg => ({
+            role: msg.role,
+            content: msg.content,
+          })),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      if (!response.body) {
+        throw new Error('No response body');
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+
+      const assistantMessage: Message = {
+        id: `assistant-${Date.now()}`,
+        role: 'assistant',
+        content: '',
+      };
+
+      setMessages(prev => [...prev, assistantMessage]);
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        
+        // For AI SDK v5, we just append the chunk directly to the content
+        setMessages(prev => {
+          const newMessages = [...prev];
+          const lastMessage = newMessages[newMessages.length - 1];
+          if (lastMessage.role === 'assistant') {
+            lastMessage.content += chunk;
+          }
+          return newMessages;
+        });
+      }
+    } catch (err) {
+      console.error('Chat error:', err);
+      setError('Sorry, I encountered an error. Please try again or contact support.');
+    } finally {
+      setIsLoading(false);
+    }
+  }, [input, messages, isLoading]);
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -184,7 +240,7 @@ What can I help you with today?`
             {error && (
               <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4 mb-4">
                 <p className="text-destructive text-sm">
-                  Sorry, I'm having trouble connecting right now. Please try again or contact us directly via WhatsApp.
+                  Sorry, I&apos;m having trouble connecting right now. Please try again or contact us directly via WhatsApp.
                 </p>
               </div>
             )}
@@ -247,12 +303,15 @@ What can I help you with today?`
                     variant="outline"
                     size="sm"
                     onClick={() => {
-                      handleInputChange({ target: { value: suggestion } } as any);
+                      setInput(suggestion);
                       // Auto-submit the suggestion
                       setTimeout(() => {
-                        const syntheticEvent = new Event('submit') as any;
-                        syntheticEvent.preventDefault = () => {};
-                        handleSubmit(syntheticEvent);
+                        // Create a proper form submission
+                        const form = document.querySelector('form');
+                        if (form) {
+                          const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+                          form.dispatchEvent(submitEvent);
+                        }
                       }, 100);
                     }}
                     className="text-xs"
