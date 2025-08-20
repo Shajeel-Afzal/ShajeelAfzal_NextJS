@@ -4,10 +4,10 @@ import { gigs, gigCategories } from "@/data/gigs";
 import { GigDetailPage } from "./components/gig-detail-page";
 
 interface GigPageProps {
-  params: {
+  params: Promise<{
     category: string;
     slug: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -18,7 +18,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: GigPageProps): Promise<Metadata> {
-  const gig = gigs.find(g => g.category === params.category && g.slug === params.slug);
+  const { category, slug } = await params;
+  const gig = gigs.find(g => g.category === category && g.slug === slug);
   
   if (!gig) {
     return {};
@@ -43,11 +44,12 @@ export async function generateMetadata({ params }: GigPageProps): Promise<Metada
   };
 }
 
-export default function GigPage({ params }: GigPageProps) {
-  const gig = gigs.find(g => g.category === params.category && g.slug === params.slug);
-  const category = gigCategories.find(cat => cat.slug === params.category);
+export default async function GigPage({ params }: GigPageProps) {
+  const { category, slug } = await params;
+  const gig = gigs.find(g => g.category === category && g.slug === slug);
+  const categoryData = gigCategories.find(cat => cat.slug === category);
   
-  if (!gig || !category) {
+  if (!gig || !categoryData) {
     notFound();
   }
 
@@ -58,8 +60,8 @@ export default function GigPage({ params }: GigPageProps) {
   };
   
   const serializableCategory = {
-    ...category,
-    icon: category.icon.name || 'Brain' // Just pass the icon name
+    ...categoryData,
+    icon: categoryData.icon.name || 'Brain' // Just pass the icon name
   };
 
   return <GigDetailPage gig={serializableGig} category={serializableCategory} />;

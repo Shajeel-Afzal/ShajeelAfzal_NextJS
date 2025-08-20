@@ -196,7 +196,7 @@ export function GigDetailPage({ gig, category }: GigDetailPageProps) {
                   <TabsContent value="description" className="p-6">
                     <h3 className="font-semibold mb-3">What you&apos;ll get:</h3>
                     <ul className="space-y-2">
-                      {currentTier.deliverables.map((deliverable, index) => (
+                      {currentTier.deliverables.map((deliverable: string, index: number) => (
                         <li key={index} className="flex items-start gap-2">
                           <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                           <span>{deliverable}</span>
@@ -354,7 +354,7 @@ export function GigDetailPage({ gig, category }: GigDetailPageProps) {
                     </div>
 
                     <div className="space-y-1">
-                      {currentTier.deliverables.slice(0, 3).map((deliverable, index) => (
+                      {currentTier.deliverables.slice(0, 3).map((deliverable: string, index: number) => (
                         <div key={index} className="flex items-start gap-2 text-sm">
                           <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
                           <span>{deliverable}</span>

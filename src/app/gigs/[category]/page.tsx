@@ -3,10 +3,20 @@ import { notFound } from "next/navigation";
 import { gigCategories } from "@/data/gigs";
 import { CategoryGigsPage } from "./components/category-gigs-page";
 
+interface SerializableGigCategory {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  icon: string; // Icon name instead of component
+  gigCount: number;
+  featured: boolean;
+}
+
 interface CategoryPageProps {
-  params: {
+  params: Promise<{
     category: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -16,17 +26,18 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
-  const category = gigCategories.find(cat => cat.slug === params.category);
+  const { category } = await params;
+  const categoryData = gigCategories.find(cat => cat.slug === category);
   
-  if (!category) {
+  if (!categoryData) {
     return {};
   }
 
   return {
-    title: `${category.name} Services | Professional Development Solutions`,
-    description: `${category.description}. Browse and purchase professional ${category.name.toLowerCase()} services with transparent pricing and guaranteed delivery.`,
+    title: `${categoryData.name} Services | Professional Development Solutions`,
+    description: `${categoryData.description}. Browse and purchase professional ${categoryData.name.toLowerCase()} services with transparent pricing and guaranteed delivery.`,
     keywords: [
-      category.name.toLowerCase(),
+      categoryData.name.toLowerCase(),
       "development services",
       "professional services",
       "gigs marketplace",
@@ -35,12 +46,19 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   };
 }
 
-export default function CategoryPage({ params }: CategoryPageProps) {
-  const category = gigCategories.find(cat => cat.slug === params.category);
+export default async function CategoryPage({ params }: CategoryPageProps) {
+  const { category } = await params;
+  const categoryData = gigCategories.find(cat => cat.slug === category);
   
-  if (!category) {
+  if (!categoryData) {
     notFound();
   }
 
-  return <CategoryGigsPage category={category} />;
+  // Create serializable version without function
+  const serializableCategory: SerializableGigCategory = {
+    ...categoryData,
+    icon: categoryData.icon.name || 'Brain' // Just pass the icon name
+  };
+
+  return <CategoryGigsPage category={serializableCategory} />;
 }

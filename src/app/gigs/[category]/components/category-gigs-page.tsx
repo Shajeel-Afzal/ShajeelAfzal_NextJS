@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { ArrowLeft, Search, Filter, Star, Clock, Tag } from "lucide-react";
+import { ArrowLeft, Search, Filter, Star, Clock, Tag, Brain, Bot, Smartphone, Globe, Server, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,11 +11,29 @@ import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { getGigsByCategory } from "@/data/gigs";
-import { GigCategory } from "@/types/gigs";
 import Link from "next/link";
 
+const iconMap = {
+  Brain: Brain,
+  Bot: Bot, 
+  Smartphone: Smartphone,
+  Globe: Globe,
+  Server: Server,
+  Zap: Zap,
+};
+
+interface SerializableGigCategory {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  icon: string; // Icon name instead of component
+  gigCount: number;
+  featured: boolean;
+}
+
 interface CategoryGigsPageProps {
-  category: GigCategory;
+  category: SerializableGigCategory;
 }
 
 export function CategoryGigsPage({ category }: CategoryGigsPageProps) {
@@ -26,6 +44,9 @@ export function CategoryGigsPage({ category }: CategoryGigsPageProps) {
   const [maxDeliveryTime, setMaxDeliveryTime] = useState<number | undefined>();
 
   const categoryGigs = getGigsByCategory(category.id);
+  
+  // Get the icon component from the map
+  const IconComponent = iconMap[category.icon as keyof typeof iconMap] || Brain;
 
   const filteredGigs = useMemo(() => {
     let filtered = [...categoryGigs];
@@ -98,7 +119,7 @@ export function CategoryGigsPage({ category }: CategoryGigsPageProps) {
 
             <div className="flex items-center gap-4 mb-6">
               <div className="p-3 bg-primary/20 rounded-xl">
-                <category.icon className="h-8 w-8 text-primary" />
+                <IconComponent className="h-8 w-8 text-primary" />
               </div>
               <div>
                 <h1 className="text-4xl md:text-5xl font-bold">{category.name}</h1>

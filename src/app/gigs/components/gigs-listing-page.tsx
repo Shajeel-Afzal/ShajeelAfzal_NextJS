@@ -45,12 +45,12 @@ export function GigsListingPage() {
 
     // Rating filter
     if (filters.rating) {
-      filtered = filtered.filter(gig => gig.averageRating >= filters.rating);
+      filtered = filtered.filter(gig => gig.averageRating >= filters.rating!);
     }
 
     // Delivery time filter
     if (filters.deliveryTime) {
-      filtered = filtered.filter(gig => gig.deliveryTime <= filters.deliveryTime);
+      filtered = filtered.filter(gig => gig.deliveryTime <= filters.deliveryTime!);
     }
 
     // Sort
