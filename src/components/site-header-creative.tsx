@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useEffect, useMemo, useState } from "react"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Bot } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 
@@ -121,6 +121,12 @@ export function SiteHeaderCreative() {
               <div className="hidden sm:flex">
                 <ThemeSwitcher />
               </div>
+              <Link href="/ai-assistant">
+                <Button variant="outline" size="sm" className="hidden lg:inline-flex">
+                  <Bot className="h-4 w-4 mr-2" />
+                  AI Assistant
+                </Button>
+              </Link>
               <Link href="#consultation">
                 <Button size="sm" className="hidden md:inline-flex bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-sm hover:brightness-110">
                   Hire me
@@ -166,6 +172,12 @@ export function SiteHeaderCreative() {
                 {item.label}
               </Link>
             ))}
+            <Link href="/ai-assistant" onClick={close}>
+              <Button variant="outline" className="mt-2 w-full">
+                <Bot className="h-4 w-4 mr-2" />
+                AI Assistant
+              </Button>
+            </Link>
             <Link href="#consultation" onClick={close}>
               <Button className="mt-2 w-full">Hire me</Button>
             </Link>
