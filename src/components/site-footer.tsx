@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Icons } from "@/components/icons";
+import { ShineBorder } from "@/components/magicui/special-effects/shine-border";
+import { Icon } from "@iconify/react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { Mail, MapPin, Phone, Calendar } from "lucide-react";
 
 export function SiteFooter() {
@@ -13,22 +15,62 @@ export function SiteFooter() {
     {
       name: "LinkedIn",
       href: "https://linkedin.com/in/shajeelafzal",
-      icon: Icons.linkedin,
+      icon: {
+        light: "simple-icons:linkedin",
+        dark: "simple-icons:linkedin"
+      },
+      brandColor: "#0A66C2",
+      shineColor: "#0A66C2"
     },
     {
       name: "GitHub", 
       href: "https://github.com/Shajeel-Afzal",
-      icon: Icons.gitHub,
+      icon: {
+        light: "simple-icons:github",
+        dark: "simple-icons:github"
+      },
+      brandColor: "#181717",
+      shineColor: "#6B7280" // Light gray for better visibility in dark mode
+    },
+    {
+      name: "YouTube",
+      href: "https://youtube.com/@shajeelafzal",
+      icon: {
+        light: "simple-icons:youtube",
+        dark: "simple-icons:youtube"
+      },
+      brandColor: "#FF0000",
+      shineColor: "#FF0000"
+    },
+    {
+      name: "Facebook",
+      href: "https://facebook.com/shajeelafzal",
+      icon: {
+        light: "simple-icons:facebook",
+        dark: "simple-icons:facebook"
+      },
+      brandColor: "#1877F2",
+      shineColor: "#1877F2"
+    },
+    {
+      name: "TikTok",
+      href: "https://tiktok.com/@shajeelafzal",
+      icon: {
+        light: "simple-icons:tiktok",
+        dark: "simple-icons:tiktok"
+      },
+      brandColor: "#000000",
+      shineColor: "#8B5CF6" // Purple for better visibility in dark mode
     },
     {
       name: "Email",
       href: "mailto:hello@shajeelafzal.com",
-      icon: Icons.mail,
-    },
-    {
-      name: "WhatsApp",
-      href: "https://wa.me/your-number",
-      icon: Icons.whatsapp,
+      icon: {
+        light: "simple-icons:gmail",
+        dark: "simple-icons:gmail"
+      },
+      brandColor: "#EA4335",
+      shineColor: "#EA4335"
     },
   ];
 
@@ -70,19 +112,33 @@ export function SiteFooter() {
             <p className="text-muted-foreground text-sm leading-relaxed">
               Expert Mobile Apps Developer, AI Engineer & Chatbot Specialist helping businesses build cutting-edge solutions that drive growth and innovation.
             </p>
-            <div className="flex space-x-4">
-              {socialLinks.map((social) => (
-                <Link
-                  key={social.name}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <social.icon className="h-5 w-5" />
-                  <span className="sr-only">{social.name}</span>
-                </Link>
-              ))}
+            
+            {/* Social Icons Grid */}
+            <div className="space-y-3">
+              <h4 className="text-sm font-medium text-center">Connect With Me</h4>
+              <div className="grid grid-cols-3 gap-3">
+                {socialLinks.map((social) => (
+                  <Card key={social.name} className="relative overflow-hidden aspect-square">
+                    <ShineBorder shineColor={social.shineColor} />
+                    <CardContent className="p-3 h-full">
+                      <Link
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex flex-col items-center justify-center h-full text-muted-foreground hover:text-primary transition-all duration-200 group"
+                        title={social.name}
+                      >
+                        <Icon 
+                          icon={social.icon.light}
+                          className="h-6 w-6 group-hover:text-[var(--brand-color)] transition-colors mb-1" 
+                          style={{"--brand-color": social.brandColor} as React.CSSProperties}
+                        />
+                        <span className="text-xs font-medium">{social.name}</span>
+                      </Link>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
           </div>
 
