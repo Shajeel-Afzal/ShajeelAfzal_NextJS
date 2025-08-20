@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Send, Check, AlertCircle } from "lucide-react";
+import { analytics } from "@/components/analytics";
 
 interface ContactFormData {
   name: string;
@@ -33,6 +34,10 @@ export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const [errors, setErrors] = useState<Partial<ContactFormData>>({});
+
+  useEffect(() => {
+    analytics.contactForm.started();
+  }, []);
 
   const validateForm = (): boolean => {
     const newErrors: Partial<ContactFormData> = {};
@@ -63,10 +68,17 @@ export function ContactForm() {
     }
   };
 
+  const handleInputFocus = (field: string) => {
+    analytics.contactForm.fieldFocused(field);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    analytics.contactForm.submitted(formData.projectType, formData.budget);
+    
     if (!validateForm()) {
+      analytics.contactForm.validationError("form", "Multiple validation errors");
       return;
     }
 
@@ -80,6 +92,7 @@ export function ContactForm() {
       // TODO: Replace with actual API integration
       console.log("Form submitted:", formData);
       
+      analytics.contactForm.success();
       setSubmitStatus("success");
       // Reset form
       setFormData({
@@ -94,6 +107,7 @@ export function ContactForm() {
       });
     } catch (error) {
       console.error("Form submission error:", error);
+      analytics.contactForm.error(error instanceof Error ? error.message : "Unknown error");
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
@@ -113,6 +127,7 @@ export function ContactForm() {
             type="text"
             value={formData.name}
             onChange={(e) => handleInputChange("name", e.target.value)}
+            onFocus={() => handleInputFocus("name")}
             placeholder="John Doe"
             className={errors.name ? "border-red-500" : ""}
           />
@@ -132,6 +147,7 @@ export function ContactForm() {
             type="email"
             value={formData.email}
             onChange={(e) => handleInputChange("email", e.target.value)}
+            onFocus={() => handleInputFocus("email")}
             placeholder="john@example.com"
             className={errors.email ? "border-red-500" : ""}
           />

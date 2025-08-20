@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PersonalWebsiteStructuredData } from "@/components/structured-data";
 import { ThemeProvider } from "@/components/theme-provider";
 import { WebVitals } from "@/components/web-vitals";
+import { PostHogClientProvider } from "@/components/analytics";
 import { SiteHeaderCreative } from "@/components/site-header-creative";
 import { SiteFooter } from "@/components/site-footer";
 import "./globals.css";
@@ -101,17 +102,19 @@ export default function RootLayout({
 
       </head>
       <body className="font-sans antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <SiteHeaderCreative />
-          {children}
-          <SiteFooter />
-          <WebVitals />
-        </ThemeProvider>
+        <PostHogClientProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <SiteHeaderCreative />
+            {children}
+            <SiteFooter />
+            <WebVitals />
+          </ThemeProvider>
+        </PostHogClientProvider>
       </body>
     </html>
   );

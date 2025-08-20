@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import { About } from "@/components/about";
+import { PageTracker } from "@/components/page-tracker";
+import { analytics } from "@/components/analytics";
 import { Download, Award, Users, Calendar, Code } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -118,6 +120,7 @@ const experience = [
 export default function AboutPage() {
   return (
     <div className="min-h-screen pt-16">
+      <PageTracker pageName="About" properties={{ page_type: "about" }} />
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-primary/5 to-blue-50 dark:from-primary/10 dark:to-slate-900">
         <div className="container mx-auto px-4">
@@ -132,7 +135,11 @@ export default function AboutPage() {
               Passionate AI Engineer & Mobile App Developer with 5+ years of experience creating innovative solutions that drive business growth and enhance user experiences.
             </p>
             <Button size="lg" className="mr-4" asChild>
-              <a href="/downloads/Shajeel_Afzal_Resume.txt" download="Shajeel_Afzal_Resume.txt">
+              <a 
+                href="/downloads/Shajeel_Afzal_Resume.txt" 
+                download="Shajeel_Afzal_Resume.txt"
+                onClick={() => analytics.download.resume()}
+              >
                 <Download className="mr-2 w-5 h-5" />
                 Download Resume
               </a>
