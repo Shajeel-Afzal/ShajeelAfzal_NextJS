@@ -1,8 +1,8 @@
 "use client";
 
 import { MagicCard } from "@/components/magicui/magic-card";
+import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -122,9 +122,9 @@ function ProjectCard({ project }: { project: Project }) {
           {/* Action Button */}
           <div className="flex justify-start">
             <Link href={project.liveUrl || "#"} target="_blank" rel="noopener noreferrer">
-              <Button className="text-sm px-4 py-2">
+              <InteractiveHoverButton className="text-sm">
                 View Project
-              </Button>
+              </InteractiveHoverButton>
             </Link>
           </div>
         </div>
@@ -161,9 +161,9 @@ export function PortfolioSection() {
         {/* View All Projects Button */}
         <div className="text-center">
           <Link href="/portfolio">
-            <Button className="text-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <InteractiveHoverButton className="text-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
               View All Projects
-            </Button>
+            </InteractiveHoverButton>
           </Link>
         </div>
       </div>
