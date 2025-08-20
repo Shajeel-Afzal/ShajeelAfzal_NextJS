@@ -1,0 +1,57 @@
+/* Theme-aware icon styling */
+.theme-adaptive-icon {
+  /* Use CSS custom properties that change with theme */
+  filter: var(--icon-filter, none);
+  opacity: var(--icon-opacity, 1);
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+/* Light theme adjustments */
+.light .theme-adaptive-icon {
+  --icon-filter: none;
+  --icon-opacity: 1;
+}
+
+/* Dark theme adjustments */
+.dark .theme-adaptive-icon {
+  --icon-filter: brightness(1.1) contrast(0.9);
+  --icon-opacity: 0.95;
+}
+
+/* Specific adjustments for certain logos in dark mode */
+.dark .theme-adaptive-icon[data-icon*="github"] {
+  --icon-filter: invert(1) brightness(0.8);
+}
+
+.dark .theme-adaptive-icon[data-icon*="vercel-icon"] {
+  --icon-filter: invert(1) brightness(0.9);
+}
+
+.dark .theme-adaptive-icon[data-icon*="docker"] {
+  --icon-filter: brightness(1.2);
+}
+
+.dark .theme-adaptive-icon[data-icon*="mongodb"] {
+  --icon-filter: brightness(1.1) saturate(1.2);
+}
+
+/* Enhanced hover effects that work with both themes */
+.theme-adaptive-icon:hover {
+  transform: scale(1.05);
+  filter: var(--icon-filter, none) drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+
+/* System preference based theming */
+@media (prefers-color-scheme: dark) {
+  .theme-adaptive-icon {
+    --icon-filter: brightness(1.1) contrast(0.9);
+    --icon-opacity: 0.95;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .theme-adaptive-icon {
+    --icon-filter: none;
+    --icon-opacity: 1;
+  }
+}

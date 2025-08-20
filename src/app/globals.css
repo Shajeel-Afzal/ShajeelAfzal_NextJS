@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "../styles/theme-adaptive-icons.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -812,4 +813,9 @@ section[id] {
 ::view-transition-old(root), ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
+}
+
+/* Pause all marquees when hovering over skills section */
+.pause-all-marquees .group > div {
+  animation-play-state: paused !important;
 }
