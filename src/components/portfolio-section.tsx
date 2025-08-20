@@ -3,7 +3,6 @@
 import { MagicCard } from "@/components/magicui/magic-card";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import { OptimizedAuroraText } from "@/components/optimized-magicui";
-import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,6 +16,37 @@ interface Project {
   githubUrl?: string;
   category: "Mobile App" | "AI/ML" | "Web App" | "Chatbot";
 }
+
+// Technology color mapping for better visual appeal
+const getTechColor = (tech: string): string => {
+  const colorMap: Record<string, string> = {
+    // Frontend
+    "React": "bg-blue-500/20 text-blue-700 dark:text-blue-300 border-blue-500/30",
+    "Next.js": "bg-gray-800/20 text-gray-800 dark:text-gray-200 border-gray-600/30",
+    "React Native": "bg-purple-500/20 text-purple-700 dark:text-purple-300 border-purple-500/30",
+    "Flutter": "bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border-cyan-500/30",
+    "Tailwind CSS": "bg-teal-500/20 text-teal-700 dark:text-teal-300 border-teal-500/30",
+    
+    // Backend
+    "Node.js": "bg-green-500/20 text-green-700 dark:text-green-300 border-green-500/30",
+    "Express.js": "bg-gray-600/20 text-gray-700 dark:text-gray-300 border-gray-500/30",
+    "FastAPI": "bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border-emerald-500/30",
+    "Python": "bg-yellow-500/20 text-yellow-700 dark:text-yellow-300 border-yellow-500/30",
+    
+    // Databases
+    "MongoDB": "bg-green-600/20 text-green-700 dark:text-green-300 border-green-600/30",
+    "PostgreSQL": "bg-blue-700/20 text-blue-700 dark:text-blue-300 border-blue-700/30",
+    "Firebase": "bg-orange-500/20 text-orange-700 dark:text-orange-300 border-orange-500/30",
+    
+    // AI/ML
+    "OpenAI": "bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border-emerald-500/30",
+    
+    // Languages
+    "Dart": "bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 border-indigo-500/30",
+  };
+  
+  return colorMap[tech] || "bg-gray-500/20 text-gray-700 dark:text-gray-300 border-gray-500/30";
+};
 
 const portfolioProjects: Project[] = [
   {
@@ -110,13 +140,17 @@ function ProjectCard({ project }: { project: Project }) {
           {/* Technologies */}
           <div className="flex flex-wrap gap-2 mb-4">
             {project.technologies.map((tech) => (
-              <Badge
+              <div
                 key={tech}
-                variant="secondary"
-                className="text-xs px-2 py-1 bg-muted/50 hover:bg-muted transition-colors"
+                className={`
+                  px-3 py-1.5 rounded-lg text-xs font-medium
+                  transition-all duration-300 hover:scale-105 hover:shadow-md
+                  cursor-default backdrop-blur-sm border
+                  ${getTechColor(tech)}
+                `}
               >
                 {tech}
-              </Badge>
+              </div>
             ))}
           </div>
 
