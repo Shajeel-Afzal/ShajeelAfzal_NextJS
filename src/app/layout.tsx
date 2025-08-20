@@ -4,6 +4,7 @@ import { PersonalWebsiteStructuredData } from "@/components/structured-data";
 import { ThemeProvider } from "@/components/theme-provider";
 import { WebVitals } from "@/components/web-vitals";
 import { SiteHeaderCreative } from "@/components/site-header-creative";
+import { SiteFooter } from "@/components/site-footer";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -125,6 +126,7 @@ export default function RootLayout({
         >
           <SiteHeaderCreative />
           {children}
+          <SiteFooter />
           <WebVitals />
         </ThemeProvider>
       </body>
