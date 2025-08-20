@@ -94,12 +94,12 @@ export function SiteFooter() {
 
   return (
     <footer className="bg-background border-t">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-8">
           {/* Company Info */}
-          <div className="space-y-4">
-            <div className="flex items-center space-x-2">
+          <div className="space-y-4 text-center md:text-left">
+            <div className="flex items-center justify-center md:justify-start space-x-2">
               <Image 
                 src="/favicon.png" 
                 alt="Shajeel Afzal Favicon" 
@@ -109,31 +109,32 @@ export function SiteFooter() {
               />
               <span className="text-xl font-bold">Shajeel Afzal</span>
             </div>
-            <p className="text-muted-foreground text-sm leading-relaxed">
+            <p className="text-muted-foreground text-sm leading-relaxed max-w-sm mx-auto md:mx-0">
               Expert Mobile Apps Developer, AI Engineer & Chatbot Specialist helping businesses build cutting-edge solutions that drive growth and innovation.
             </p>
             
             {/* Social Icons Grid */}
             <div className="space-y-3">
               <h4 className="text-sm font-medium text-center">Connect With Me</h4>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
                 {socialLinks.map((social) => (
-                  <Card key={social.name} className="relative overflow-hidden aspect-square">
+                  <Card key={social.name} className="relative overflow-hidden aspect-square min-h-[60px] sm:min-h-[auto]">
                     <ShineBorder shineColor={social.shineColor} />
-                    <CardContent className="p-3 h-full">
+                    <CardContent className="p-2 sm:p-3 h-full">
                       <Link
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex flex-col items-center justify-center h-full text-muted-foreground hover:text-primary transition-all duration-200 group"
+                        className="flex flex-col items-center justify-center h-full text-muted-foreground hover:text-primary transition-all duration-200 group min-h-[44px]"
                         title={social.name}
+                        aria-label={`Connect on ${social.name}`}
                       >
                         <Icon 
                           icon={social.icon.light}
-                          className="h-6 w-6 group-hover:text-[var(--brand-color)] transition-colors mb-1" 
+                          className="h-5 w-5 sm:h-6 sm:w-6 group-hover:text-[var(--brand-color)] transition-colors mb-0.5 sm:mb-1" 
                           style={{"--brand-color": social.brandColor} as React.CSSProperties}
                         />
-                        <span className="text-xs font-medium">{social.name}</span>
+                        <span className="text-xs font-medium leading-tight text-center">{social.name}</span>
                       </Link>
                     </CardContent>
                   </Card>
@@ -145,12 +146,12 @@ export function SiteFooter() {
           {/* Quick Links */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Quick Links</h3>
-            <nav className="flex flex-col space-y-3">
+            <nav className="flex flex-col space-y-2 sm:space-y-3">
               {quickLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-muted-foreground hover:text-primary transition-colors text-sm block"
+                  className="text-muted-foreground hover:text-primary transition-colors text-sm py-1 min-h-[44px] flex items-center"
                 >
                   {link.name}
                 </Link>
@@ -161,12 +162,12 @@ export function SiteFooter() {
           {/* Services */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Services</h3>
-            <nav className="flex flex-col space-y-3">
+            <nav className="flex flex-col space-y-2 sm:space-y-3">
               {services.map((service) => (
                 <Link
                   key={service.name}
                   href={service.href}
-                  className="text-muted-foreground hover:text-primary transition-colors text-sm block"
+                  className="text-muted-foreground hover:text-primary transition-colors text-sm py-1 min-h-[44px] flex items-center"
                 >
                   {service.name}
                 </Link>
@@ -177,18 +178,18 @@ export function SiteFooter() {
           {/* Contact Info */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Get In Touch</h3>
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3">
-                <Mail className="h-4 w-4 text-muted-foreground" />
+            <div className="space-y-2 sm:space-y-3">
+              <div className="flex items-center space-x-3 min-h-[44px]">
+                <Mail className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                 <Link
                   href="mailto:hello@shajeelafzal.com"
-                  className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                  className="text-muted-foreground hover:text-primary transition-colors text-sm break-all"
                 >
                   hello@shajeelafzal.com
                 </Link>
               </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="h-4 w-4 text-muted-foreground" />
+              <div className="flex items-center space-x-3 min-h-[44px]">
+                <Phone className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                 <Link
                   href="https://wa.me/your-number"
                   target="_blank"
@@ -198,20 +199,20 @@ export function SiteFooter() {
                   WhatsApp Me
                 </Link>
               </div>
-              <div className="flex items-center space-x-3">
-                <MapPin className="h-4 w-4 text-muted-foreground" />
+              <div className="flex items-center space-x-3 min-h-[44px]">
+                <MapPin className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                 <span className="text-muted-foreground text-sm">
                   Pakistan
                 </span>
               </div>
-              <div className="flex items-center space-x-3">
-                <Calendar className="h-4 w-4 text-muted-foreground" />
+              <div className="flex items-center space-x-3 min-h-[44px]">
+                <Calendar className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                 <span className="text-muted-foreground text-sm">
                   Available for projects
                 </span>
               </div>
             </div>
-            <Button asChild className="w-full mt-4">
+            <Button asChild className="w-full mt-4 min-h-[44px]">
               <Link href="#consultation">
                 Schedule Consultation
               </Link>
@@ -220,18 +221,18 @@ export function SiteFooter() {
         </div>       
 
         {/* Bottom Bar */}
-        <div className="border-t pt-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <div className="border-t pt-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-center md:text-left">
           <div className="text-sm text-muted-foreground">
             © {currentYear} Shajeel Afzal. All rights reserved.
           </div>
-          <div className="flex flex-wrap justify-center md:justify-end space-x-6 text-sm text-muted-foreground">
-            <Link href="/privacy" className="hover:text-primary transition-colors">
+          <div className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2 text-sm text-muted-foreground">
+            <Link href="/privacy" className="hover:text-primary transition-colors min-h-[44px] flex items-center">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="hover:text-primary transition-colors">
+            <Link href="/terms" className="hover:text-primary transition-colors min-h-[44px] flex items-center">
               Terms of Service
             </Link>
-            <Link href="/cookies" className="hover:text-primary transition-colors">
+            <Link href="/cookies" className="hover:text-primary transition-colors min-h-[44px] flex items-center">
               Cookie Policy
             </Link>
           </div>
