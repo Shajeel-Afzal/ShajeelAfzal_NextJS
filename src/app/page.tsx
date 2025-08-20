@@ -2,124 +2,12 @@ import {
   MessageCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { HeroSection } from "@/components/hero-section";
 import { ServicesCardsShowcase } from "@/components/services-cards-showcase";
 import { PortfolioSection } from "@/components/portfolio-section";
 import { SkillsSection } from "@/components/skills-section";
 import { TestimonialsSection } from "@/components/testimonials-section";
 import Link from "next/link";
-
-function ThemeShowcaseSection() {
-  return (
-    <section id="themes" className="py-20">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Dynamic Theme System
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Experience 8 unique color schemes, each optimized for both light and dark modes.
-            Use the theme switcher in the top-right corner to explore different styles.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Card className="border-2 border-primary/20">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full bg-primary" />
-                Primary Elements
-              </CardTitle>
-              <CardDescription>
-                Buttons, links, and key interactive elements
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <Button className="w-full">Primary Button</Button>
-                <Button variant="secondary" className="w-full">Secondary Button</Button>
-                <Button variant="outline" className="w-full">Outline Button</Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-2 border-accent/20">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full bg-accent" />
-                Accent Colors
-              </CardTitle>
-              <CardDescription>
-                Highlights, notifications, and special elements
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <div className="p-3 bg-accent/10 border border-accent/20 rounded-lg text-accent">
-                  Accent background example
-                </div>
-                <div className="p-3 bg-muted rounded-lg">
-                  Muted background example
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-2 border-border">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full bg-foreground" />
-                Typography
-              </CardTitle>
-              <CardDescription>
-                Text hierarchy and readability
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                <h3 className="text-xl font-bold">Heading Text</h3>
-                <p className="text-foreground">Primary text content</p>
-                <p className="text-muted-foreground">Muted text content</p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="md:col-span-2 lg:col-span-3 border-2 border-ring/20">
-            <CardHeader>
-              <CardTitle className="text-center">Available Themes</CardTitle>
-              <CardDescription className="text-center">
-                Each theme includes carefully crafted light and dark variants with perfect contrast ratios
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
-                {[
-                  { name: "Neural Blue", color: "oklch(0.55 0.2 240)" },
-                  { name: "Cyber Green", color: "oklch(0.45 0.25 150)" },
-                  { name: "AI Purple", color: "oklch(0.5 0.25 280)" },
-                  { name: "Tech Orange", color: "oklch(0.55 0.2 40)" },
-                  { name: "Monochrome", color: "oklch(0.15 0 0)" },
-                  { name: "Teal Ocean", color: "oklch(0.5 0.22 190)" },
-                  { name: "Sunset", color: "oklch(0.55 0.25 340)" },
-                  { name: "LWS Academy", color: "oklch(0.42 0.15 185)" },
-                ].map((theme) => (
-                  <div key={theme.name} className="text-center p-3 rounded-lg bg-card">
-                    <div
-                      className="w-8 h-8 rounded-full mx-auto mb-2 border-2 border-border"
-                      style={{ backgroundColor: theme.color }}
-                    />
-                    <p className="text-sm font-medium">{theme.name}</p>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function CTASection() {
   return (
@@ -163,8 +51,7 @@ export default function Home() {
       <ServicesCardsShowcase />
       <PortfolioSection />
       <SkillsSection />
-      <TestimonialsSection />
-      <ThemeShowcaseSection />
+      <TestimonialsSection />      
       <CTASection />
     </main>
   );
