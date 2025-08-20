@@ -67,21 +67,21 @@ export function SkillsSection() {
 
         <div className="space-y-8">
           {/* Frontend & Web Technologies */}
-          <Marquee className="[--duration:20s]" pauseOnHover>
+          <Marquee className="[--duration:50s]" pauseOnHover>
             {skillsRowOne.map((skill) => (
               <SkillCard key={skill.name} skill={skill} />
             ))}
           </Marquee>
 
           {/* Mobile & Cross-Platform */}
-          <Marquee className="[--duration:25s]" reverse pauseOnHover>
+          <Marquee className="[--duration:55s]" reverse pauseOnHover>
             {skillsRowTwo.map((skill) => (
               <SkillCard key={skill.name} skill={skill} />
             ))}
           </Marquee>
 
           {/* Backend, AI & Cloud */}
-          <Marquee className="[--duration:30s]" pauseOnHover>
+          <Marquee className="[--duration:60s]" pauseOnHover>
             {skillsRowThree.map((skill) => (
               <SkillCard key={skill.name} skill={skill} />
             ))}
