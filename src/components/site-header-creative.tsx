@@ -6,13 +6,13 @@ import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 
-// Shared nav items with anchors on the page
+// Shared nav items with anchors on the page and regular routes
 const navItems = [
   { href: "#home", label: "Home" },
   { href: "#services", label: "Services" },
+  { href: "/videos", label: "Videos" },
   { href: "#testimonials", label: "Testimonials" },
   { href: "#skills", label: "Skills" },
-  { href: "#themes", label: "Themes" },
 ]
 
 export function SiteHeaderCreative() {
