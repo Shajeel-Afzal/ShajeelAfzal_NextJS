@@ -92,7 +92,7 @@ export function AIAssistant() {
                     : msg
                 ));
               }
-            } catch (e) {
+            } catch {
               // Handle non-JSON chunks
               setMessages(prev => prev.map(msg => 
                 msg.id === assistantMessage.id 
@@ -139,7 +139,7 @@ export function AIAssistant() {
                 </div>
                 <div>
                   <h1 className="text-xl font-semibold">AI Assistant</h1>
-                  <p className="text-sm text-muted-foreground">Ask me about Shajeel's services and expertise</p>
+                  <p className="text-sm text-muted-foreground">Ask me about Shajeel&apos;s services and expertise</p>
                 </div>
               </div>
             </div>
@@ -158,7 +158,7 @@ export function AIAssistant() {
                 </div>
                 <h2 className="text-2xl font-semibold mb-2">Welcome to AI Assistant</h2>
                 <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-                  I'm here to help you learn about Shajeel's services, expertise, and how he can assist with your projects. Ask me anything!
+                  I&apos;m here to help you learn about Shajeel&apos;s services, expertise, and how he can assist with your projects. Ask me anything!
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-2xl mx-auto">
                   <Button 
