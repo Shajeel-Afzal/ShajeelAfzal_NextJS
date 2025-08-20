@@ -12,7 +12,7 @@ const navItems = [
   { href: "#services", label: "Services" },
   { href: "#testimonials", label: "Testimonials" },
   { href: "#skills", label: "Skills" },
-  { href: "#themes", label: "Themes" },
+  { href: "/contact", label: "Contact" },
 ]
 
 export function SiteHeaderCreative() {
