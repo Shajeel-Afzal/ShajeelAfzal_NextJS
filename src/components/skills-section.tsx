@@ -5,67 +5,76 @@ import { SkillCard } from '@/components/skill-card';
 import { Marquee } from "@/components/magicui/marquee";
 import { AuroraText } from "@/components/magicui/aurora-text";
 
-// Single array of all skills
+// Skills data with light/dark theme icon support and brand color properties
+// All skills now contain their icon names for both themes and brand colors directly
 // 
-// ⚠️  IMPORTANT: When adding/removing/modifying skills, also update:
-// 1. src/components/theme-aware-icon.tsx - Add icon mapping in skillIconMap
-// 2. src/components/theme-aware-icon.tsx - Add brand color in getBrandColor function
-// 3. src/components/skill-card.tsx - Add brand color in getBrandColor function
-// 
-// This ensures all skill cards display with proper branded icons and colors.
-// 
-const skills: { name: string }[] = [
-    // Frontend & Web Technologies
-  { name: "React" },
-  { name: "Next.js" },
-  { name: "TypeScript" },
-  { name: "JavaScript" },
-  { name: "Tailwind CSS" },
-  { name: "HTML5" },
-  { name: "CSS3" },  
-  { name: "Supabase" },
-    { name: "Vector Database" },    
+// To add a new skill:
+// 1. Add an object with name, icon (light & dark variants), and brandColor
+// 2. Use the same icon for both light/dark if no theme-specific variant exists
+// 3. Use different icons for light/dark when better visibility is needed
+//    Example: GitHub uses logos:github-icon (light) vs simple-icons:github (dark)
+//
+interface Skill {
+  name: string;
+  icon: {
+    light: string;
+    dark: string;
+  };
+  brandColor: string;
+}
+
+const skills: Skill[] = [
+  // Frontend & Web Technologies
+  { name: "React", icon: { light: "logos:react", dark: "logos:react" }, brandColor: "#61DAFB" },
+  { name: "Next.js", icon: { light: "logos:nextjs-icon", dark: "simple-icons:nextdotjs" }, brandColor: "#000000" },
+  { name: "TypeScript", icon: { light: "logos:typescript-icon", dark: "logos:typescript-icon" }, brandColor: "#3178C6" },
+  { name: "JavaScript", icon: { light: "logos:javascript", dark: "logos:javascript" }, brandColor: "#F7DF1E" },
+  { name: "Tailwind CSS", icon: { light: "logos:tailwindcss-icon", dark: "logos:tailwindcss-icon" }, brandColor: "#06B6D4" },
+  { name: "HTML5", icon: { light: "logos:html-5", dark: "logos:html-5" }, brandColor: "#E34F26" },
+  { name: "CSS3", icon: { light: "logos:css-3", dark: "logos:css-3" }, brandColor: "#1572B6" },
+  { name: "Supabase", icon: { light: "logos:supabase-icon", dark: "logos:supabase-icon" }, brandColor: "#3ECF8E" },
+  { name: "Vector Database", icon: { light: "lucide:database", dark: "lucide:database" }, brandColor: "#8B5CF6" },
   
   // Mobile & Cross-Platform
-    { name: "Flutter" },
-    { name: "Dart" },    
-    { name: "PWA" },
-    { name: "Google Play" },
-    { name: "App Store" },
-    { name: "RevenueCat" },
+  { name: "Flutter", icon: { light: "logos:flutter", dark: "logos:flutter" }, brandColor: "#02569B" },
+  { name: "Dart", icon: { light: "logos:dart", dark: "logos:dart" }, brandColor: "#0175C2" },
+  { name: "PWA", icon: { light: "simple-icons:pwa", dark: "simple-icons:pwa" }, brandColor: "#5A0FC8" },
+  { name: "Google Play", icon: { light: "logos:google-play-icon", dark: "logos:google-play-icon" }, brandColor: "#01875F" },
+  { name: "App Store", icon: { light: "simple-icons:appstore", dark: "simple-icons:appstore" }, brandColor: "#0D7EFF" },
+  { name: "RevenueCat", icon: { light: "lucide:receipt", dark: "lucide:receipt" }, brandColor: "#F97316" },
   
   // Backend, AI & Cloud
-    { name: "AI Development" },
-    { name: "Chatbots" },
-    { name: "Claude" },
-    { name: "Perplexity" },
-    { name: "Node.js" },
-    { name: "Python" },
-    { name: "FastAPI" },
-    { name: "MongoDB" },
-    { name: "PostgreSQL" },
-    { name: "AWS" },
-    { name: "GCP" },
-    { name: "Docker" },
-    { name: "REST APIs" },
-    { name: "GraphQL" },
-    { name: "Firebase" },
-    { name: "Vercel" },
-    { name: "WordPress" },
-  { name: "OpenAI" },
-  { name: "Langchain" },
-  { name: "Stripe" },
-    { name: "Postmark" },
-    { name: "Postman" },
-    { name: "N8N" },
-    { name: "Git" },
-    { name: "Github" },
-    { name: "Atlassian" },
-    { name: "VS Code" }
+  { name: "AI Development", icon: { light: "simple-icons:openai", dark: "simple-icons:openai" }, brandColor: "#00A67E" },
+  { name: "Chatbots", icon: { light: "lucide:bot", dark: "lucide:bot" }, brandColor: "hsl(var(--primary))" },
+  { name: "Claude", icon: { light: "simple-icons:anthropic", dark: "simple-icons:anthropic" }, brandColor: "#CD7F32" },
+  { name: "Perplexity", icon: { light: "simple-icons:perplexity", dark: "simple-icons:perplexity" }, brandColor: "#20B2AA" },
+  { name: "Node.js", icon: { light: "logos:nodejs-icon", dark: "logos:nodejs-icon" }, brandColor: "#339933" },
+  { name: "Python", icon: { light: "logos:python", dark: "logos:python" }, brandColor: "#3776AB" },
+  { name: "FastAPI", icon: { light: "logos:fastapi-icon", dark: "logos:fastapi-icon" }, brandColor: "#009688" },
+  { name: "MongoDB", icon: { light: "logos:mongodb-icon", dark: "logos:mongodb-icon" }, brandColor: "#47A248" },
+  { name: "PostgreSQL", icon: { light: "logos:postgresql", dark: "logos:postgresql" }, brandColor: "#336791" },
+  { name: "AWS", icon: { light: "logos:aws", dark: "logos:aws" }, brandColor: "#FF9900" },
+  { name: "GCP", icon: { light: "logos:google-cloud", dark: "logos:google-cloud" }, brandColor: "#4285F4" },
+  { name: "Docker", icon: { light: "logos:docker-icon", dark: "logos:docker-icon" }, brandColor: "#2496ED" },
+  { name: "REST APIs", icon: { light: "lucide:zap", dark: "lucide:zap" }, brandColor: "hsl(var(--primary))" },
+  { name: "GraphQL", icon: { light: "logos:graphql", dark: "logos:graphql" }, brandColor: "#E10098" },
+  { name: "Firebase", icon: { light: "simple-icons:firebase", dark: "simple-icons:firebase" }, brandColor: "#FFCA28" },
+  { name: "Vercel", icon: { light: "logos:vercel-icon", dark: "simple-icons:vercel" }, brandColor: "#000000" },
+  { name: "WordPress", icon: { light: "logos:wordpress-icon", dark: "logos:wordpress-icon" }, brandColor: "#21759B" },
+  { name: "OpenAI", icon: { light: "simple-icons:openai", dark: "simple-icons:openai" }, brandColor: "#00A67E" },
+  { name: "Langchain", icon: { light: "lucide:brain", dark: "lucide:brain" }, brandColor: "#1C3AA9" },
+  { name: "Stripe", icon: { light: "logos:stripe", dark: "logos:stripe" }, brandColor: "#635BFF" },
+  { name: "Postmark", icon: { light: "lucide:mail", dark: "lucide:mail" }, brandColor: "#FFDD00" },
+  { name: "Postman", icon: { light: "logos:postman-icon", dark: "logos:postman-icon" }, brandColor: "#FF6C37" },
+  { name: "N8N", icon: { light: "simple-icons:n8n", dark: "simple-icons:n8n" }, brandColor: "#EA4B71" },
+  { name: "Git", icon: { light: "logos:git-icon", dark: "logos:git-icon" }, brandColor: "#F05032" },
+  { name: "Github", icon: { light: "logos:github-icon", dark: "simple-icons:github" }, brandColor: "#181717" },
+  { name: "Atlassian", icon: { light: "logos:atlassian", dark: "logos:atlassian" }, brandColor: "#0052CC" },
+  { name: "VS Code", icon: { light: "logos:visual-studio-code", dark: "logos:visual-studio-code" }, brandColor: "#007ACC" }
 ];
 
 // Dynamic function to split skills into rows - handles any number of skills
-const splitSkillsIntoRows = (skills: { name: string }[], numberOfRows: number = 3) => {
+const splitSkillsIntoRows = (skills: Skill[], numberOfRows: number = 3) => {
   // Handle edge cases
   if (!skills || skills.length === 0) {
     return [];
@@ -78,7 +87,7 @@ const splitSkillsIntoRows = (skills: { name: string }[], numberOfRows: number = 
   // If we have fewer skills than desired rows, adjust rows to match skills
   const actualRows = Math.min(numberOfRows, skills.length);
   
-  const rows: { name: string }[][] = [];
+  const rows: Skill[][] = [];
   const itemsPerRow = Math.ceil(skills.length / actualRows);
   
   for (let i = 0; i < actualRows; i++) {
