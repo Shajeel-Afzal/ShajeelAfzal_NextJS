@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { SkillCard } from '@/components/skill-card';
 import { Marquee } from "@/components/magicui/marquee";
 
@@ -52,6 +53,8 @@ const skillsRowThree: { name: string }[] = [
 ];
 
 export function SkillsSection() {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <section id="skills" className="py-20 bg-muted/50">
       <div className="container mx-auto px-4">
@@ -65,23 +68,27 @@ export function SkillsSection() {
           </p>
         </div>
 
-        <div className="space-y-8">
+        <div 
+          className={`space-y-2 ${isHovered ? 'pause-all-marquees' : ''}`}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           {/* Frontend & Web Technologies */}
-          <Marquee className="[--duration:50s]" pauseOnHover>
+          <Marquee className="[--duration:50s]">
             {skillsRowOne.map((skill) => (
               <SkillCard key={skill.name} skill={skill} />
             ))}
           </Marquee>
 
           {/* Mobile & Cross-Platform */}
-          <Marquee className="[--duration:55s]" reverse pauseOnHover>
+          <Marquee className="[--duration:55s]" reverse>
             {skillsRowTwo.map((skill) => (
               <SkillCard key={skill.name} skill={skill} />
             ))}
           </Marquee>
 
           {/* Backend, AI & Cloud */}
-          <Marquee className="[--duration:60s]" pauseOnHover>
+          <Marquee className="[--duration:60s]">
             {skillsRowThree.map((skill) => (
               <SkillCard key={skill.name} skill={skill} />
             ))}

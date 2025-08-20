@@ -814,3 +814,8 @@ section[id] {
   animation: none;
   mix-blend-mode: normal;
 }
+
+/* Pause all marquees when hovering over skills section */
+.pause-all-marquees .group > div {
+  animation-play-state: paused !important;
+}
