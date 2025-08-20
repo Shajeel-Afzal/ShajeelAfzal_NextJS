@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { CoursesListingPage } from "@/components/courses/courses-listing-page";
+import { CoursesListingStructuredData } from "@/components/courses/course-structured-data";
+import { courses } from "@/data/courses";
 
 export const metadata: Metadata = {
   title: "Courses | Mobile Development & AI Training | Shajeel Afzal",
@@ -40,8 +42,11 @@ export const metadata: Metadata = {
 
 export default function CoursesPage() {
   return (
-    <main id="main-content">
-      <CoursesListingPage />
-    </main>
+    <>
+      <CoursesListingStructuredData courses={courses} />
+      <main id="main-content">
+        <CoursesListingPage />
+      </main>
+    </>
   );
 }

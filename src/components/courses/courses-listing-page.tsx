@@ -29,7 +29,7 @@ export function CoursesListingPage() {
     search: "",
     category: "All Categories",
     priceType: "all",
-    level: "",
+    level: "all",
   });
   const [sortBy, setSortBy] = useState("featured");
   const [showFilters, setShowFilters] = useState(false);
@@ -49,12 +49,12 @@ export function CoursesListingPage() {
       search: "",
       category: "All Categories", 
       priceType: "all",
-      level: "",
+      level: "all",
     });
   };
 
   const hasActiveFilters = filters.search || filters.category !== "All Categories" || 
-                          filters.priceType !== "all" || filters.level;
+                          filters.priceType !== "all" || filters.level !== "all";
 
   return (
     <div className="min-h-screen bg-background">
@@ -164,7 +164,7 @@ export function CoursesListingPage() {
                 <SelectValue placeholder="Level" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Levels</SelectItem>
+                <SelectItem value="all">All Levels</SelectItem>
                 <SelectItem value="Beginner">Beginner</SelectItem>
                 <SelectItem value="Intermediate">Intermediate</SelectItem>
                 <SelectItem value="Advanced">Advanced</SelectItem>

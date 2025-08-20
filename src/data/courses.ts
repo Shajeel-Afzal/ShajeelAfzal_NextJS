@@ -6,7 +6,7 @@ const instructors = {
     name: "Shajeel Afzal",
     title: "Mobile & AI Development Expert",
     bio: "Certified Mobile Apps Developer, AI Engineer & Chatbot Specialist with 8+ years of experience building cutting-edge solutions for businesses worldwide.",
-    avatar: "/images/instructors/shajeel_afzal.png",
+    avatar: "https://via.placeholder.com/150x150/6b7280/ffffff?text=SA",
     credentials: [
       "Certified React Native Developer",
       "Google Cloud AI/ML Certified", 
@@ -27,8 +27,8 @@ export const courses: Course[] = [
     originalPrice: 299,
     currency: "USD",
     
-    thumbnail: "/images/courses/react-native-masterclass-thumb.jpg",
-    heroImage: "/images/courses/react-native-masterclass-hero.jpg",
+    thumbnail: "https://via.placeholder.com/600x400/3b82f6/ffffff?text=React+Native+Masterclass",
+    heroImage: "https://via.placeholder.com/1200x630/3b82f6/ffffff?text=React+Native+Masterclass+2024",
     videoPreview: "https://youtube.com/watch?v=preview123",
     
     modules: [
@@ -122,8 +122,8 @@ export const courses: Course[] = [
     originalPrice: 199,
     currency: "USD",
     
-    thumbnail: "/images/courses/ai-chatbot-thumb.jpg",
-    heroImage: "/images/courses/ai-chatbot-hero.jpg",
+    thumbnail: "https://via.placeholder.com/600x400/10b981/ffffff?text=AI+Chatbot+Development",
+    heroImage: "https://via.placeholder.com/1200x630/10b981/ffffff?text=AI+Chatbot+Development",
     
     modules: [
       {
@@ -206,8 +206,8 @@ export const courses: Course[] = [
     price: 179,
     currency: "USD",
     
-    thumbnail: "/images/courses/flutter-firebase-thumb.jpg",
-    heroImage: "/images/courses/flutter-firebase-hero.jpg",
+    thumbnail: "https://via.placeholder.com/600x400/06b6d4/ffffff?text=Flutter+Firebase+Bootcamp",
+    heroImage: "https://via.placeholder.com/1200x630/06b6d4/ffffff?text=Flutter+Firebase+Bootcamp",
     
     modules: [
       {
@@ -291,8 +291,8 @@ export const courses: Course[] = [
     originalPrice: 349,
     currency: "USD",
     
-    thumbnail: "/images/courses/nextjs-ai-thumb.jpg",
-    heroImage: "/images/courses/nextjs-ai-hero.jpg",
+    thumbnail: "https://via.placeholder.com/600x400/8b5cf6/ffffff?text=Next.js+AI+Development",
+    heroImage: "https://via.placeholder.com/1200x630/8b5cf6/ffffff?text=Next.js+AI+Development",
     videoPreview: "https://youtube.com/watch?v=ai-preview456",
     
     modules: [
@@ -377,8 +377,8 @@ export const courses: Course[] = [
     price: 99,
     currency: "USD",
     
-    thumbnail: "/images/courses/monetization-thumb.jpg", 
-    heroImage: "/images/courses/monetization-hero.jpg",
+    thumbnail: "https://via.placeholder.com/600x400/f59e0b/ffffff?text=App+Monetization+Strategies",
+    heroImage: "https://via.placeholder.com/1200x630/f59e0b/ffffff?text=App+Monetization+Strategies",
     
     modules: [
       {
@@ -461,8 +461,8 @@ export const courses: Course[] = [
     price: 0,
     currency: "USD",
     
-    thumbnail: "/images/courses/free-intro-thumb.jpg",
-    heroImage: "/images/courses/free-intro-hero.jpg",
+    thumbnail: "https://via.placeholder.com/600x400/22c55e/ffffff?text=Free+Mobile+Development+Intro",
+    heroImage: "https://via.placeholder.com/1200x630/22c55e/ffffff?text=Free+Mobile+Development+Intro",
     videoPreview: "https://youtube.com/watch?v=free-intro789",
     
     modules: [
@@ -548,8 +548,8 @@ export const courses: Course[] = [
     originalPrice: 179,
     currency: "USD",
     
-    thumbnail: "/images/courses/flutter-state-thumb.jpg",
-    heroImage: "/images/courses/flutter-state-hero.jpg",
+    thumbnail: "https://via.placeholder.com/600x400/ef4444/ffffff?text=Flutter+State+Management",
+    heroImage: "https://via.placeholder.com/1200x630/ef4444/ffffff?text=Flutter+State+Management",
     
     modules: [
       {
@@ -632,8 +632,8 @@ export const courses: Course[] = [
     price: 79,
     currency: "USD",
     
-    thumbnail: "/images/courses/ai-business-thumb.jpg",
-    heroImage: "/images/courses/ai-business-hero.jpg",
+    thumbnail: "https://via.placeholder.com/600x400/84cc16/ffffff?text=AI+Automation+for+Business",
+    heroImage: "https://via.placeholder.com/1200x630/84cc16/ffffff?text=AI+Automation+for+Business",
     
     modules: [
       {
@@ -722,7 +722,7 @@ export function filterCourses(courses: Course[], filters: { search: string; cate
       (filters.priceType === 'free' && course.price === 0) ||
       (filters.priceType === 'paid' && course.price > 0);
     
-    const matchesLevel = !filters.level || course.specifications.level === filters.level;
+    const matchesLevel = filters.level === "all" || course.specifications.level === filters.level;
     
     return matchesSearch && matchesCategory && matchesPriceType && matchesLevel;
   });

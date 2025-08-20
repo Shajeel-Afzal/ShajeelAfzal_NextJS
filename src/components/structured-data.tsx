@@ -159,12 +159,18 @@ export function PersonalWebsiteStructuredData() {
           {
             "@type": "ListItem",
             "position": 4,
+            "name": "Courses",
+            "item": "https://shajeelafzal.com/courses"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
             "name": "About",
             "item": "https://shajeelafzal.com/about"
           },
           {
             "@type": "ListItem",
-            "position": 5,
+            "position": 6,
             "name": "Contact",
             "item": "https://shajeelafzal.com/contact"
           }
