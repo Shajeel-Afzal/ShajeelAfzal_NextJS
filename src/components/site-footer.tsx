@@ -75,12 +75,12 @@ export function SiteFooter() {
   ];
 
   const quickLinks = [
-    { name: "Home", href: "#home" },
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
     { name: "Services", href: "#services" },
     { name: "Portfolio", href: "#portfolio" },
-    { name: "Skills", href: "#skills" },
-    { name: "Testimonials", href: "#testimonials" },
-    { name: "Contact", href: "#contact" },
+    { name: "Blog", href: "/blog" },
+    { name: "Contact", href: "/contact" },
   ];
 
   const services = [

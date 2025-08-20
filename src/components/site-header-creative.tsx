@@ -9,10 +9,11 @@ import { ThemeSwitcher } from "@/components/theme-switcher"
 // Shared nav items with anchors on the page
 const navItems = [
   { href: "#home", label: "Home" },
+  { href: "/about", label: "About" },
   { href: "#services", label: "Services" },
-  { href: "#testimonials", label: "Testimonials" },
-  { href: "#skills", label: "Skills" },
-  { href: "#themes", label: "Themes" },
+  { href: "#portfolio", label: "Portfolio" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contact" },
 ]
 
 export function SiteHeaderCreative() {
