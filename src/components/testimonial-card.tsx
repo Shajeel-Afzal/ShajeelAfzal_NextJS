@@ -11,6 +11,9 @@ export function TestimonialCard({ testimonial, className = "" }: TestimonialCard
   return (
     <MagicCard
       className={`mx-3 max-w-sm rounded-lg p-6 shadow-sm min-h-[200px] flex flex-col ${className}`}
+      gradientSize={200}
+      gradientColor="rgba(59, 130, 246, 0.1)"
+      gradientOpacity={0.6}
     >
       <div className="space-y-3 sm:space-y-4 flex-1">
         {/* Project Title */}
