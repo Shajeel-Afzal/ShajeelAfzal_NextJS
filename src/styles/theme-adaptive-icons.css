@@ -7,27 +7,31 @@
 }
 
 /* Light theme adjustments */
-[data-theme="light"] .theme-adaptive-icon {
+.light .theme-adaptive-icon {
   --icon-filter: none;
   --icon-opacity: 1;
 }
 
 /* Dark theme adjustments */
-[data-theme="dark"] .theme-adaptive-icon {
+.dark .theme-adaptive-icon {
   --icon-filter: brightness(1.1) contrast(0.9);
   --icon-opacity: 0.95;
 }
 
 /* Specific adjustments for certain logos in dark mode */
-[data-theme="dark"] .theme-adaptive-icon[data-icon*="github"] {
+.dark .theme-adaptive-icon[data-icon*="github"] {
   --icon-filter: invert(1) brightness(0.8);
 }
 
-[data-theme="dark"] .theme-adaptive-icon[data-icon*="docker"] {
+.dark .theme-adaptive-icon[data-icon*="vercel-icon"] {
+  --icon-filter: invert(1) brightness(0.9);
+}
+
+.dark .theme-adaptive-icon[data-icon*="docker"] {
   --icon-filter: brightness(1.2);
 }
 
-[data-theme="dark"] .theme-adaptive-icon[data-icon*="mongodb"] {
+.dark .theme-adaptive-icon[data-icon*="mongodb"] {
   --icon-filter: brightness(1.1) saturate(1.2);
 }
 
