@@ -1,0 +1,54 @@
+# Shajeel Afzal - Resume
+
+## Senior AI Engineer & Mobile App Developer
+
+### Contact Information
+- Email: hello@shajeelafzal.com
+- Website: https://shajeelafzal.com
+- Location: Pakistan (Remote Worldwide)
+
+### Professional Summary
+Passionate AI Engineer & Mobile App Developer with 5+ years of experience creating innovative solutions that drive business growth and enhance user experiences. Specialized in building intelligent mobile applications, AI-powered chatbots, and scalable web solutions.
+
+### Professional Experience
+
+**Freelance Consultant** | Senior Full-Stack & AI Developer | 2022 - Present
+- Delivered 50+ successful mobile applications using React Native and Flutter
+- Built AI-powered chatbots serving 10K+ users daily
+- Achieved 99.9% uptime for production applications
+- Mentored 20+ junior developers in modern tech stacks
+
+**TechCorp Solutions** | Lead Mobile Developer | 2020 - 2022
+- Architected scalable mobile solutions for 100K+ users
+- Reduced app loading time by 60% through optimization
+- Implemented CI/CD pipelines improving deployment efficiency by 80%
+- Led team of 8 developers across multiple projects
+
+**Innovation Labs** | Software Engineer | 2019 - 2020
+- Built responsive web applications with 95+ Lighthouse scores
+- Developed REST APIs serving 1M+ requests daily
+- Collaborated with UX/UI teams to improve user engagement by 40%
+- Implemented security best practices reducing vulnerabilities by 90%
+
+### Technical Skills
+
+**Mobile Development:** React Native, Flutter, iOS (Swift), Android (Kotlin), Progressive Web Apps
+**AI & Machine Learning:** OpenAI GPT Integration, LangChain Framework, Natural Language Processing, Computer Vision, TensorFlow & PyTorch
+**Full-Stack Development:** Next.js & React, Node.js & Express, TypeScript, PostgreSQL & MongoDB, AWS & Google Cloud
+
+### Certifications
+- AI & Machine Learning Certification - Google Cloud (2024)
+- Mobile App Development Professional - Meta (2023)
+- Cloud Solutions Architect - AWS (2023)
+- Advanced React & Node.js - Microsoft (2024)
+- Blockchain Development - IBM (2023)
+- ChatBot Development Specialist - Dialogflow (2024)
+
+### Key Achievements
+- 50+ Happy Clients
+- 100+ Projects Completed
+- 5+ Years Experience
+- 15+ Certifications
+
+---
+This resume is available for download at: https://shajeelafzal.com/about
