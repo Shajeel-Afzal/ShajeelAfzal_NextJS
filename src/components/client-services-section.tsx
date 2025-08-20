@@ -1,7 +1,7 @@
 'use client';
 
 import { Smartphone, Brain, Code, Zap } from "lucide-react";
-import { OptimizedBentoGrid, OptimizedBentoCard } from "@/components/optimized-magicui";
+import { BentoGrid, BentoCard } from "@/components/magicui/bento-grid";
 
 // Icon mapping for client components
 const iconMap = {
@@ -26,12 +26,12 @@ interface ClientServicesSectionProps {
 
 export function ClientServicesSection({ features }: ClientServicesSectionProps) {
     return (
-        <OptimizedBentoGrid className="max-w-6xl mx-auto">
+        <BentoGrid className="max-w-6xl mx-auto">
             {features.map((feature) => {
                 const IconComponent = iconMap[feature.iconName];
 
                 return (
-                    <OptimizedBentoCard
+                    <BentoCard
                         key={feature.title}
                         name={feature.title}
                         description={feature.description}
@@ -47,6 +47,6 @@ export function ClientServicesSection({ features }: ClientServicesSectionProps) 
                     />
                 );
             })}
-        </OptimizedBentoGrid>
+        </BentoGrid>
     );
 }
