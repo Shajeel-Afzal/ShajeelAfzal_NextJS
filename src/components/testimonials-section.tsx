@@ -183,13 +183,13 @@ export function TestimonialsSection() {
         </div>
 
         <div 
-          className={`space-y-8 ${isHovered ? 'pause-all-marquees' : ''}`}
+          className={`space-y-6 ${isHovered ? 'pause-all-marquees' : ''}`}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
           {/* First Row - Left to Right */}
           {testimonialRows[0] && (
-            <Marquee className="[--duration:50s]">
+            <Marquee className="[--duration:50s] [--gap:1.5rem] py-3">
               {testimonialRows[0].map((testimonial) => (
                 <TestimonialCard
                   key={testimonial.name}
@@ -201,7 +201,7 @@ export function TestimonialsSection() {
 
           {/* Second Row - Right to Left */}
           {testimonialRows[1] && (
-            <Marquee reverse className="[--duration:55s]">
+            <Marquee reverse className="[--duration:55s] [--gap:1.5rem] py-3">
               {testimonialRows[1].map((testimonial) => (
                 <TestimonialCard
                   key={testimonial.name}
@@ -213,7 +213,7 @@ export function TestimonialsSection() {
 
           {/* Third Row - Left to Right */}
           {testimonialRows[2] && (
-            <Marquee className="[--duration:60s]">
+            <Marquee className="[--duration:60s] [--gap:1.5rem] py-3">
               {testimonialRows[2].map((testimonial) => (
                 <TestimonialCard
                   key={testimonial.name}

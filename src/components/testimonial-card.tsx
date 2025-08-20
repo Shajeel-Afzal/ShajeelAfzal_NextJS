@@ -10,9 +10,9 @@ interface TestimonialCardProps {
 export function TestimonialCard({ testimonial, className = "" }: TestimonialCardProps) {
   return (
     <MagicCard
-      className={`mx-4 max-w-sm rounded-lg p-6 shadow-sm ${className}`}
+      className={`mx-3 max-w-sm rounded-lg p-6 shadow-sm min-h-[200px] flex flex-col ${className}`}
     >
-      <div className="space-y-3 sm:space-y-4">
+      <div className="space-y-3 sm:space-y-4 flex-1">
         {/* Project Title */}
         <h3 className="font-semibold text-sm text-foreground leading-tight">
           {testimonial.title}
@@ -30,12 +30,12 @@ export function TestimonialCard({ testimonial, className = "" }: TestimonialCard
         </div>
 
         {/* Testimonial Content */}
-        <p className="text-sm text-muted-foreground leading-relaxed">
+        <p className="text-sm text-muted-foreground leading-relaxed flex-1">
           &ldquo;{testimonial.content}&rdquo;
         </p>
 
         {/* Platform Logo */}
-        <div className="flex justify-start">
+        <div className="flex justify-start mt-auto">
           <div className="text-xs font-medium text-green-600 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded">
             {testimonial.platform}
           </div>
