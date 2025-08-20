@@ -57,7 +57,6 @@ const skills: Skill[] = [
   { name: "WordPress", icon: { light: "logos:wordpress-icon", dark: "simple-icons:wordpress" }, },
   { name: "OpenAI", icon: { light: "simple-icons:openai", dark: "simple-icons:openai" }, brandColor: "#00A67E" },
   { name: "Langchain", icon: { light: "lucide:brain", dark: "lucide:brain" }, brandColor: "#1C3AA9" },
-  { name: "MCP", icon: { light: "lucide:plug", dark: "lucide:plug" }, brandColor: "#8B5CF6" },
   { name: "Stripe", icon: { light: "logos:stripe", dark: "logos:stripe" }, brandColor: "#635BFF" },
   { name: "Postmark", icon: { light: "lucide:mail", dark: "lucide:mail" }, brandColor: "#FFDD00" },
   { name: "Postman", icon: { light: "logos:postman-icon", dark: "logos:postman-icon" }, brandColor: "#FF6C37" },
