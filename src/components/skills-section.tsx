@@ -60,6 +60,7 @@ const skills: Skill[] = [
   { name: "Stripe", icon: { light: "logos:stripe", dark: "logos:stripe" }, brandColor: "#635BFF" },
   { name: "Postmark", icon: { light: "lucide:mail", dark: "lucide:mail" }, brandColor: "#FFDD00" },
   { name: "Postman", icon: { light: "logos:postman-icon", dark: "logos:postman-icon" }, brandColor: "#FF6C37" },
+  { name: "WhatsApp", icon: { light: "simple-icons:whatsapp", dark: "simple-icons:whatsapp" }, brandColor: "#25D366" },
   { name: "N8N", icon: { light: "simple-icons:n8n", dark: "simple-icons:n8n" }, brandColor: "#EA4B71" },
   { name: "Zapier", icon: { light: "logos:zapier", dark: "simple-icons:zapier" }, },
   { name: "Make.com", icon: { light: "simple-icons:make", dark: "simple-icons:make" }, brandColor: "#6936F5" },
