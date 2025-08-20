@@ -156,16 +156,7 @@ export function PortfolioSection() {
           {portfolioProjects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
-        </div>
-
-        {/* View All Projects Button */}
-        <div className="text-center">
-          <Link href="/portfolio">
-            <InteractiveHoverButton className="text-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              View All Projects
-            </InteractiveHoverButton>
-          </Link>
-        </div>
+        </div>        
       </div>
     </section>
   );
