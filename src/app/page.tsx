@@ -7,6 +7,7 @@ import { ServicesCardsShowcase } from "@/components/services-cards-showcase";
 import { PortfolioSection } from "@/components/portfolio-section";
 import { SkillsSection } from "@/components/skills-section";
 import { TestimonialsSection } from "@/components/testimonials-section";
+import { ContactSection } from "@/components/contact-section";
 import Link from "next/link";
 
 function CTASection() {
@@ -52,6 +53,7 @@ export default function Home() {
       <PortfolioSection />
       <SkillsSection />
       <TestimonialsSection />      
+      <ContactSection />
       <CTASection />
     </main>
   );
