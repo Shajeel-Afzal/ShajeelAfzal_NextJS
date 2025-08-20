@@ -188,12 +188,12 @@ export function GigsListingPage() {
                 {/* Minimum Rating */}
                 <div>
                   <Label className="text-sm font-medium">Minimum Rating</Label>
-                  <Select value={filters.rating?.toString() || ""} onValueChange={(value) => setFilters(prev => ({ ...prev, rating: value ? parseFloat(value) : undefined }))}>
+                  <Select value={filters.rating?.toString() || "any"} onValueChange={(value) => setFilters(prev => ({ ...prev, rating: value !== "any" ? parseFloat(value) : undefined }))}>
                     <SelectTrigger className="mt-2">
                       <SelectValue placeholder="Any rating" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">Any rating</SelectItem>
+                      <SelectItem value="any">Any rating</SelectItem>
                       <SelectItem value="4.5">4.5+ stars</SelectItem>
                       <SelectItem value="4.0">4.0+ stars</SelectItem>
                       <SelectItem value="3.5">3.5+ stars</SelectItem>
@@ -206,12 +206,12 @@ export function GigsListingPage() {
                 {/* Delivery Time */}
                 <div>
                   <Label className="text-sm font-medium">Delivery Time</Label>
-                  <Select value={filters.deliveryTime?.toString() || ""} onValueChange={(value) => setFilters(prev => ({ ...prev, deliveryTime: value ? parseInt(value) : undefined }))}>
+                  <Select value={filters.deliveryTime?.toString() || "any"} onValueChange={(value) => setFilters(prev => ({ ...prev, deliveryTime: value !== "any" ? parseInt(value) : undefined }))}>
                     <SelectTrigger className="mt-2">
                       <SelectValue placeholder="Any time" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">Any time</SelectItem>
+                      <SelectItem value="any">Any time</SelectItem>
                       <SelectItem value="7">Up to 7 days</SelectItem>
                       <SelectItem value="14">Up to 14 days</SelectItem>
                       <SelectItem value="30">Up to 30 days</SelectItem>

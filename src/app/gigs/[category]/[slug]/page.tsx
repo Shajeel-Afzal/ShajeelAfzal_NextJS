@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: GigPageProps): Promise<Metada
     openGraph: {
       title: gig.title,
       description: gig.description,
-      type: 'product',
+      type: 'website',
       images: gig.mediaGallery.length > 0 ? [gig.mediaGallery[0].url] : [],
     },
   };
@@ -51,5 +51,16 @@ export default function GigPage({ params }: GigPageProps) {
     notFound();
   }
 
-  return <GigDetailPage gig={gig} category={category} />;
+  // Create serializable versions without functions
+  const serializableGig = {
+    ...gig,
+    icon: gig.icon.name || 'Brain' // Just pass the icon name
+  };
+  
+  const serializableCategory = {
+    ...category,
+    icon: category.icon.name || 'Brain' // Just pass the icon name
+  };
+
+  return <GigDetailPage gig={serializableGig} category={serializableCategory} />;
 }

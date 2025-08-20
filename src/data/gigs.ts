@@ -604,10 +604,255 @@ export const gigs: Gig[] = [
     icon: Globe,
     featured: true,
     startingPrice: 1800
-  }
+  },
 
-  // Note: Additional gigs for other categories would follow the same pattern
-  // For brevity, I'm including 4 representative gigs covering the main categories
+  // Backend Development
+  {
+    id: "api-development",
+    title: "RESTful API Development with Node.js",
+    slug: "restful-api-development-nodejs",
+    description: "Professional REST API development with Node.js, Express, and MongoDB. Includes authentication, validation, documentation, and deployment setup.",
+    category: "backend",
+    tags: ["Node.js", "Express", "MongoDB", "REST API", "Authentication", "JWT"],
+    status: "published",
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-15"),
+    pricingModel: "fixed",
+    basicTier: {
+      name: "Basic API",
+      price: 1200,
+      description: "Simple REST API with basic endpoints",
+      deliverables: [
+        "REST API with up to 10 endpoints",
+        "MongoDB database integration",
+        "Basic authentication",
+        "Input validation",
+        "API documentation",
+        "Testing setup"
+      ],
+      deliveryTimeInDays: 10,
+      revisions: 2,
+      addOnsIncluded: []
+    },
+    standardTier: {
+      name: "Advanced API",
+      price: 2800,
+      description: "Feature-rich API with advanced capabilities",
+      deliverables: [
+        "REST API with unlimited endpoints",
+        "Advanced authentication & authorization",
+        "Database optimization",
+        "Rate limiting & security",
+        "Comprehensive documentation",
+        "Unit and integration tests",
+        "Deployment setup",
+        "Performance monitoring"
+      ],
+      deliveryTimeInDays: 18,
+      revisions: 3,
+      addOnsIncluded: ["basic-monitoring"]
+    },
+    premiumTier: {
+      name: "Enterprise API",
+      price: 5500,
+      description: "Production-ready enterprise API solution",
+      deliverables: [
+        "Microservices architecture",
+        "Advanced security features",
+        "Database scaling strategy",
+        "CI/CD pipeline setup",
+        "Advanced monitoring & logging",
+        "Load balancing configuration",
+        "Documentation portal",
+        "Performance optimization",
+        "3 months support"
+      ],
+      deliveryTimeInDays: 28,
+      revisions: 5,
+      addOnsIncluded: ["monitoring", "support", "cicd"]
+    },
+    addOns: [
+      {
+        id: "websocket",
+        name: "WebSocket Integration",
+        description: "Real-time features with WebSocket support",
+        price: 400,
+        deliveryTimeInDays: 3
+      },
+      {
+        id: "graphql",
+        name: "GraphQL API",
+        description: "Alternative GraphQL API alongside REST",
+        price: 600,
+        deliveryTimeInDays: 5
+      }
+    ],
+    mediaGallery: [
+      {
+        id: "img-1",
+        type: "image",
+        url: "/images/gigs/api-architecture.jpg",
+        title: "API Architecture Diagram",
+        description: "Sample API architecture and endpoint structure",
+        order: 1
+      }
+    ],
+    faqs: [
+      {
+        id: "faq-1",
+        question: "What technologies do you use for API development?",
+        answer: "I primarily use Node.js with Express.js framework, MongoDB or PostgreSQL for databases, and industry-standard tools for authentication, validation, and testing.",
+        order: 1
+      },
+      {
+        id: "faq-2",
+        question: "Do you provide API documentation?",
+        answer: "Yes! All packages include comprehensive API documentation using tools like Swagger/OpenAPI, making it easy for frontend developers to integrate.",
+        order: 2
+      }
+    ],
+    requirements: [
+      "Detailed API requirements and endpoint specifications",
+      "Database schema or data model requirements",
+      "Authentication and authorization requirements",
+      "Third-party integrations needed",
+      "Performance and scalability requirements"
+    ],
+    seoTitle: "Node.js REST API Development | Professional Backend Services",
+    seoDescription: "Professional REST API development with Node.js, Express, and MongoDB. Secure, scalable, and well-documented APIs for your applications.",
+    deliveryTime: 18,
+    revisionCount: 3,
+    orderCount: 18,
+    averageRating: 4.7,
+    reviewCount: 14,
+    reviews: sampleReviews.slice(0, 2),
+    icon: Server,
+    featured: false,
+    startingPrice: 1200
+  },
+
+  // Automation Solutions
+  {
+    id: "business-automation",
+    title: "Business Process Automation",
+    slug: "business-process-automation",
+    description: "Streamline your business operations with custom automation solutions. From data processing to workflow automation, reduce manual work and increase efficiency.",
+    category: "automation",
+    tags: ["Automation", "Python", "Workflow", "Integration", "Efficiency", "Process"],
+    status: "published",
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-15"),
+    pricingModel: "fixed",
+    basicTier: {
+      name: "Basic Automation",
+      price: 800,
+      description: "Simple automation for repetitive tasks",
+      deliverables: [
+        "Automation of 1-2 business processes",
+        "Basic data processing scripts",
+        "Simple integration setup",
+        "Documentation and training",
+        "30 days support"
+      ],
+      deliveryTimeInDays: 12,
+      revisions: 2,
+      addOnsIncluded: []
+    },
+    standardTier: {
+      name: "Advanced Automation",
+      price: 2200,
+      description: "Comprehensive automation solution",
+      deliverables: [
+        "Multiple process automation",
+        "Advanced data processing",
+        "API integrations",
+        "Error handling and logging",
+        "Scheduling and monitoring",
+        "Comprehensive documentation",
+        "Training sessions",
+        "60 days support"
+      ],
+      deliveryTimeInDays: 20,
+      revisions: 3,
+      addOnsIncluded: ["basic-monitoring"]
+    },
+    premiumTier: {
+      name: "Enterprise Automation",
+      price: 4500,
+      description: "Complete automation ecosystem",
+      deliverables: [
+        "End-to-end process automation",
+        "Advanced workflow management",
+        "Multiple system integrations",
+        "Real-time monitoring and alerts",
+        "Performance optimization",
+        "Scalable architecture",
+        "Team training program",
+        "3 months support and maintenance"
+      ],
+      deliveryTimeInDays: 30,
+      revisions: 5,
+      addOnsIncluded: ["monitoring", "support", "training"]
+    },
+    addOns: [
+      {
+        id: "additional-integration",
+        name: "Additional System Integration",
+        description: "Connect one more external system or API",
+        price: 300,
+        deliveryTimeInDays: 3
+      },
+      {
+        id: "dashboard",
+        name: "Monitoring Dashboard",
+        description: "Custom dashboard for monitoring automation performance",
+        price: 500,
+        deliveryTimeInDays: 5
+      }
+    ],
+    mediaGallery: [
+      {
+        id: "img-1",
+        type: "image",
+        url: "/images/gigs/automation-workflow.jpg",
+        title: "Automation Workflow Example",
+        description: "Sample automation workflow and process diagram",
+        order: 1
+      }
+    ],
+    faqs: [
+      {
+        id: "faq-1",
+        question: "What types of business processes can you automate?",
+        answer: "I can automate various processes including data entry, report generation, email workflows, inventory management, customer onboarding, and many others. If it's repetitive, it can likely be automated!",
+        order: 1
+      },
+      {
+        id: "faq-2",
+        question: "What tools and technologies do you use?",
+        answer: "I use Python for scripting, tools like Zapier/Make.com for no-code automation, APIs for integrations, and custom solutions when needed. The choice depends on your specific requirements and existing systems.",
+        order: 2
+      }
+    ],
+    requirements: [
+      "Detailed description of current manual processes",
+      "List of systems and tools currently used",
+      "Access credentials for integrations (when ready)",
+      "Business rules and decision logic",
+      "Expected volume and frequency of operations"
+    ],
+    seoTitle: "Business Process Automation Services | Workflow Optimization",
+    seoDescription: "Streamline your business operations with custom automation solutions. Reduce manual work, increase efficiency, and save time with professional automation services.",
+    deliveryTime: 20,
+    revisionCount: 3,
+    orderCount: 12,
+    averageRating: 4.6,
+    reviewCount: 9,
+    reviews: sampleReviews.slice(0, 1),
+    icon: Zap,
+    featured: false,
+    startingPrice: 800
+  }
 ];
 
 export const featuredGigs = gigs.filter(gig => gig.featured);
