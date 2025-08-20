@@ -8,7 +8,6 @@ import { ServicesShowcase } from "@/components/services-showcase";
 import { PortfolioSection } from "@/components/portfolio-section";
 import Image from "next/image";
 import Link from "next/link";
-import { Globe } from "@/components/magicui/components/globe";
 
 const testimonials = [
   {
