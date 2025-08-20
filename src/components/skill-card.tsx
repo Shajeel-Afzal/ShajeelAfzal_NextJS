@@ -59,7 +59,7 @@ export function SkillCard({ skill }: SkillCardProps) {
       gradientColor="rgba(59, 130, 246, 0.1)"
       gradientOpacity={0.6}
     >
-      <div className="p-4 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors mb-4">
+      <div className="w-16 h-16 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors mb-4 flex items-center justify-center flex-shrink-0">
         <Icon 
           icon={iconName}
           className="w-8 h-8 theme-adaptive-icon" 
