@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { SkillCard } from '@/components/skill-card';
 import { Marquee } from "@/components/magicui/marquee";
 import { AuroraText } from "@/components/magicui/aurora-text";
+import { Skill } from '@/types/skill';
 
 // Skills data with light/dark theme icon support and brand color properties
 // All skills now contain their icon names for both themes and brand colors directly
@@ -14,14 +15,6 @@ import { AuroraText } from "@/components/magicui/aurora-text";
 // 3. Use different icons for light/dark when better visibility is needed
 //    Example: GitHub uses logos:github-icon (light) vs simple-icons:github (dark)
 //
-interface Skill {
-  name: string;
-  icon: {
-    light: string;
-    dark: string;
-  };
-  brandColor: string;
-}
 
 const skills: Skill[] = [
   // Frontend & Web Technologies
