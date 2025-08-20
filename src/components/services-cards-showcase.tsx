@@ -2,6 +2,7 @@
 
 import { MagicCard } from "@/components/magicui/magic-card";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
+import { OptimizedAuroraText } from "@/components/optimized-magicui";
 import { services, Service } from "@/data/services";
 import { CheckCircle } from "lucide-react";
 
@@ -68,9 +69,9 @@ export function ServicesCardsShowcase() {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Comprehensive{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-600">
+            <OptimizedAuroraText className="text-4xl md:text-5xl font-bold">
               Technology Solutions 🚀
-            </span>{" "}
+            </OptimizedAuroraText>{" "}
             for Your Business
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
