@@ -46,7 +46,7 @@ const skills: Skill[] = [
   { name: "FastAPI", icon: { light: "logos:fastapi-icon", dark: "logos:fastapi-icon" }, brandColor: "#009688" },
   { name: "MongoDB", icon: { light: "logos:mongodb-icon", dark: "logos:mongodb-icon" }, brandColor: "#47A248" },
   { name: "PostgreSQL", icon: { light: "logos:postgresql", dark: "logos:postgresql" }, brandColor: "#336791" },
-  { name: "AWS", icon: { light: "logos:aws", dark: "logos:aws" }, brandColor: "#FF9900" },
+  { name: "AWS", icon: { light: "logos:aws", dark: "simple-icons:amazonaws" } },
   { name: "GCP", icon: { light: "logos:google-cloud", dark: "logos:google-cloud" }, brandColor: "#4285F4" },
   { name: "Docker", icon: { light: "logos:docker-icon", dark: "logos:docker-icon" }, brandColor: "#2496ED" },
   { name: "REST APIs", icon: { light: "lucide:zap", dark: "lucide:zap" }, brandColor: "hsl(var(--primary))" },
