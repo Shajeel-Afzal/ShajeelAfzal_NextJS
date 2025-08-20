@@ -61,6 +61,7 @@ const skills: { name: string }[] = [
     { name: "N8N" },
     { name: "Git" },
     { name: "Github" },
+    { name: "Atlassian" },
     { name: "VS Code" }
 ];
 

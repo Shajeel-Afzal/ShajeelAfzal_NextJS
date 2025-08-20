@@ -56,6 +56,7 @@ const skillIconMap: Record<string, string> = {
   "N8N": "simple-icons:n8n",
   "Git": "logos:git-icon",
   "Github": "logos:github-icon",
+  "Atlassian": "logos:atlassian",
   "VS Code": "logos:visual-studio-code",
 };
 
@@ -110,6 +111,7 @@ const getBrandColor = (skillName: string): string => {
     "N8N": "#EA4B71",
     "Git": "#F05032",
     "Github": "#181717",
+    "Atlassian": "#0052CC",
     "VS Code": "#007ACC",
   };
 

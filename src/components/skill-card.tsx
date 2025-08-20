@@ -61,6 +61,7 @@ export function SkillCard({ skill }: SkillCardProps) {
       "N8N": "#EA4B71",
       "Git": "#F05032",
       "Github": "#181717",
+      "Atlassian": "#0052CC",
       "VS Code": "#007ACC",
     };
 
