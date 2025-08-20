@@ -10,6 +10,7 @@ import { ThemeSwitcher } from "@/components/theme-switcher"
 const navItems = [
   { href: "#home", label: "Home" },
   { href: "#services", label: "Services" },
+  { href: "/courses", label: "Courses" },
   { href: "#testimonials", label: "Testimonials" },
   { href: "#skills", label: "Skills" },
   { href: "#themes", label: "Themes" },
