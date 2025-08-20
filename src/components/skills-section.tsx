@@ -132,7 +132,7 @@ export function SkillsSection() {
           {skillRows[0] && (
             <Marquee className="[--duration:50s]">
               {skillRows[0].map((skill) => (
-                <SkillCard key={skill.name} skill={skill} />
+                <SkillCard key={skill.name} skill={skill} showName={isHovered} />
               ))}
             </Marquee>
           )}
@@ -141,7 +141,7 @@ export function SkillsSection() {
           {skillRows[1] && (
             <Marquee className="[--duration:55s]" reverse>
               {skillRows[1].map((skill) => (
-                <SkillCard key={skill.name} skill={skill} />
+                <SkillCard key={skill.name} skill={skill} showName={isHovered} />
               ))}
             </Marquee>
           )}
@@ -150,7 +150,7 @@ export function SkillsSection() {
           {skillRows[2] && (
             <Marquee className="[--duration:60s]">
               {skillRows[2].map((skill) => (
-                <SkillCard key={skill.name} skill={skill} />
+                <SkillCard key={skill.name} skill={skill} showName={isHovered} />
               ))}
             </Marquee>
           )}

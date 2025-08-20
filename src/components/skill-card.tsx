@@ -8,9 +8,10 @@ import { Skill } from '@/types/skill';
 
 interface SkillCardProps {
   skill: Skill;
+  showName?: boolean;
 }
 
-export function SkillCard({ skill }: SkillCardProps) {
+export function SkillCard({ skill, showName = false }: SkillCardProps) {
   const { theme, resolvedTheme } = useTheme();
   
   // Determine which icon to use based on the current theme
@@ -38,7 +39,9 @@ export function SkillCard({ skill }: SkillCardProps) {
       </MagicCard>
       
       {/* Skill name that appears below on hover */}
-      <div className="mt-2 px-2 py-1 text-sm font-medium text-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-center">
+      <div className={`mt-2 px-2 py-1 text-sm font-medium text-foreground transition-opacity duration-200 text-center ${
+        showName ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+      }`}>
         {skill.name}
       </div>
     </div>
