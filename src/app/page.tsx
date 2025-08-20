@@ -1,16 +1,6 @@
 import { 
   Star, 
-  MessageCircle, 
-  Smartphone, 
-  Brain, 
-  Bot, 
-  Code, 
-  Database, 
-  Cloud, 
-  Server, 
-  Globe, 
-  Zap,
-  Settings
+  MessageCircle
 } from "lucide-react";
 import { OptimizedMarquee } from "@/components/optimized-magicui";
 import { Button } from "@/components/ui/button";
@@ -18,11 +8,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { HeroSection } from "@/components/hero-section";
 import { ServicesCardsShowcase } from "@/components/services-cards-showcase";
 import { PortfolioSection } from "@/components/portfolio-section";
+import { SkillsSection } from "@/components/skills-section";
 import Image from "next/image";
 import Link from "next/link";
-
-// Skill type definition
-type SkillIconName = 'smartphone' | 'brain' | 'bot' | 'code' | 'database' | 'cloud' | 'server' | 'globe' | 'zap' | 'settings';
 
 const testimonials = [
   {
@@ -47,57 +35,6 @@ const testimonials = [
     rating: 5
   }
 ];
-
-// First row of skills - Frontend & Web Technologies
-const skillsRowOne: { name: string; iconName: SkillIconName }[] = [
-  { name: "React", iconName: "code" },
-  { name: "Next.js", iconName: "globe" },
-  { name: "Vue.js", iconName: "code" },
-  { name: "TypeScript", iconName: "code" },
-  { name: "JavaScript", iconName: "code" },
-  { name: "Tailwind CSS", iconName: "code" },
-  { name: "HTML5", iconName: "globe" },
-  { name: "CSS3", iconName: "globe" },
-  { name: "Svelte", iconName: "code" },
-  { name: "Angular", iconName: "code" }
-];
-
-// Second row of skills - Mobile & Cross-Platform
-const skillsRowTwo: { name: string; iconName: SkillIconName }[] = [
-  { name: "React Native", iconName: "smartphone" },
-  { name: "Flutter", iconName: "smartphone" },
-  { name: "Ionic", iconName: "smartphone" },
-  { name: "Expo", iconName: "smartphone" },
-  { name: "Xamarin", iconName: "smartphone" },
-  { name: "Cordova", iconName: "smartphone" },
-  { name: "PWA", iconName: "globe" },
-  { name: "Electron", iconName: "code" }
-];
-
-// Third row of skills - Backend, AI & Cloud
-const skillsRowThree: { name: string; iconName: SkillIconName }[] = [
-  { name: "AI Development", iconName: "brain" },
-  { name: "Chatbots", iconName: "bot" },
-  { name: "Node.js", iconName: "server" },
-  { name: "Python", iconName: "code" },
-  { name: "Django", iconName: "server" },
-  { name: "FastAPI", iconName: "server" },
-  { name: "MongoDB", iconName: "database" },
-  { name: "PostgreSQL", iconName: "database" },
-  { name: "AWS", iconName: "cloud" },
-  { name: "Docker", iconName: "settings" },
-  { name: "REST APIs", iconName: "zap" },
-  { name: "GraphQL", iconName: "zap" },
-  { name: "Firebase", iconName: "cloud" },
-  { name: "TensorFlow", iconName: "brain" },
-  { name: "OpenAI", iconName: "brain" },
-  { name: "Langchain", iconName: "brain" },
-  { name: "Redis", iconName: "database" },
-  { name: "Kubernetes", iconName: "settings" }
-];
-
-
-
 
 function TestimonialsSection() {
   return (
@@ -148,73 +85,6 @@ function TestimonialsSection() {
         </OptimizedMarquee>
       </div>
     </section>
-  );
-}
-
-function SkillsSection() {
-  return (
-    <section id="skills" className="py-20 bg-muted/50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Technologies I Master
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Cutting-edge technologies for modern solutions
-          </p>
-        </div>
-
-        <div className="space-y-6 group">
-          {/* First row - Frontend & Web Technologies */}
-          <OptimizedMarquee pauseOnHover className="[--duration:80s] group-hover:[animation-play-state:paused]">
-            {skillsRowOne.map((skill) => (
-              <SkillCard key={skill.name} skill={skill} />
-            ))}
-          </OptimizedMarquee>
-
-          {/* Second row - Mobile & Cross-Platform (reverse direction) */}
-          <OptimizedMarquee pauseOnHover reverse className="[--duration:85s] group-hover:[animation-play-state:paused]">
-            {skillsRowTwo.map((skill) => (
-              <SkillCard key={skill.name} skill={skill} />
-            ))}
-          </OptimizedMarquee>
-
-          {/* Third row - Backend, AI & Cloud */}
-          <OptimizedMarquee pauseOnHover className="[--duration:90s] group-hover:[animation-play-state:paused]">
-            {skillsRowThree.map((skill) => (
-              <SkillCard key={skill.name} skill={skill} />
-            ))}
-          </OptimizedMarquee>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// Skill card component
-function SkillCard({ skill }: { skill: { name: string; iconName: SkillIconName } }) {
-  const skillIconMap = {
-    smartphone: Smartphone,
-    brain: Brain,
-    bot: Bot,
-    code: Code,
-    database: Database,
-    cloud: Cloud,
-    server: Server,
-    globe: Globe,
-    zap: Zap,
-    settings: Settings,
-  };
-
-  const IconComponent = skillIconMap[skill.iconName];
-
-  return (
-    <div className="mx-4 flex flex-col items-center p-6 rounded-lg bg-card hover:bg-card/80 transition-colors group cursor-pointer min-w-[160px] border shadow-sm">
-      <div className="p-4 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors mb-4">
-        <IconComponent className="w-8 h-8 text-primary" />
-      </div>
-      <p className="font-semibold text-center text-sm">{skill.name}</p>
-    </div>
   );
 }
 
