@@ -54,23 +54,20 @@ export function SkillCard({ skill }: SkillCardProps) {
 
   return (
     <MagicCard
-      className="mx-2 flex flex-col items-center justify-center p-6 rounded-lg bg-card hover:bg-card/80 transition-colors group cursor-pointer min-w-[160px] border shadow-sm"
+      className="w-32 h-32 flex items-center justify-center cursor-pointer group rounded-3xl border shadow-sm bg-card hover:bg-card/80 transition-colors"
       gradientSize={200}
       gradientColor="rgba(59, 130, 246, 0.1)"
       gradientOpacity={0.6}
     >
-      <div className="w-16 h-16 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors mb-4 flex items-center justify-center flex-shrink-0 mx-auto">
-        <Icon 
-          icon={iconName}
-          className="w-8 h-8 theme-adaptive-icon flex-shrink-0" 
-          style={{ 
-            color: getBrandColor(skill.name),
-            filter: "drop-shadow(0 0 2px rgba(0,0,0,0.1))",
-            display: 'block'
-          }} 
-        />
-      </div>
-      <p className="font-semibold text-center text-sm w-full">{skill.name}</p>
+      <Icon 
+        icon={iconName}
+        className="w-16 h-16 theme-adaptive-icon transition-transform group-hover:scale-110" 
+        style={{ 
+          color: getBrandColor(skill.name),
+          filter: "drop-shadow(0 0 2px rgba(0,0,0,0.1))",
+          display: 'block'
+        }} 
+      />
     </MagicCard>
   );
 }
