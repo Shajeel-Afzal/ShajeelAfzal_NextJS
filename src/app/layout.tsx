@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+// import { Geist, Geist_Mono } from "next/font/google";
 import { PersonalWebsiteStructuredData } from "@/components/structured-data";
 import { ThemeProvider } from "@/components/theme-provider";
 import { WebVitals } from "@/components/web-vitals";
@@ -7,19 +7,16 @@ import { SiteHeaderCreative } from "@/components/site-header-creative";
 import { SiteFooter } from "@/components/site-footer";
 import "./globals.css";
 
-const geistSans = Geist({
+// Use system fonts as fallback when Google Fonts are not available
+const geistSans = {
   variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap", // Improve font loading performance
-  preload: true,
-});
+  className: "font-sans",
+};
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap", // Improve font loading performance
-  preload: true,
-});
+const geistMono = {
+  variable: "--font-geist-mono", 
+  className: "font-mono",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://shajeelafzal.com"),
@@ -116,7 +113,7 @@ export default function RootLayout({
 
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${geistSans.className} antialiased`}
       >
         <ThemeProvider
           attribute="class"
