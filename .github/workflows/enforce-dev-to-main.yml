@@ -1,0 +1,20 @@
+name: Enforce Dev to Main Workflow
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-source-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check source branch
+        run: |
+          if [[ "${{ github.head_ref }}" != "dev" ]]; then
+            echo "❌ Only PRs from 'dev' branch are allowed to merge into 'main'"
+            echo "Current source branch: ${{ github.head_ref }}"
+            echo "Expected source branch: dev"
+            exit 1
+          else
+            echo "✅ Valid source branch: dev → main"
+          fi
