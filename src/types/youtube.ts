@@ -17,6 +17,7 @@ export interface YouTubeVideo {
   playlistId?: string;
   tags: string[];
   categoryId: string;
+  rawViewCount?: number; // For internal sorting purposes
 }
 
 export interface YouTubePlaylist {
