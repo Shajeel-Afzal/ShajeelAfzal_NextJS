@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { PageContainer } from "@/components/ui/page-container";
 import { youtubeService } from "@/lib/services/youtube.service";
-import { VideosPaginationManager } from "@/components/videos-pagination-manager";
-import { VideosFilterGrid } from "@/components/videos-filter-grid";
-import { AuroraText } from "@/components/magicui/aurora-text";
+import { VideosTabsContent } from "@/components/videos-tabs-content";
 
 export const metadata: Metadata = {
   title: "Videos | Shajeel Afzal - Mobile App & AI Developer",
@@ -53,13 +51,13 @@ export default async function VideosPage() {
   ]);
 
   return (
-  <PageContainer className="py-20">
+    <PageContainer className="py-20">
       <div className="mb-16 text-center">
-  <h1 className="text-4xl md:text-5xl font-bold leading-tight text-balance mb-6">
+        <h1 className="text-4xl md:text-5xl font-bold leading-tight text-balance mb-6">
           Explore My Latest{" "}
-          <AuroraText className="font-bold">
+          <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent font-bold">
             Video Tutorials
-          </AuroraText>{" "}
+          </span>{" "}
           📺 & Insights
         </h1>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
@@ -67,14 +65,12 @@ export default async function VideosPage() {
         </p>
       </div>
 
-      <Suspense fallback={<VideosFilterGrid videos={[]} playlists={[]} isLoading={true} />}>
-        <VideosPaginationManager
-          initialVideos={videosResponse.videos}
-          playlists={playlists}
-          initialTotalResults={videosResponse.totalResults}
-          initialNextPageToken={videosResponse.nextPageToken}
-        />
-      </Suspense>
-  </PageContainer>
+      <VideosTabsContent 
+        initialVideos={videosResponse.videos}
+        playlists={playlists}
+        initialTotalResults={videosResponse.totalResults}
+        initialNextPageToken={videosResponse.nextPageToken}
+      />
+    </PageContainer>
   );
 }

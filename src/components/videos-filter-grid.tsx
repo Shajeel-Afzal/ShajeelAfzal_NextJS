@@ -16,16 +16,26 @@ interface VideosFilterGridProps {
   playlists: YouTubePlaylist[];
   isLoading?: boolean;
   className?: string;
+  viewMode?: 'grid' | 'list';
+  searchQuery?: string;
 }
 
 type SortOption = 'latest' | 'oldest' | 'most-viewed' | 'alphabetical';
 type ViewMode = 'grid' | 'list';
 
-export function VideosFilterGrid({ videos, playlists, isLoading = false, className }: VideosFilterGridProps) {
-  const [searchQuery, setSearchQuery] = useState("");
+export function VideosFilterGrid({ 
+  videos, 
+  playlists, 
+  isLoading = false, 
+  className,
+  viewMode: externalViewMode = 'grid',
+  searchQuery: externalSearchQuery = ''
+}: VideosFilterGridProps) {
+  const [searchQuery, setSearchQuery] = useState(externalSearchQuery);
   const [selectedPlaylist, setSelectedPlaylist] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<SortOption>('latest');
-  const [viewMode, setViewMode] = useState<ViewMode>('grid');
+  // Use external viewMode instead of local state
+  const viewMode = externalViewMode;
   const [selectedVideo, setSelectedVideo] = useState<YouTubeVideo | null>(null);
   const [showFilters, setShowFilters] = useState(false);
   const [searchResults, setSearchResults] = useState<YouTubeVideo[]>([]);
@@ -203,8 +213,8 @@ export function VideosFilterGrid({ videos, playlists, isLoading = false, classNa
 
   return (
     <div className={cn("space-y-6", className)}>
-      {/* Search and Filters */}
-      <div className="space-y-4">
+      {/* Search and Filters - Hidden for now since moved to page level */}
+      <div className="space-y-4 hidden">
         {/* Search Bar */}
         <div className="relative">
           {isSearching ? (

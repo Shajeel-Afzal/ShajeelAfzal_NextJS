@@ -12,13 +12,17 @@ interface VideosPaginationManagerProps {
   playlists: YouTubePlaylist[];
   initialTotalResults: number;
   initialNextPageToken?: string;
+  viewMode?: 'grid' | 'list';
+  searchQuery?: string;
 }
 
 export function VideosPaginationManager({ 
   initialVideos, 
   playlists, 
   initialTotalResults,
-  initialNextPageToken 
+  initialNextPageToken,
+  viewMode = 'grid',
+  searchQuery = ''
 }: VideosPaginationManagerProps) {
   const [videos, setVideos] = useState<YouTubeVideo[]>(initialVideos);
   const [totalResults, setTotalResults] = useState(initialTotalResults);
@@ -109,6 +113,8 @@ export function VideosPaginationManager({
         videos={videos} 
         playlists={playlists} 
         isLoading={isLoading}
+        viewMode={viewMode}
+        searchQuery={searchQuery}
         className=""
       />
 
