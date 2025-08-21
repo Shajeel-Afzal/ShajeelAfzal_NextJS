@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { youtubeService } from "@/lib/youtube-api";
+import { youtubeService } from "@/lib/services/youtube.service";
 import { VideoGrid } from "@/components/video-grid";
 
 export const metadata: Metadata = {
@@ -43,7 +43,9 @@ export const metadata: Metadata = {
 
 export default async function VideosPage() {
   // Fetch videos and playlists on the server
-  const { videos, playlists } = await youtubeService.getChannelVideos(20);
+  const response = await youtubeService.getChannelVideos({ maxResults: 20 });
+  const videos = response.videos;
+  const playlists = await youtubeService.getChannelPlaylists();
 
   return (
     <main className="min-h-screen py-20" id="main-content">

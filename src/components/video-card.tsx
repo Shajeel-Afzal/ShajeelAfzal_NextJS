@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Play, Clock, Eye, Calendar } from "lucide-react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
-import type { YouTubeVideo } from "@/lib/youtube-api";
+import type { YouTubeVideo } from "@/types/youtube";
 
 interface VideoCardProps {
   video: YouTubeVideo;

@@ -7,7 +7,7 @@ import { VideoCard } from "@/components/video-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import type { YouTubeVideo, YouTubePlaylist } from "@/lib/youtube-api";
+import type { YouTubeVideo, YouTubePlaylist } from "@/types/youtube";
 
 interface VideoGridProps {
   videos: YouTubeVideo[];
