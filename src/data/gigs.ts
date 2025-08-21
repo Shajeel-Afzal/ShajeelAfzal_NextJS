@@ -222,7 +222,8 @@ export const gigs: Gig[] = [
     reviews: sampleReviews,
     icon: Brain,
     featured: true,
-    startingPrice: 1500
+    startingPrice: 1500,
+    freeConsultation: true
   },
 
   // ChatBot Development  
@@ -346,7 +347,8 @@ export const gigs: Gig[] = [
     reviews: sampleReviews.slice(0, 2),
     icon: Bot,
     featured: true,
-    startingPrice: 800
+    startingPrice: 800,
+    freeConsultation: false
   },
 
   // Mobile Apps
@@ -474,7 +476,8 @@ export const gigs: Gig[] = [
     reviews: sampleReviews,
     icon: Smartphone,
     featured: true,
-    startingPrice: 2500
+    startingPrice: 2500,
+    freeConsultation: true
   },
 
   // Web Development
@@ -603,7 +606,8 @@ export const gigs: Gig[] = [
     reviews: sampleReviews.slice(0, 3),
     icon: Globe,
     featured: true,
-    startingPrice: 1800
+    startingPrice: 1800,
+    freeConsultation: false
   },
 
   // Backend Development
@@ -728,7 +732,8 @@ export const gigs: Gig[] = [
     reviews: sampleReviews.slice(0, 2),
     icon: Server,
     featured: false,
-    startingPrice: 1200
+    startingPrice: 1200,
+    freeConsultation: false
   },
 
   // Automation Solutions
@@ -851,7 +856,8 @@ export const gigs: Gig[] = [
     reviews: sampleReviews.slice(0, 1),
     icon: Zap,
     featured: false,
-    startingPrice: 800
+    startingPrice: 800,
+    freeConsultation: false
   }
 ];
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Star, Heart } from "lucide-react";
+import { Star, Heart, Video } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Gig } from "@/types/gigs";
 import Link from "next/link";
@@ -42,21 +42,27 @@ export function GigCardV2({ gig }: GigCardV2Props) {
         {/* Content */}
         <div className="p-3">
           {/* Profile Section */}
-          <div className="flex items-center gap-2 mb-2">
-            <div className="relative">
-              <Image
-                src="/images/shajeel_afzal.png"
-                alt="Shajeel Afzal"
-                width={24}
-                height={24}
-                className="rounded-full border border-primary/20 object-cover"
-                style={{ width: '24px', height: '24px' }}
-              />
-              <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white"></div>
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <div className="relative">
+                <Image
+                  src="/images/shajeel_afzal.png"
+                  alt="Shajeel Afzal"
+                  width={24}
+                  height={24}
+                  className="rounded-full border border-primary/20 object-cover"
+                  style={{ width: '24px', height: '24px' }}
+                />
+                <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white"></div>
+              </div>
+              <p className="text-xs font-medium text-foreground">Shajeel</p>
             </div>
-            <div>
-              <p className="text-xs font-medium text-foreground">Shajeel Afzal</p>
-            </div>
+            {gig.freeConsultation && (
+              <div className="flex items-center gap-1">
+                <Video className="h-3.5 w-3.5 text-green-600" />
+                <span className="text-xs font-medium text-green-600">FREE Consultation</span>
+              </div>
+            )}
           </div>
 
           {/* Title */}
@@ -74,18 +80,12 @@ export function GigCardV2({ gig }: GigCardV2Props) {
           {/* Price */}
           <div className="border-t border-border/50 pt-3">
             <div className="text-xs text-muted-foreground mb-1">
-              From <span className="text-sm font-bold text-foreground">PKR {gig.startingPrice.toLocaleString()}</span>
+              From <span className="text-sm font-bold text-foreground">
+                ${gig.startingPrice.toLocaleString()}
+                {gig.pricingModel === 'hourly' && ' / hr'}
+                {gig.pricingModel === 'monthly' && ' / month'}
+              </span>
             </div>
-          </div>
-        </div>
-
-        {/* Video Consultation Badge - Bottom */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/5 to-transparent p-3 pt-6">
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground bg-white/80 backdrop-blur-sm rounded-full px-2 py-1 w-fit">
-            <div className="w-3 h-3 rounded bg-primary/20 flex items-center justify-center">
-              <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
-            </div>
-            <span>Offers video consultations</span>
           </div>
         </div>
       </div>

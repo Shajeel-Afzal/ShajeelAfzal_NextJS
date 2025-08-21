@@ -66,6 +66,7 @@ export interface Gig {
   standardTier: ServiceTier;
   premiumTier: ServiceTier;
   addOns: AddOnService[];
+  freeConsultation: boolean;
   
   // Content
   mediaGallery: MediaItem[];
