@@ -155,13 +155,16 @@ export class YouTubeService {
         title: item.snippet.title,
         description: item.snippet.description,
         thumbnail: {
-          url: item.snippet.thumbnails.maxresdefault?.url || 
+          url: item.snippet.thumbnails.maxres?.url || 
+               item.snippet.thumbnails.maxresdefault?.url || 
                item.snippet.thumbnails.high?.url || 
                item.snippet.thumbnails.medium?.url || 
                item.snippet.thumbnails.default?.url,
-          width: item.snippet.thumbnails.maxresdefault?.width || 
+          width: item.snippet.thumbnails.maxres?.width || 
+                 item.snippet.thumbnails.maxresdefault?.width || 
                  item.snippet.thumbnails.high?.width || 1280,
-          height: item.snippet.thumbnails.maxresdefault?.height || 
+          height: item.snippet.thumbnails.maxres?.height || 
+                  item.snippet.thumbnails.maxresdefault?.height || 
                   item.snippet.thumbnails.high?.height || 720,
         },
         publishedAt: item.snippet.publishedAt,

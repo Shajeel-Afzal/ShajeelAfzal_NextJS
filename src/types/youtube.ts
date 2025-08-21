@@ -95,6 +95,8 @@ export interface YouTubeAPISearchItem {
       default?: { url: string; width: number; height: number };
       medium?: { url: string; width: number; height: number };
       high?: { url: string; width: number; height: number };
+      maxres?: { url: string; width: number; height: number };
+      maxresdefault?: { url: string; width: number; height: number };
     };
   };
 }
@@ -109,6 +111,8 @@ export interface YouTubeAPIPlaylistItem {
       default?: { url: string; width: number; height: number };
       medium?: { url: string; width: number; height: number };
       high?: { url: string; width: number; height: number };
+      maxres?: { url: string; width: number; height: number };
+      maxresdefault?: { url: string; width: number; height: number };
     };
   };
   contentDetails: {
@@ -131,6 +135,8 @@ export interface YouTubeAPIPlaylistVideoItem {
       default?: { url: string; width: number; height: number };
       medium?: { url: string; width: number; height: number };
       high?: { url: string; width: number; height: number };
+      maxres?: { url: string; width: number; height: number };
+      maxresdefault?: { url: string; width: number; height: number };
     };
   };
 }
@@ -146,6 +152,8 @@ export interface YouTubeAPIChannelItem {
       default?: { url: string; width: number; height: number };
       medium?: { url: string; width: number; height: number };
       high?: { url: string; width: number; height: number };
+      maxres?: { url: string; width: number; height: number };
+      maxresdefault?: { url: string; width: number; height: number };
     };
   };
   statistics: {
