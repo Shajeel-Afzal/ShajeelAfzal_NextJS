@@ -1,10 +1,10 @@
 import { ArrowRight, Star, Users, CheckCircle, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AuroraText } from "@/components/magicui/aurora-text";
-import { BorderBeam } from "@/components/magicui/border-beam";
 import { ShinyButton } from "@/components/magicui/shiny-button";
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { Highlighter } from "@/components/magicui/special-effects/highlighter";
+import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import Link from "next/link";
 
 export function CTASectionV2() {
@@ -82,9 +82,7 @@ export function CTASectionV2() {
 
         <div className="max-w-6xl mx-auto">
           <div className="relative bg-background/50 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-primary/20">
-            <BorderBeam size={250} duration={12} delay={9} />
-            
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-12 items-center relative">
               {/* Benefits */}
               <div className="space-y-6">
                 <h3 className="text-2xl md:text-3xl font-bold mb-6">
@@ -102,17 +100,28 @@ export function CTASectionV2() {
 
               {/* CTA Form */}
               <div className="space-y-6">
-                <div className="bg-gradient-to-br from-background via-background/90 to-primary/5 rounded-3xl p-8 border border-primary/10 shadow-lg backdrop-blur-sm">
-                  <div className="text-center mb-6">
-                    <h4 className="text-2xl font-bold mb-2">
-                      Start Your Project Today
-                    </h4>
-                    <p className="text-muted-foreground">
-                      Get a personalized quote in 24 hours
-                    </p>
-                  </div>
+                <div className="relative bg-gradient-to-br from-background via-background/90 to-primary/5 rounded-3xl p-8 border border-primary/10 shadow-lg backdrop-blur-sm overflow-hidden">
+                  {/* Flickering Grid Background */}
+                  <FlickeringGrid
+                    className="absolute inset-0 opacity-40"
+                    squareSize={3}
+                    gridGap={4}
+                    flickerChance={0.6}
+                    color="hsl(var(--primary))"
+                    maxOpacity={0.2}
+                  />
                   
-                  <div className="space-y-6">
+                  <div className="relative z-10">
+                    <div className="text-center mb-6">
+                      <h4 className="text-2xl font-bold mb-2">
+                        Start Your Project Today
+                      </h4>
+                      <p className="text-muted-foreground">
+                        Get a personalized quote in 24 hours
+                      </p>
+                    </div>
+                    
+                    <div className="space-y-6">
                     <Link href="#consultation">
                       <ShinyButton className="w-full text-lg px-8 py-6 h-16 group bg-primary hover:bg-primary/90 text-primary-foreground border-0 normal-case tracking-normal font-medium">
                         <span className="flex items-center justify-center text-primary-foreground">
@@ -170,6 +179,7 @@ export function CTASectionV2() {
                     </div>
                   </div>
                 </div>
+              </div>
               </div>
             </div>
           </div>
