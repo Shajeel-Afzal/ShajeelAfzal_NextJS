@@ -1,0 +1,7 @@
+# This file defines code ownership for this repository.
+# Owners are automatically requested for review when someone opens a pull request
+# that modifies code that they own.
+# Docs: https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything in the repo
+* @Shajeel-Afzal
