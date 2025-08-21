@@ -23,6 +23,7 @@ export const AuroraText = memo(
       WebkitBackgroundClip: "text",
       WebkitTextFillColor: "transparent",
       animationDuration: `${10 / speed}s`,
+      willChange: "background-position",
     };
 
     return (

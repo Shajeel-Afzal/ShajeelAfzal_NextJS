@@ -4,6 +4,7 @@ import { PageContainer } from "@/components/ui/page-container";
 import { youtubeService } from "@/lib/services/youtube.service";
 import { VideosPaginationManager } from "@/components/videos-pagination-manager";
 import { VideosFilterGrid } from "@/components/videos-filter-grid";
+import { AuroraText } from "@/components/magicui/aurora-text";
 
 export const metadata: Metadata = {
   title: "Videos | Shajeel Afzal - Mobile App & AI Developer",
@@ -54,9 +55,13 @@ export default async function VideosPage() {
   return (
   <PageContainer className="py-20">
       <div className="mb-16 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">Videos</h1>
+  <h1 className="text-4xl md:text-5xl font-bold leading-tight text-balance mb-6">
+          Explore My Latest{' '}
+          <AuroraText className="font-bold">Video Tutorials</AuroraText>{' '}
+          📺 & Insights
+        </h1>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-          Explore my latest content, tutorials, and insights from my YouTube channel.
+          Watch practical videos on mobile apps, AI integrations, and modern web development.
         </p>
       </div>
 
