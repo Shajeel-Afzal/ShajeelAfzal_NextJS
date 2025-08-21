@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Play, Eye } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
@@ -8,6 +9,7 @@ import type { YouTubePlaylist, YouTubeVideo } from "@/types/youtube";
 import { VideoCard } from "./video-card";
 import { Marquee } from "./magicui/marquee";
 import { youtubeAPI } from "@/lib/services/youtube-client.service";
+import { playlistCache } from "@/lib/cache/client-cache.service";
 
 interface PlaylistSectionProps {
   playlists: YouTubePlaylist[];
@@ -21,48 +23,110 @@ interface PlaylistWithVideos extends YouTubePlaylist {
 }
 
 export function PlaylistSection({ playlists, onVideoPlay, className }: PlaylistSectionProps) {
-  const [playlistsWithVideos, setPlaylistsWithVideos] = useState<PlaylistWithVideos[]>(
-    // Sort initially by video count (stable sort available immediately)
-    playlists
+  const [playlistsWithVideos, setPlaylistsWithVideos] = useState<PlaylistWithVideos[]>(() => {
+    // Clean expired cache entries on initialization
+    playlistCache.cleanExpired();
+    
+    // Sort initially by video count and check cache immediately
+    return playlists
       .sort((a, b) => b.videoCount - a.videoCount)
-      .map(playlist => ({
-        ...playlist,
-        videos: [],
-        isLoading: true
-      }))
-  );
+      .map(playlist => {
+        const cacheKey = `playlist-videos-${playlist.id}`;
+        const cachedVideos = playlistCache.get<YouTubeVideo[]>(cacheKey);
+        
+        return {
+          ...playlist,
+          videos: cachedVideos || [],
+          isLoading: !cachedVideos // Only show loading if not cached
+        };
+      });
+  });
 
-  // Fetch videos for each playlist
+  const [hasInitialized, setHasInitialized] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingCount, setLoadingCount] = useState(0);
+
+  // Fetch videos for each playlist (only if needed)
   useEffect(() => {
+    // Skip if already initialized or if all playlists are already loaded from cache
+    const needsFetching = playlistsWithVideos.some(p => p.isLoading);
+    if (hasInitialized || !needsFetching) {
+      return;
+    }
+    
     const fetchPlaylistVideos = async () => {
-      // Fetch all playlists in parallel for better performance
-      const playlistPromises = playlists.map(async (playlist) => {
+      // Only fetch playlists that need fetching (not in cache and currently loading)
+      const playlistsToFetch = playlists.filter(playlist => {
+        const cacheKey = `playlist-videos-${playlist.id}`;
+        const cachedVideos = playlistCache.get<YouTubeVideo[]>(cacheKey);
+        return !cachedVideos; // Only fetch if not cached
+      });
+
+      if (playlistsToFetch.length === 0) {
+        setHasInitialized(true);
+        return;
+      }
+
+      // Show loading indicator after a brief delay (only if operation takes longer than expected)
+      const loadingTimeout = setTimeout(() => {
+        setIsLoading(true);
+        setLoadingCount(playlistsToFetch.length);
+      }, 500); // Show loading after 500ms delay
+
+      // Fetch only uncached playlists in parallel
+      const playlistPromises = playlistsToFetch.map(async (playlist) => {
+        const cacheKey = `playlist-videos-${playlist.id}`;
+        
         try {
           const response = await youtubeAPI.getPlaylistVideos(playlist.id, 10);
+          const videos = response?.videos || [];
+          
+          // Cache the result for 10 minutes
+          playlistCache.set(cacheKey, videos);
+          
           return {
-            ...playlist,
-            videos: response?.videos || [],
-            isLoading: false
+            playlistId: playlist.id,
+            videos,
+            error: null
           };
         } catch (error) {
           console.error(`Error fetching videos for playlist ${playlist.id}:`, error);
           return {
-            ...playlist,
+            playlistId: playlist.id,
             videos: [],
-            isLoading: false
+            error
           };
         }
       });
 
-      // Wait for all playlists to load, then sort by video count (stable and efficient)
-      const loadedPlaylists = await Promise.all(playlistPromises);
-      const sortedPlaylists = loadedPlaylists.sort((a, b) => b.videoCount - a.videoCount);
+      const fetchResults = await Promise.all(playlistPromises);
       
-      setPlaylistsWithVideos(sortedPlaylists);
+      // Update only the playlists that were fetched
+      setPlaylistsWithVideos(prev => {
+        const updated = prev.map(playlist => {
+          const fetchResult = fetchResults.find(result => result.playlistId === playlist.id);
+          if (fetchResult) {
+            return {
+              ...playlist,
+              videos: fetchResult.videos,
+              isLoading: false
+            };
+          }
+          return playlist;
+        });
+        
+        // Sort by video count after updating
+        return updated.sort((a, b) => b.videoCount - a.videoCount);
+      });
+      
+      // Clear loading timeout and hide loading indicator
+      clearTimeout(loadingTimeout);
+      setIsLoading(false);
+      setHasInitialized(true);
     };
 
     fetchPlaylistVideos();
-  }, [playlists]);
+  }, [playlists, hasInitialized]);
 
 
   const handleViewAllPlaylist = (playlistId: string) => {
@@ -70,10 +134,10 @@ export function PlaylistSection({ playlists, onVideoPlay, className }: PlaylistS
     window.open(`https://www.youtube.com/playlist?list=${playlistId}`, '_blank');
   };
 
-  // Calculate marquee duration based on number of videos (slower animation)
+  // Calculate marquee duration based on number of videos (very slow animation)
   const getMarqueeDuration = (videoCount: number) => {
-    // Base duration of 40s, increased by 8s for each additional video beyond 3
-    return Math.max(40, 40 + (videoCount - 3) * 8);
+    // Base duration of 80s, increased by 15s for each additional video beyond 3
+    return Math.max(80, 80 + (videoCount - 3) * 15);
   };
 
   if (playlistsWithVideos.length === 0) {
@@ -82,30 +146,35 @@ export function PlaylistSection({ playlists, onVideoPlay, className }: PlaylistS
 
   return (
     <div className={cn("space-y-12", className)}>
-      <div className="text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
-          Featured{" "}
-          <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-            Playlists
-          </span>
-        </h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          Curated collections of videos organized by topic and technology
-        </p>
-      </div>
-
+      {/* Non-blocking loading indicator */}
+      {isLoading && (
+        <motion.div 
+          initial={{ opacity: 0, y: -10 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          exit={{ opacity: 0, y: -10 }}
+          className="flex items-center justify-center py-4"
+        >
+          <div className="flex items-center gap-3 text-sm text-muted-foreground bg-muted/30 rounded-full px-4 py-2 backdrop-blur-sm">
+            <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+            <span>Loading {loadingCount} playlist{loadingCount !== 1 ? 's' : ''}...</span>
+          </div>
+        </motion.div>
+      )}
+      
       <div className="space-y-10">
-        {playlistsWithVideos.map((playlist) => (
+        {playlistsWithVideos.map((playlist, index) => (
           <div key={playlist.id} className="space-y-4">
             {/* Playlist Header */}
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 rounded-lg overflow-hidden bg-muted">
-                    <img
+                  <div className="w-16 h-16 rounded-lg overflow-hidden bg-muted relative">
+                    <Image
                       src={playlist.thumbnail.url}
                       alt={playlist.title}
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
+                      sizes="64px"
                     />
                   </div>
                 </div>
@@ -152,6 +221,7 @@ export function PlaylistSection({ playlists, onVideoPlay, className }: PlaylistS
                   <Marquee
                     className={`[--duration:${getMarqueeDuration(playlist.videos.length)}s]`}
                     pauseOnHover
+                    reverse={index % 2 === 1} // Alternate direction for odd-indexed playlists
                     style={{
                       '--duration': `${getMarqueeDuration(playlist.videos.length)}s`
                     } as React.CSSProperties}

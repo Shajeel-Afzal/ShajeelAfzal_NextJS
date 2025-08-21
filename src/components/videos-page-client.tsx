@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X } from "lucide-react";
 import type { YouTubeVideo, YouTubePlaylist } from "@/types/youtube";
-import { PlaylistSection } from "./playlist-section";
 import { VideosTabsContent } from "./videos-tabs-content";
 
 interface VideosPageClientProps {
