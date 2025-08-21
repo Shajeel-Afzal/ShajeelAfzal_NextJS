@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useDeferredValue, startTransition } from "react";
 import Image from "next/image";
 import { Play, Eye } from "lucide-react";
 import { motion } from "motion/react";
@@ -23,33 +23,53 @@ interface PlaylistWithVideos extends YouTubePlaylist {
 }
 
 export function PlaylistSection({ playlists, onVideoPlay, className }: PlaylistSectionProps) {
-  const [playlistsWithVideos, setPlaylistsWithVideos] = useState<PlaylistWithVideos[]>(() => {
-    // Clean expired cache entries on initialization
-    playlistCache.cleanExpired();
-    
-    // Sort initially by video count and check cache immediately
-    return playlists
-      .sort((a, b) => b.videoCount - a.videoCount)
-      .map(playlist => {
-        const cacheKey = `playlist-videos-${playlist.id}`;
-        const cachedVideos = playlistCache.get<YouTubeVideo[]>(cacheKey);
-        
-        return {
-          ...playlist,
-          videos: cachedVideos || [],
-          isLoading: !cachedVideos // Only show loading if not cached
-        };
-      });
-  });
-
+  // Initialize with empty state to prevent blocking
+  const [playlistsWithVideos, setPlaylistsWithVideos] = useState<PlaylistWithVideos[]>([]);
   const [hasInitialized, setHasInitialized] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [loadingCount, setLoadingCount] = useState(0);
+  const [isProcessingCache, setIsProcessingCache] = useState(true);
+  
+  // Use deferred value for non-critical updates
+  const deferredPlaylists = useDeferredValue(playlistsWithVideos);
+
+  // Initialize playlists with cached data asynchronously
+  useEffect(() => {
+    // Process cache in a non-blocking way
+    const initializeWithCache = async () => {
+      // Use setTimeout to defer execution and prevent blocking
+      await new Promise(resolve => setTimeout(resolve, 0));
+      
+      startTransition(() => {
+        // Clean expired cache entries asynchronously
+        playlistCache.cleanExpired();
+        
+        // Sort initially by video count and check cache
+        const initialPlaylists = playlists
+          .sort((a, b) => b.videoCount - a.videoCount)
+          .map(playlist => {
+            const cacheKey = `playlist-videos-${playlist.id}`;
+            const cachedVideos = playlistCache.get<YouTubeVideo[]>(cacheKey);
+            
+            return {
+              ...playlist,
+              videos: cachedVideos || [],
+              isLoading: !cachedVideos // Only show loading if not cached
+            };
+          });
+        
+        setPlaylistsWithVideos(initialPlaylists);
+        setIsProcessingCache(false);
+      });
+    };
+    
+    initializeWithCache();
+  }, [playlists]);
 
   // Fetch videos for each playlist (only if needed)
   useEffect(() => {
-    // Skip if already initialized
-    if (hasInitialized) {
+    // Skip if already initialized or still processing cache
+    if (hasInitialized || isProcessingCache) {
       return;
     }
     
@@ -136,7 +156,7 @@ export function PlaylistSection({ playlists, onVideoPlay, className }: PlaylistS
     };
 
     fetchPlaylistVideos();
-  }, [playlists, hasInitialized]);
+  }, [playlists, hasInitialized, isProcessingCache]);
 
 
   const handleViewAllPlaylist = (playlistId: string) => {
@@ -150,12 +170,26 @@ export function PlaylistSection({ playlists, onVideoPlay, className }: PlaylistS
     return Math.max(80, 80 + (videoCount - 3) * 15);
   };
 
-  if (playlistsWithVideos.length === 0) {
+  // Show processing state while initializing
+  if (isProcessingCache) {
+    return (
+      <div className={cn("space-y-12", className)}>
+        <div className="flex items-center justify-center py-8">
+          <div className="flex items-center gap-3 text-sm text-muted-foreground">
+            <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+            <span>Loading playlists...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (deferredPlaylists.length === 0) {
     return null;
   }
 
   return (
-    <div className={cn("space-y-12", className)}>
+    <div className={cn("space-y-12", className)} data-testid="playlist-section">
       {/* Non-blocking loading indicator */}
       {isLoading && (
         <motion.div 
@@ -172,7 +206,7 @@ export function PlaylistSection({ playlists, onVideoPlay, className }: PlaylistS
       )}
       
       <div className="space-y-10">
-        {playlistsWithVideos.map((playlist, index) => (
+        {deferredPlaylists.map((playlist, index) => (
           <div key={playlist.id} className="space-y-4">
             {/* Playlist Header */}
             <div className="flex items-center justify-between">
