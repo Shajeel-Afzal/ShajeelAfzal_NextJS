@@ -111,9 +111,9 @@ export function SkillsSection() {
     <section id="skills" className="py-20 bg-muted/50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold leading-tight text-balance mb-6">
             Expertise Across{" "}
-            <AuroraText className="text-4xl md:text-5xl font-bold">
+            <AuroraText className="font-bold">
               Modern Technologies
             </AuroraText>{" "}
             💻 & Frameworks

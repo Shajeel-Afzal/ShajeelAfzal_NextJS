@@ -140,27 +140,22 @@
   @keyframes aurora {
     0% {
       background-position: 0% 50%;
-      transform: rotate(-5deg) scale(0.9);
     }
 
     25% {
       background-position: 50% 100%;
-      transform: rotate(5deg) scale(1.1);
     }
 
     50% {
       background-position: 100% 50%;
-      transform: rotate(-3deg) scale(0.95);
     }
 
     75% {
       background-position: 50% 0%;
-      transform: rotate(3deg) scale(1.05);
     }
 
     100% {
       background-position: 0% 50%;
-      transform: rotate(-5deg) scale(0.9);
     }
   }
 
@@ -818,4 +813,26 @@ section[id] {
 /* Pause all marquees when hovering over skills section */
 .pause-all-marquees .group > div {
   animation-play-state: paused !important;
+}
+
+/* Line clamp utilities for text truncation */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
