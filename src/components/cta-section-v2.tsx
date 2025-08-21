@@ -3,14 +3,15 @@ import { Button } from "@/components/ui/button";
 import { AuroraText } from "@/components/magicui/aurora-text";
 import { BorderBeam } from "@/components/magicui/border-beam";
 import { ShinyButton } from "@/components/magicui/shiny-button";
+import { NumberTicker } from "@/components/magicui/number-ticker";
 import Link from "next/link";
 
 export function CTASectionV2() {
   const stats = [
-    { icon: Users, label: "Repeat Clients", value: "85%" },
-    { icon: Star, label: "Success Rate", value: "98%" },
-    { icon: CheckCircle, label: "On-Time Delivery", value: "100%" },
-    { icon: Zap, label: "Client Satisfaction", value: "4.9/5" }
+    { icon: Users, label: "Repeat Clients", value: 85, suffix: "%", decimalPlaces: 0 },
+    { icon: Star, label: "Success Rate", value: 98, suffix: "%", decimalPlaces: 0 },
+    { icon: CheckCircle, label: "On-Time Delivery", value: 100, suffix: "%", decimalPlaces: 0 },
+    { icon: Zap, label: "Client Satisfaction", value: 4.9, suffix: "/5", decimalPlaces: 1 }
   ];
 
   const benefits = [
@@ -50,7 +51,15 @@ export function CTASectionV2() {
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
                 <stat.icon className="w-6 h-6 mx-auto mb-2 text-primary" />
-                <div className="text-2xl font-bold">{stat.value}</div>
+                <div className="text-2xl font-bold">
+                  <NumberTicker 
+                    value={stat.value} 
+                    decimalPlaces={stat.decimalPlaces}
+                    delay={index * 0.2}
+                    className="text-2xl font-bold text-foreground"
+                  />
+                  {stat.suffix}
+                </div>
                 <div className="text-sm text-muted-foreground">{stat.label}</div>
               </div>
             ))}
