@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import type { YouTubeVideo, YouTubePlaylist } from "@/types/youtube";
 
-interface VideoGridProps {
+interface VideosFilterGridProps {
   videos: YouTubeVideo[];
   playlists: YouTubePlaylist[];
   isLoading?: boolean;
@@ -19,7 +19,7 @@ interface VideoGridProps {
 type SortOption = 'latest' | 'oldest' | 'most-viewed' | 'alphabetical';
 type ViewMode = 'grid' | 'list';
 
-export function VideoGrid({ videos, playlists, isLoading = false, className }: VideoGridProps) {
+export function VideosFilterGrid({ videos, playlists, isLoading = false, className }: VideosFilterGridProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedPlaylist, setSelectedPlaylist] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<SortOption>('latest');

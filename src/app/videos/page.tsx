@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { youtubeService } from "@/lib/services/youtube.service";
-import { VideosPageClient } from "@/components/videos-page-client";
-import { VideoGrid } from "@/components/video-grid";
+import { VideosPaginationManager } from "@/components/videos-pagination-manager";
+import { VideosFilterGrid } from "@/components/videos-filter-grid";
 
 export const metadata: Metadata = {
   title: "Videos | Shajeel Afzal - Mobile App & AI Developer",
@@ -59,8 +59,8 @@ export default async function VideosPage() {
         </p>
       </div>
 
-      <Suspense fallback={<VideoGrid videos={[]} playlists={[]} isLoading={true} />}>
-        <VideosPageClient
+      <Suspense fallback={<VideosFilterGrid videos={[]} playlists={[]} isLoading={true} />}>
+        <VideosPaginationManager
           initialVideos={videosResponse.videos}
           playlists={playlists}
           initialTotalResults={videosResponse.totalResults}

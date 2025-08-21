@@ -1,25 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { VideoGrid } from "@/components/video-grid";
+import { VideosFilterGrid } from "./videos-filter-grid";
 import { Button } from "@/components/ui/button";
 import { Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import { youtubeAPI } from "@/lib/services/youtube-client.service";
 import type { YouTubeVideo, YouTubePlaylist } from "@/types/youtube";
 
-interface VideosPageClientProps {
+interface VideosPaginationManagerProps {
   initialVideos: YouTubeVideo[];
   playlists: YouTubePlaylist[];
   initialTotalResults: number;
   initialNextPageToken?: string;
 }
 
-export function VideosPageClient({ 
+export function VideosPaginationManager({ 
   initialVideos, 
   playlists, 
   initialTotalResults,
   initialNextPageToken 
-}: VideosPageClientProps) {
+}: VideosPaginationManagerProps) {
   const [videos, setVideos] = useState<YouTubeVideo[]>(initialVideos);
   const [totalResults, setTotalResults] = useState(initialTotalResults);
   const [nextPageToken, setNextPageToken] = useState<string | undefined>(initialNextPageToken);
@@ -105,7 +105,7 @@ export function VideosPageClient({
   return (
     <div className="mx-auto max-w-7xl space-y-8">
       {/* Videos Grid */}
-      <VideoGrid 
+      <VideosFilterGrid 
         videos={videos} 
         playlists={playlists} 
         isLoading={isLoading}
