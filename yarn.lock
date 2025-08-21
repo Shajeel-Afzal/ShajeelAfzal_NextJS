@@ -2635,7 +2635,7 @@ motion-utils@^12.23.6:
 
 motion@^12.23.12:
   version "12.23.12"
-  resolved "https://registry.npmjs.org/motion/-/motion-12.23.12.tgz"
+  resolved "https://registry.yarnpkg.com/motion/-/motion-12.23.12.tgz#9f3552636c1e94911eee42e6f85db8f60db83c19"
   integrity sha512-8jCD8uW5GD1csOoqh1WhH1A6j5APHVE15nuBkFeRiMzYBdRwyAHmSP/oXSuW0WJPZRXTFdBoG4hY9TFWNhhwng==
   dependencies:
     framer-motion "^12.23.12"
