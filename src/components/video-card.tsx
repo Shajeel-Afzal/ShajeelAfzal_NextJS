@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Play, Clock, Eye, Calendar } from "lucide-react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
@@ -39,11 +40,12 @@ export function VideoCard({ video, onPlay, className }: VideoCardProps) {
     >
       {/* Thumbnail Container */}
       <div className="relative aspect-video overflow-hidden">
-        <img
+        <Image
           src={video.thumbnail.url}
           alt={video.title}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          loading="lazy"
+          fill
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         
         {/* Duration Badge */}
