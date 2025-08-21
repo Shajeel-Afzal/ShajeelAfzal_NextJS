@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { PageContainer } from "@/components/ui/page-container";
 import { youtubeService } from "@/lib/services/youtube.service";
 import { VideosTabsContent } from "@/components/videos-tabs-content";
