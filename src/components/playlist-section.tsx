@@ -35,13 +35,23 @@ export function PlaylistSection({ playlists, onVideoPlay, className }: PlaylistS
 
   // Initialize playlists with cached data asynchronously
   useEffect(() => {
+    // Prevent unnecessary initialization during development hot reloads
+    const isDevelopment = process.env.NODE_ENV === 'development';
+    const lastInit = isDevelopment ? ((window as unknown) as { __lastPlaylistInit?: number }).__lastPlaylistInit : 0;
+    const hasRecentlyInitialized = lastInit && Date.now() - lastInit < 2000;
+    
+    if (isDevelopment && hasRecentlyInitialized) {
+      setIsProcessingCache(false);
+      return;
+    }
+    
     // Process cache in a non-blocking way
     const initializeWithCache = async () => {
       // Use setTimeout to defer execution and prevent blocking
       await new Promise(resolve => setTimeout(resolve, 0));
       
       startTransition(() => {
-        // Clean expired cache entries asynchronously
+        // Clean expired cache entries asynchronously (throttled)
         playlistCache.cleanExpired();
         
         // Sort initially by video count and check cache
@@ -60,36 +70,33 @@ export function PlaylistSection({ playlists, onVideoPlay, className }: PlaylistS
         
         setPlaylistsWithVideos(initialPlaylists);
         setIsProcessingCache(false);
+        
+        // Mark initialization timestamp for development
+        if (isDevelopment) {
+          ((window as unknown) as { __lastPlaylistInit?: number }).__lastPlaylistInit = Date.now();
+        }
       });
     };
     
     initializeWithCache();
   }, [playlists]);
 
-  // Fetch videos for each playlist (only if needed)
+  // Fetch videos for playlists with batching and rate limiting
   useEffect(() => {
     // Skip if already initialized or still processing cache
     if (hasInitialized || isProcessingCache) {
       return;
     }
     
-    // Check if any playlists need fetching
-    const needsFetching = playlists.some(playlist => {
-      const cacheKey = `playlist-videos-${playlist.id}`;
-      return !playlistCache.get<YouTubeVideo[]>(cacheKey);
-    });
-    
-    if (!needsFetching) {
-      setHasInitialized(true);
-      return;
-    }
-    
     const fetchPlaylistVideos = async () => {
-      // Only fetch playlists that need fetching (not in cache and currently loading)
-      const playlistsToFetch = playlists.filter(playlist => {
+      // Only fetch top 10 playlists initially (by video count)
+      const topPlaylists = playlists
+        .sort((a, b) => b.videoCount - a.videoCount)
+        .slice(0, 10); // Limit to top 10 playlists
+      
+      const playlistsToFetch = topPlaylists.filter(playlist => {
         const cacheKey = `playlist-videos-${playlist.id}`;
-        const cachedVideos = playlistCache.get<YouTubeVideo[]>(cacheKey);
-        return !cachedVideos; // Only fetch if not cached
+        return !playlistCache.get<YouTubeVideo[]>(cacheKey);
       });
 
       if (playlistsToFetch.length === 0) {
@@ -97,39 +104,52 @@ export function PlaylistSection({ playlists, onVideoPlay, className }: PlaylistS
         return;
       }
 
-      // Show loading indicator after a brief delay (only if operation takes longer than expected)
-      const loadingTimeout = setTimeout(() => {
-        setIsLoading(true);
-        setLoadingCount(playlistsToFetch.length);
-      }, 500); // Show loading after 500ms delay
+      // Show loading indicator
+      setIsLoading(true);
+      setLoadingCount(playlistsToFetch.length);
 
-      // Fetch only uncached playlists in parallel
-      const playlistPromises = playlistsToFetch.map(async (playlist) => {
-        const cacheKey = `playlist-videos-${playlist.id}`;
+      // Batch requests to avoid overwhelming the API (2 concurrent requests max)
+      const BATCH_SIZE = 2;
+      const fetchResults: Array<{playlistId: string; videos: YouTubeVideo[]; error: unknown}> = [];
+      
+      for (let i = 0; i < playlistsToFetch.length; i += BATCH_SIZE) {
+        const batch = playlistsToFetch.slice(i, i + BATCH_SIZE);
         
-        try {
-          const response = await youtubeAPI.getPlaylistVideos(playlist.id, 10);
-          const videos = response?.videos || [];
+        const batchPromises = batch.map(async (playlist) => {
+          const cacheKey = `playlist-videos-${playlist.id}`;
           
-          // Cache the result for 10 minutes
-          playlistCache.set(cacheKey, videos);
-          
-          return {
-            playlistId: playlist.id,
-            videos,
-            error: null
-          };
-        } catch (error) {
-          console.error(`Error fetching videos for playlist ${playlist.id}:`, error);
-          return {
-            playlistId: playlist.id,
-            videos: [],
-            error
-          };
-        }
-      });
+          try {
+            // Only fetch 5 videos per playlist to reduce API usage
+            const response = await youtubeAPI.getPlaylistVideos(playlist.id, 5);
+            const videos = response?.videos || [];
+            
+            // Cache the result for 30 minutes (longer cache)
+            playlistCache.set(cacheKey, videos, 30 * 60 * 1000);
+            
+            return {
+              playlistId: playlist.id,
+              videos,
+              error: null
+            };
+          } catch (error) {
+            console.error(`Error fetching videos for playlist ${playlist.id}:`, error);
+            return {
+              playlistId: playlist.id,
+              videos: [],
+              error
+            };
+          }
+        });
 
-      const fetchResults = await Promise.all(playlistPromises);
+        // Wait for current batch to complete
+        const batchResults = await Promise.all(batchPromises);
+        fetchResults.push(...batchResults);
+        
+        // Add delay between batches to respect API rate limits
+        if (i + BATCH_SIZE < playlistsToFetch.length) {
+          await new Promise(resolve => setTimeout(resolve, 1000)); // 1 second delay
+        }
+      }
       
       // Update only the playlists that were fetched
       setPlaylistsWithVideos(prev => {
@@ -149,14 +169,54 @@ export function PlaylistSection({ playlists, onVideoPlay, className }: PlaylistS
         return updated.sort((a, b) => b.videoCount - a.videoCount);
       });
       
-      // Clear loading timeout and hide loading indicator
-      clearTimeout(loadingTimeout);
       setIsLoading(false);
       setHasInitialized(true);
     };
 
     fetchPlaylistVideos();
   }, [playlists, hasInitialized, isProcessingCache]);
+
+  // Lazy load remaining playlists on user interaction
+  const loadMorePlaylists = async () => {
+    const remainingPlaylists = playlists
+      .slice(10) // Skip top 10 already loaded
+      .filter(playlist => {
+        const cacheKey = `playlist-videos-${playlist.id}`;
+        return !playlistCache.get<YouTubeVideo[]>(cacheKey);
+      })
+      .slice(0, 5); // Load next 5 playlists
+
+    if (remainingPlaylists.length === 0) return;
+
+    setIsLoading(true);
+    setLoadingCount(remainingPlaylists.length);
+
+    // Batch process remaining playlists
+    for (const playlist of remainingPlaylists) {
+      const cacheKey = `playlist-videos-${playlist.id}`;
+      
+      try {
+        const response = await youtubeAPI.getPlaylistVideos(playlist.id, 5);
+        const videos = response?.videos || [];
+        
+        playlistCache.set(cacheKey, videos, 30 * 60 * 1000);
+        
+        // Update state for this playlist
+        setPlaylistsWithVideos(prev => prev.map(p => 
+          p.id === playlist.id 
+            ? { ...p, videos, isLoading: false }
+            : p
+        ));
+        
+        // Add delay between requests
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      } catch (error) {
+        console.error(`Error fetching videos for playlist ${playlist.id}:`, error);
+      }
+    }
+
+    setIsLoading(false);
+  };
 
 
   const handleViewAllPlaylist = (playlistId: string) => {
@@ -188,6 +248,9 @@ export function PlaylistSection({ playlists, onVideoPlay, className }: PlaylistS
     return null;
   }
 
+  // Calculate if there are more playlists to load
+  const hasMorePlaylists = playlists.length > 10 && deferredPlaylists.filter(p => p.videos.length > 0).length < Math.min(15, playlists.length);
+
   return (
     <div className={cn("space-y-12", className)} data-testid="playlist-section">
       {/* Non-blocking loading indicator */}
@@ -206,7 +269,9 @@ export function PlaylistSection({ playlists, onVideoPlay, className }: PlaylistS
       )}
       
       <div className="space-y-10">
-        {deferredPlaylists.map((playlist, index) => (
+        {deferredPlaylists
+          .filter(playlist => playlist.videos.length > 0 || playlist.isLoading) // Only show playlists with videos or loading
+          .map((playlist, index) => (
           <div key={playlist.id} className="space-y-4">
             {/* Playlist Header */}
             <div className="flex items-center justify-between">
@@ -297,6 +362,18 @@ export function PlaylistSection({ playlists, onVideoPlay, className }: PlaylistS
           </div>
         ))}
       </div>
+
+      {/* Load More Button */}
+      {hasMorePlaylists && !isLoading && (
+        <div className="flex justify-center pt-8">
+          <button
+            onClick={loadMorePlaylists}
+            className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium"
+          >
+            Load More Playlists
+          </button>
+        </div>
+      )}
     </div>
   );
 }

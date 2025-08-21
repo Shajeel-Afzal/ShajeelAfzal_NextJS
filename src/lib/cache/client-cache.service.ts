@@ -10,10 +10,15 @@ export class ClientCacheService {
   private cache: Map<string, ClientCacheItem> = new Map();
   private namespace: string;
   private defaultTtl: number;
+  private lastCleanup: number = 0;
+  private readonly CLEANUP_INTERVAL = 5 * 60 * 1000; // Cleanup every 5 minutes
 
   constructor(namespace: string, defaultTtl: number = 10 * 60 * 1000) { // 10 minutes default
     this.namespace = namespace;
     this.defaultTtl = defaultTtl;
+    
+    // Only cleanup if enough time has passed to avoid hot-reload issues
+    this.scheduleCleanup();
   }
 
   /**
@@ -65,10 +70,16 @@ export class ClientCacheService {
   }
 
   /**
-   * Clean expired entries
+   * Clean expired entries (with throttling to prevent excessive cleanup during development)
    */
   cleanExpired(): void {
     const now = Date.now();
+    
+    // Only cleanup if enough time has passed (prevents hot-reload spam)
+    if (now - this.lastCleanup < this.CLEANUP_INTERVAL) {
+      return;
+    }
+    
     const expiredKeys: string[] = [];
 
     for (const [key, item] of this.cache.entries()) {
@@ -78,6 +89,28 @@ export class ClientCacheService {
     }
 
     expiredKeys.forEach(key => this.cache.delete(key));
+    this.lastCleanup = now;
+  }
+
+  /**
+   * Schedule cleanup to run periodically
+   */
+  private scheduleCleanup(): void {
+    // Clean up immediately if cache is getting large
+    if (this.cache.size > 100) {
+      this.cleanExpired();
+    }
+  }
+
+  /**
+   * Get cache statistics for debugging
+   */
+  getStats(): { size: number; namespace: string; lastCleanup: number } {
+    return {
+      size: this.cache.size,
+      namespace: this.namespace,
+      lastCleanup: this.lastCleanup
+    };
   }
 }
 
