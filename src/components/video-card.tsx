@@ -6,6 +6,7 @@ import { Play, Clock, Eye, Calendar } from "lucide-react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import type { YouTubeVideo } from "@/types/youtube";
+import { MagicCard } from "@/components/magicui/magic-card";
 
 interface VideoCardProps {
   video: YouTubeVideo;
@@ -26,18 +27,26 @@ export function VideoCard({ video, onPlay, className }: VideoCardProps) {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+    <MagicCard
       className={cn(
-        "group relative cursor-pointer overflow-hidden rounded-lg border bg-card text-card-foreground shadow-sm transition-all duration-300 hover:shadow-lg",
+        "rounded-lg shadow-sm transition-all duration-300 hover:shadow-lg",
         className
       )}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={() => onPlay(video)}
+      gradientSize={300}
+      gradientColor="rgba(59, 130, 246, 0.15)"
+      gradientOpacity={0.8}
     >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className={cn(
+          "relative cursor-pointer overflow-hidden rounded-lg text-card-foreground",
+        )}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onClick={() => onPlay(video)}
+      >
       {/* Thumbnail Container */}
       <div className="relative aspect-video overflow-hidden">
         <Image
@@ -103,6 +112,7 @@ export function VideoCard({ video, onPlay, className }: VideoCardProps) {
           </div>
         </div>
       </div>
-    </motion.div>
+      </motion.div>
+    </MagicCard>
   );
 }
