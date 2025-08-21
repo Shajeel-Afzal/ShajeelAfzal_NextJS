@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { gigs, gigCategories } from "@/data/gigs";
 import { GigFilters } from "@/types/gigs";
-import { GigCard } from "./gig-card";
+import { GigCardV2 } from "./gig-card-v2";
 
 export function GigsListingPage() {
   const [filters, setFilters] = useState<GigFilters>({
@@ -240,7 +240,7 @@ export function GigsListingPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {filteredGigs.map((gig) => (
-                <GigCard key={gig.id} gig={gig} />
+                <GigCardV2 key={gig.id} gig={gig} />
               ))}
             </div>            {filteredGigs.length === 0 && (
               <div className="text-center py-12">
