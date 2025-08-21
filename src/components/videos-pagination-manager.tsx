@@ -103,13 +103,13 @@ export function VideosPaginationManager({
   };
 
   return (
-    <div className="mx-auto max-w-7xl space-y-8">
+    <div className="w-full space-y-8">
       {/* Videos Grid */}
       <VideosFilterGrid 
         videos={videos} 
         playlists={playlists} 
         isLoading={isLoading}
-        className="mx-auto"
+        className=""
       />
 
       {/* Pagination Controls */}

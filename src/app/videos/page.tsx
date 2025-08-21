@@ -51,10 +51,10 @@ export default async function VideosPage() {
   ]);
 
   return (
-    <div className="container py-8">
-      <div className="mb-8 space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">Videos</h1>
-        <p className="text-lg text-muted-foreground">
+    <div className="container mx-auto px-4 py-20">
+      <div className="mb-16 text-center">
+        <h1 className="text-4xl md:text-5xl font-bold mb-6">Videos</h1>
+        <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
           Explore my latest content, tutorials, and insights from my YouTube channel.
         </p>
       </div>
@@ -67,6 +67,6 @@ export default async function VideosPage() {
           initialNextPageToken={videosResponse.nextPageToken}
         />
       </Suspense>
-    </div>
+  </div>
   );
 }

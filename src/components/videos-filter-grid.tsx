@@ -89,8 +89,8 @@ export function VideosFilterGrid({ videos, playlists, isLoading = false, classNa
           </div>
         </div>
         
-        {/* Loading skeleton for video grid */}
-        <div className="mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+  {/* Loading skeleton for video grid */}
+  <div className="mx-auto grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="space-y-3">
               <div className="aspect-video animate-pulse rounded-lg bg-muted" />
@@ -223,7 +223,7 @@ export function VideosFilterGrid({ videos, playlists, isLoading = false, classNa
       </div>
 
       {/* Results */}
-      {filteredAndSortedVideos.length === 0 ? (
+  {filteredAndSortedVideos.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center">
           <div className="mb-4 text-6xl">🎥</div>
           <h3 className="mb-2 text-lg font-semibold">No videos found</h3>
@@ -243,8 +243,8 @@ export function VideosFilterGrid({ videos, playlists, isLoading = false, classNa
           layout
           className={cn(
             "mx-auto grid gap-6",
-            viewMode === 'grid' 
-              ? "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" 
+            viewMode === 'grid'
+              ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
               : "grid-cols-1 max-w-4xl"
           )}
         >
