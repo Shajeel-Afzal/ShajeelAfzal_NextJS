@@ -4,6 +4,7 @@ import { AuroraText } from "@/components/magicui/aurora-text";
 import { BorderBeam } from "@/components/magicui/border-beam";
 import { ShinyButton } from "@/components/magicui/shiny-button";
 import { NumberTicker } from "@/components/magicui/number-ticker";
+import { Highlighter } from "@/components/magicui/special-effects/highlighter";
 import Link from "next/link";
 
 export function CTASectionV2() {
@@ -42,8 +43,21 @@ export function CTASectionV2() {
             Into Reality
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            Join successful businesses who trusted me to build their digital presence. 
-            Experience the difference of working with a dedicated professional.
+            Join{" "}
+            <Highlighter 
+              action="highlight" 
+              color="#87CEFA"
+            >
+              successful businesses
+            </Highlighter>{" "}
+            who trusted me to build their digital presence.{" "}
+            Experience the difference of working with a{" "}
+            <Highlighter 
+              action="underline" 
+              color="#FF9800"
+            >
+              dedicated professional
+            </Highlighter>.
           </p>
 
           {/* Stats */}
