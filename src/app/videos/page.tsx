@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { PageContainer } from "@/components/ui/page-container";
 import { youtubeService } from "@/lib/services/youtube.service";
 import { VideosPaginationManager } from "@/components/videos-pagination-manager";
 import { VideosFilterGrid } from "@/components/videos-filter-grid";
@@ -51,7 +52,7 @@ export default async function VideosPage() {
   ]);
 
   return (
-    <div className="container mx-auto px-4 py-20">
+  <PageContainer className="py-20">
       <div className="mb-16 text-center">
         <h1 className="text-4xl md:text-5xl font-bold mb-6">Videos</h1>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
@@ -67,6 +68,6 @@ export default async function VideosPage() {
           initialNextPageToken={videosResponse.nextPageToken}
         />
       </Suspense>
-  </div>
+  </PageContainer>
   );
 }
