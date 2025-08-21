@@ -56,8 +56,10 @@ export default async function VideosPage() {
   <PageContainer className="py-20">
       <div className="mb-16 text-center">
   <h1 className="text-4xl md:text-5xl font-bold leading-tight text-balance mb-6">
-          Explore My Latest{' '}
-          <AuroraText className="font-bold">Video Tutorials</AuroraText>{' '}
+          Explore My Latest{" "}
+          <AuroraText className="font-bold">
+            Video Tutorials
+          </AuroraText>{" "}
           📺 & Insights
         </h1>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
