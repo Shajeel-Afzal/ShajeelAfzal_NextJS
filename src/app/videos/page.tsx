@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { youtubeService } from "@/lib/services/youtube.service";
+import { VideosPageClient } from "@/components/videos-page-client";
 import { VideoGrid } from "@/components/video-grid";
 
 export const metadata: Metadata = {
@@ -42,57 +44,29 @@ export const metadata: Metadata = {
 };
 
 export default async function VideosPage() {
-  // Fetch videos and playlists on the server
-  const response = await youtubeService.getChannelVideos({ maxResults: 20 });
-  const videos = response.videos;
-  const playlists = await youtubeService.getChannelPlaylists();
+  // Fetch initial data on the server
+  const [videosResponse, playlists] = await Promise.all([
+    youtubeService.getChannelVideos({ maxResults: 20 }),
+    youtubeService.getChannelPlaylists()
+  ]);
 
   return (
-    <main className="min-h-screen py-20" id="main-content">
-      <div className="container mx-auto px-4">
-        {/* Header Section */}
-        <div className="mb-12 text-center">
-          <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">
-            Video Tutorials
-          </h1>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-            Learn mobile app development, AI integration, and modern web technologies 
-            through comprehensive tutorials and practical examples.
-          </p>
-        </div>
-
-        {/* Videos Grid */}
-        <VideoGrid videos={videos} playlists={playlists} />
-
-        {/* Call to Action */}
-        <div className="mt-16 text-center">
-          <div className="mx-auto max-w-3xl rounded-3xl bg-gradient-to-r from-primary/10 to-blue-600/10 p-8">
-            <h2 className="mb-4 text-2xl font-bold">
-              Want a Custom Tutorial?
-            </h2>
-            <p className="mb-6 text-muted-foreground">
-              Need a specific tutorial for your project or learning goals? 
-              I create custom educational content and offer one-on-one mentoring sessions.
-            </p>
-            <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
-              <a
-                href="#consultation"
-                className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
-              >
-                Book Consultation
-              </a>
-              <a
-                href="https://youtube.com/@shajeelafzal"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-6 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground"
-              >
-                Subscribe on YouTube
-              </a>
-            </div>
-          </div>
-        </div>
+    <div className="container py-8">
+      <div className="mb-8 space-y-4">
+        <h1 className="text-4xl font-bold tracking-tight">Videos</h1>
+        <p className="text-lg text-muted-foreground">
+          Explore my latest content, tutorials, and insights from my YouTube channel.
+        </p>
       </div>
-    </main>
+
+      <Suspense fallback={<VideoGrid videos={[]} playlists={[]} isLoading={true} />}>
+        <VideosPageClient
+          initialVideos={videosResponse.videos}
+          playlists={playlists}
+          initialTotalResults={videosResponse.totalResults}
+          initialNextPageToken={videosResponse.nextPageToken}
+        />
+      </Suspense>
+    </div>
   );
 }

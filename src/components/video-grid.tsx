@@ -90,7 +90,7 @@ export function VideoGrid({ videos, playlists, isLoading = false, className }: V
         </div>
         
         {/* Loading skeleton for video grid */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="space-y-3">
               <div className="aspect-video animate-pulse rounded-lg bg-muted" />
@@ -242,10 +242,10 @@ export function VideoGrid({ videos, playlists, isLoading = false, className }: V
         <motion.div
           layout
           className={cn(
-            "grid gap-6",
+            "mx-auto grid gap-6",
             viewMode === 'grid' 
-              ? "sm:grid-cols-2 lg:grid-cols-3" 
-              : "grid-cols-1"
+              ? "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" 
+              : "grid-cols-1 max-w-4xl"
           )}
         >
           <AnimatePresence mode="popLayout">
