@@ -18,10 +18,10 @@ interface VideosFilterGridProps {
   className?: string;
   viewMode?: 'grid' | 'list';
   searchQuery?: string;
+  sortBy?: 'latest' | 'oldest' | 'most-viewed';
 }
 
-type SortOption = 'latest' | 'oldest' | 'most-viewed' | 'alphabetical';
-type ViewMode = 'grid' | 'list';
+type SortOption = 'latest' | 'oldest' | 'most-viewed';
 
 export function VideosFilterGrid({ 
   videos, 
@@ -29,12 +29,13 @@ export function VideosFilterGrid({
   isLoading = false, 
   className,
   viewMode: externalViewMode = 'grid',
-  searchQuery: externalSearchQuery = ''
+  searchQuery: externalSearchQuery = '',
+  sortBy: externalSortBy = 'latest'
 }: VideosFilterGridProps) {
   const [searchQuery, setSearchQuery] = useState(externalSearchQuery);
   const [selectedPlaylist, setSelectedPlaylist] = useState<string | null>(null);
-  const [sortBy, setSortBy] = useState<SortOption>('latest');
-  // Use external viewMode instead of local state
+  // Use external props instead of local state
+  const sortBy = externalSortBy;
   const viewMode = externalViewMode;
   const [selectedVideo, setSelectedVideo] = useState<YouTubeVideo | null>(null);
   const [showFilters, setShowFilters] = useState(false);
@@ -152,8 +153,6 @@ export function VideosFilterGrid({
           const aViews = parseViewCount(a.viewCount);
           const bViews = parseViewCount(b.viewCount);
           return bViews - aViews;
-        case 'alphabetical':
-          return a.title.localeCompare(b.title);
         default:
           return 0;
       }
@@ -169,7 +168,7 @@ export function VideosFilterGrid({
   const handleClearFilters = () => {
     setSearchQuery("");
     setSelectedPlaylist(null);
-    setSortBy('latest');
+    // Note: sortBy is now controlled externally, cannot reset here
     setIsSearchMode(false);
     setSearchResults([]);
     setSearchTotalResults(0);
@@ -247,12 +246,12 @@ export function VideosFilterGrid({
             Filters
           </Button>
 
-          {/* View Mode Toggle */}
-          <div className="flex rounded-md border">
+          {/* View Mode Toggle - Disabled since controlled externally */}
+          <div className="flex rounded-md border opacity-50">
             <Button
               variant={viewMode === 'grid' ? 'default' : 'ghost'}
               size="sm"
-              onClick={() => setViewMode('grid')}
+              disabled
               className="rounded-r-none border-r"
             >
               <Grid className="h-4 w-4" />
@@ -260,7 +259,7 @@ export function VideosFilterGrid({
             <Button
               variant={viewMode === 'list' ? 'default' : 'ghost'}
               size="sm"
-              onClick={() => setViewMode('list')}
+              disabled
               className="rounded-l-none"
             >
               <List className="h-4 w-4" />
@@ -321,18 +320,17 @@ export function VideosFilterGrid({
                   </select>
                 </div>
 
-                {/* Sort Options */}
+                {/* Sort Options - Disabled since controlled externally */}
                 <div>
                   <label className="mb-2 block text-sm font-medium">Sort by</label>
                   <select
                     value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value as SortOption)}
-                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                    disabled
+                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm opacity-50"
                   >
                     <option value="latest">Latest</option>
                     <option value="oldest">Oldest</option>
                     <option value="most-viewed">Most Viewed</option>
-                    <option value="alphabetical">Alphabetical</option>
                   </select>
                 </div>
               </div>

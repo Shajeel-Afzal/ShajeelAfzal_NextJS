@@ -14,6 +14,7 @@ interface VideosPaginationManagerProps {
   initialNextPageToken?: string;
   viewMode?: 'grid' | 'list';
   searchQuery?: string;
+  sortBy?: 'latest' | 'oldest' | 'most-viewed';
 }
 
 export function VideosPaginationManager({ 
@@ -22,7 +23,8 @@ export function VideosPaginationManager({
   initialTotalResults,
   initialNextPageToken,
   viewMode = 'grid',
-  searchQuery = ''
+  searchQuery = '',
+  sortBy = 'latest'
 }: VideosPaginationManagerProps) {
   const [videos, setVideos] = useState<YouTubeVideo[]>(initialVideos);
   const [totalResults, setTotalResults] = useState(initialTotalResults);
@@ -115,6 +117,7 @@ export function VideosPaginationManager({
         isLoading={isLoading}
         viewMode={viewMode}
         searchQuery={searchQuery}
+        sortBy={sortBy}
         className=""
       />
 

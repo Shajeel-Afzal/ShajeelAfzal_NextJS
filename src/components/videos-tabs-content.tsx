@@ -2,9 +2,10 @@
 
 import { useState, Suspense } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Search, Filter, Grid, List } from "lucide-react";
+import { Search, Grid, List, ChevronDown } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { VideosPaginationManager } from "@/components/videos-pagination-manager";
 import { VideosFilterGrid } from "@/components/videos-filter-grid";
 import type { YouTubeVideo, YouTubePlaylist } from "@/types/youtube";
@@ -24,6 +25,7 @@ export function VideosTabsContent({
 }: VideosTabsContentProps) {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState<'latest' | 'oldest' | 'most-viewed'>('latest');
 
   return (
     <Tabs defaultValue="videos" className="w-full">
@@ -46,11 +48,17 @@ export function VideosTabsContent({
             />
           </div>
           
-          {/* Filter Button */}
-          <Button variant="outline" size="sm" className="gap-2">
-            <Filter className="h-4 w-4" />
-            Filters
-          </Button>
+          {/* Sort Dropdown */}
+          <Select value={sortBy} onValueChange={(value: 'latest' | 'oldest' | 'most-viewed') => setSortBy(value)}>
+            <SelectTrigger className="w-40">
+              <SelectValue placeholder="Sort by" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="latest">Latest</SelectItem>
+              <SelectItem value="oldest">Oldest</SelectItem>
+              <SelectItem value="most-viewed">Most Viewed</SelectItem>
+            </SelectContent>
+          </Select>
           
           {/* View Mode Toggle */}
           <div className="flex rounded-md border">
@@ -83,6 +91,7 @@ export function VideosTabsContent({
             initialNextPageToken={initialNextPageToken}
             viewMode={viewMode}
             searchQuery={searchQuery}
+            sortBy={sortBy}
           />
         </Suspense>
       </TabsContent>
