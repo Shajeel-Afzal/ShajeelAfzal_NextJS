@@ -242,7 +242,82 @@ export class YouTubeService {
   }
 
   /**
-   * Search videos in the channel
+   * Search videos in the channel with pagination
+   */
+  async searchVideosWithPagination(query: string, maxResults: number = 20, pageToken?: string): Promise<YouTubeApiResponse> {
+    const cacheKey = `search-paginated-${query}-${maxResults}-${pageToken || 'first'}`;
+    const cached = await this.cache.get<YouTubeApiResponse>(cacheKey);
+    if (cached) return cached;
+
+    if (!this.apiKey) {
+      return {
+        videos: this.getMockSearchResults(query),
+        playlists: [],
+        totalResults: this.getMockSearchResults(query).length,
+      };
+    }
+
+    try {
+      const searchUrl = `${this.baseUrl}/search?part=snippet&channelId=${this.channelId}&maxResults=${maxResults}&q=${encodeURIComponent(query)}&type=video${pageToken ? `&pageToken=${pageToken}` : ''}&key=${this.apiKey}`;
+      const response = await fetch(searchUrl);
+      
+      if (!response.ok) {
+        throw new Error(`YouTube API error: ${response.status} ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+
+      if (!data?.items) {
+        return { videos: [], playlists: [], totalResults: 0 };
+      }
+
+      const videoIds = data.items.map((item: YouTubeAPISearchItem) => item.id.videoId).join(',');
+      const detailsUrl = `${this.baseUrl}/videos?part=snippet,statistics,contentDetails&id=${videoIds}&key=${this.apiKey}`;
+      const detailsResponse = await fetch(detailsUrl);
+      
+      if (!detailsResponse.ok) {
+        throw new Error(`YouTube API error: ${detailsResponse.status} ${detailsResponse.statusText}`);
+      }
+      
+      const detailsData = await detailsResponse.json();
+
+      const videos: YouTubeVideo[] = detailsData.items.map((item: YouTubeAPIVideoItem) => ({
+        id: item.id,
+        title: item.snippet.title,
+        description: item.snippet.description,
+        thumbnail: {
+          url: item.snippet.thumbnails.high?.url || item.snippet.thumbnails.medium?.url,
+          width: item.snippet.thumbnails.high?.width || 1280,
+          height: item.snippet.thumbnails.high?.height || 720,
+        },
+        publishedAt: item.snippet.publishedAt,
+        duration: this.formatDuration(item.contentDetails.duration),
+        viewCount: this.formatViewCount(item.statistics.viewCount),
+        likeCount: item.statistics.likeCount ? parseInt(item.statistics.likeCount) : undefined,
+        embedUrl: `https://www.youtube.com/embed/${item.id}`,
+        watchUrl: `https://www.youtube.com/watch?v=${item.id}`,
+        tags: item.snippet.tags || [],
+        categoryId: item.snippet.categoryId,
+      }));
+
+      const result: YouTubeApiResponse = {
+        videos,
+        playlists: [],
+        totalResults: data.pageInfo?.totalResults || 0,
+        nextPageToken: data.nextPageToken,
+        prevPageToken: data.prevPageToken,
+      };
+
+      await this.cache.set(cacheKey, result, 5 * 60 * 1000); // Cache for 5 minutes
+      return result;
+    } catch (error) {
+      console.error('Error searching videos with pagination:', error);
+      return { videos: [], playlists: [], totalResults: 0 };
+    }
+  }
+
+  /**
+   * Search videos in the channel (legacy method for backward compatibility)
    */
   async searchVideos(query: string, maxResults: number = 20): Promise<YouTubeVideo[]> {
     const cacheKey = `search-${query}-${maxResults}`;

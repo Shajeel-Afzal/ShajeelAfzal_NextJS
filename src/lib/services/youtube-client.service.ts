@@ -78,14 +78,22 @@ export class YouTubeAPIClient {
   }
 
   /**
-   * Search videos in the channel
+   * Search videos in the channel with pagination
    */
-  async searchVideos(query: string, maxResults: number = 20): Promise<YouTubeVideo[]> {
+  async searchVideosWithPagination(options: {
+    query: string;
+    maxResults?: number;
+    pageToken?: string;
+  }): Promise<YouTubeApiResponse | null> {
     try {
       const params = new URLSearchParams({
-        q: query,
-        maxResults: maxResults.toString(),
+        q: options.query,
+        maxResults: (options.maxResults || 20).toString(),
       });
+
+      if (options.pageToken) {
+        params.append('pageToken', options.pageToken);
+      }
 
       const response = await fetch(`${this.baseUrl}/search?${params.toString()}`);
       
@@ -94,6 +102,22 @@ export class YouTubeAPIClient {
       }
 
       return await response.json();
+    } catch (error) {
+      console.error('Error searching videos with pagination:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Search videos in the channel (legacy method for backward compatibility)
+   */
+  async searchVideos(query: string, maxResults: number = 20): Promise<YouTubeVideo[]> {
+    try {
+      const result = await this.searchVideosWithPagination({
+        query,
+        maxResults
+      });
+      return result?.videos || [];
     } catch (error) {
       console.error('Error searching videos:', error);
       return [];

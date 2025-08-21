@@ -6,6 +6,7 @@ import { youtubeService } from '@/lib/services/youtube.service';
  * Query parameters:
  * - q: string (required) - search query
  * - maxResults: number (default: 20)
+ * - pageToken: string (optional) - pagination token
  */
 export async function GET(request: NextRequest) {
   try {
@@ -13,6 +14,7 @@ export async function GET(request: NextRequest) {
     
     const query = searchParams.get('q');
     const maxResults = parseInt(searchParams.get('maxResults') || '20');
+    const pageToken = searchParams.get('pageToken');
 
     if (!query) {
       return NextResponse.json(
@@ -28,9 +30,9 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const videos = await youtubeService.searchVideos(query, maxResults);
+    const searchResponse = await youtubeService.searchVideosWithPagination(query, maxResults, pageToken || undefined);
 
-    return NextResponse.json(videos, {
+    return NextResponse.json(searchResponse, {
       headers: {
         'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=150', // Cache for 5 minutes
       },
