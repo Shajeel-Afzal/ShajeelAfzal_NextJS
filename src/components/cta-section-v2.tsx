@@ -2,6 +2,7 @@ import { ArrowRight, Star, Users, CheckCircle, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AuroraText } from "@/components/magicui/aurora-text";
 import { BorderBeam } from "@/components/magicui/border-beam";
+import { ShinyButton } from "@/components/magicui/shiny-button";
 import Link from "next/link";
 
 export function CTASectionV2() {
@@ -90,12 +91,12 @@ export function CTASectionV2() {
                   
                   <div className="space-y-6">
                     <Link href="#consultation">
-                      <Button size="lg" className="w-full text-lg px-8 py-6 h-16 group relative overflow-hidden">
-                        <span className="relative z-10 flex items-center justify-center">
+                      <ShinyButton className="w-full text-lg px-8 py-6 h-16 group bg-primary hover:bg-primary/90 text-primary-foreground border-0 normal-case tracking-normal font-medium">
+                        <span className="flex items-center justify-center text-primary-foreground">
                           Get Free Project Quote
                           <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
                         </span>
-                      </Button>
+                      </ShinyButton>
                     </Link>
 
                     <div className="relative my-6">
