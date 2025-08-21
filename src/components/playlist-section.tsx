@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Play, Eye } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import type { YouTubePlaylist, YouTubeVideo } from "@/types/youtube";
 import { VideoCard } from "./video-card";
@@ -48,9 +48,19 @@ export function PlaylistSection({ playlists, onVideoPlay, className }: PlaylistS
 
   // Fetch videos for each playlist (only if needed)
   useEffect(() => {
-    // Skip if already initialized or if all playlists are already loaded from cache
-    const needsFetching = playlistsWithVideos.some(p => p.isLoading);
-    if (hasInitialized || !needsFetching) {
+    // Skip if already initialized
+    if (hasInitialized) {
+      return;
+    }
+    
+    // Check if any playlists need fetching
+    const needsFetching = playlists.some(playlist => {
+      const cacheKey = `playlist-videos-${playlist.id}`;
+      return !playlistCache.get<YouTubeVideo[]>(cacheKey);
+    });
+    
+    if (!needsFetching) {
+      setHasInitialized(true);
       return;
     }
     
