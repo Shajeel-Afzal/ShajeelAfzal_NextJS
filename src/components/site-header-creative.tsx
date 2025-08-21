@@ -6,10 +6,11 @@ import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 
-// Shared nav items with anchors on the page
+// Shared nav items with anchors on the page and external routes
 const navItems = [
   { href: "#home", label: "Home" },
   { href: "#services", label: "Services" },
+  { href: "/gigs", label: "Gigs Marketplace", external: true },
   { href: "#testimonials", label: "Testimonials" },
   { href: "#skills", label: "Skills" },
   { href: "#themes", label: "Themes" },
@@ -20,7 +21,7 @@ export function SiteHeaderCreative() {
   const [active, setActive] = useState<string | null>(null)
   const [progress, setProgress] = useState(0)
 
-  const sectionIds = useMemo(() => navItems.map((n) => n.href.replace('#', '')), [])
+  const sectionIds = useMemo(() => navItems.filter(n => !n.external).map((n) => n.href.replace('#', '')), [])
 
   useEffect(() => {
     // Scroll progress indicator
@@ -89,7 +90,7 @@ export function SiteHeaderCreative() {
             <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
               {navItems.map((item) => {
                 const id = item.href.replace('#', '')
-                const isActive = active === id
+                const isActive = !item.external && active === id
                 return (
                   <Link
                     key={item.href}

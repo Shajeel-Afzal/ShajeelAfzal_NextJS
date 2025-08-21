@@ -1,25 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import { PersonalWebsiteStructuredData } from "@/components/structured-data";
 import { ThemeProvider } from "@/components/theme-provider";
 import { WebVitals } from "@/components/web-vitals";
 import { SiteHeaderCreative } from "@/components/site-header-creative";
 import { SiteFooter } from "@/components/site-footer";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap", // Improve font loading performance
-  preload: true,
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap", // Improve font loading performance
-  preload: true,
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://shajeelafzal.com"),
@@ -115,9 +100,7 @@ export default function RootLayout({
         <link rel="preload" as="image" href="/images/shajeel_afzal.png" />
 
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className="font-sans antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
